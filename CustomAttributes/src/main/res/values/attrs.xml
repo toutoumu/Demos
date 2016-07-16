@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--给自定义控件定义一个样式,在styles.xml里面可以通过这个样式对控件设置样式-->
+    <attr name="CustomStyle" format="reference"/>
+
+    <!--对应一个引用如drawable,color等-->
+    <attr name="CustomResource" format="reference"/>
+    <!--定义一个颜色属性格式为#333333-->
+    <attr name="CustomColor" format="color"/>
+    <!--定义文字颜色,这里和系统的TextColor定义相同,注意和背景色读取方式的区别-->
+    <attr name="CustomTextColor" format="color|reference"/>
+    <!--定义控件背景色,和系统的Background定义相同,注意和文字颜色读取的区别-->
+    <attr name="CustomBackground" format="color|reference"/>
+    <!--定义控件的高度,单位px-->
+    <attr name="CustomHeight" format="integer"/>
+    <!--定义控件宽度,单位dp-->
+    <attr name="CustomWidth" format="dimension"/>
+    <!--定义一个字符串属性-->
+    <attr name="CustomString" format="string"/>
+    <!--定义一个枚举类型属性-->
+    <attr name="CustomEnum" format="enum">
+        <enum name="horizontal" value="0"/>
+        <enum name="vertical" value="1"/>
+    </attr>
+    <!--其他属性定义参考以上-->
+
+    <!--自定义控件需要用到的属性-->
+    <declare-styleable name="CustomView">
+        <!--我们可以按下面三行这样来为自定义控件添加,系统已经声明过的属性-->
+        <attr name="android:divider"/>
+        <attr name="android:dividerPadding"/>
+        <attr name="android:showDividers"/>
+
+        <!--在declare-styleable标签中定义的属性不能在另一个declare-styleable标签中再次使用-->
+        <attr name="OnlyOne" format="boolean"/>
+        <!--在declare-styleable标签中定义的属性可以被多次使用-->
+        <attr name="CustomResource"/>
+        <attr name="CustomColor"/>
+        <attr name="CustomTextColor"/>
+        <attr name="CustomBackground"/>
+        <attr name="CustomHeight"/>
+        <attr name="CustomWidth"/>
+        <attr name="CustomString"/>
+        <attr name="CustomEnum"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="CustomView1">
+
+        <!--在declare-styleable标签中定义的属性不能在另一个declare-styleable标签中再次使用-->
+        <!--<attr name="OnlyOne" format="boolean"/>-->
+        <!--在declare-styleable标签中定义的属性可以被多次使用-->
+        <attr name="CustomColor"/>
+
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--使用全局样式,给自定义控件设置样式-->
+        <item name="CustomStyle">@style/myStyleOne</item>
+    </style>
+
+    <!--自定义控件样式定义,定义之后一定要在上面引用才能应用到控件-->
+    <style name="myStyleOne">
+        <item name="CustomColor">#3333</item>
+        <item name="CustomHeight">34</item>
+    </style>
+
+</resources>

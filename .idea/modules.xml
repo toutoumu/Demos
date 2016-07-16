@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AIDL/AIDL.iml" filepath="$PROJECT_DIR$/AIDL/AIDL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CustomAttributes/CustomAttributes.iml" filepath="$PROJECT_DIR$/CustomAttributes/CustomAttributes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Demos.iml" filepath="$PROJECT_DIR$/Demos.iml" />
+    </modules>
+  </component>
+</project>

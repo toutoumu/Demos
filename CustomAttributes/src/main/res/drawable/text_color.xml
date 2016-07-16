@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 按下 -->
+    <item android:color="#333333" android:state_pressed="true"/>
+    <!-- 获取焦点 -->
+    <item android:color="#ff0000" android:state_focused="true"/>
+    <!-- 选中 -->
+    <item android:color="#ff0000" android:state_selected="true"/>
+    <!-- 默认 -->
+    <item android:color="#333333"/>
+
+</selector>
