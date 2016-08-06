@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AIDL/AIDL.iml" filepath="$PROJECT_DIR$/AIDL/AIDL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ContentProvider/ContentProvider.iml" filepath="$PROJECT_DIR$/ContentProvider/ContentProvider.iml" />
       <module fileurl="file://$PROJECT_DIR$/CustomAttributes/CustomAttributes.iml" filepath="$PROJECT_DIR$/CustomAttributes/CustomAttributes.iml" />
       <module fileurl="file://$PROJECT_DIR$/Demos.iml" filepath="$PROJECT_DIR$/Demos.iml" />
     </modules>

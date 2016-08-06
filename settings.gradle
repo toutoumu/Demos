@@ -1,1 +1,1 @@
-include ':AIDL', ':CustomAttributes'
+include ':AIDL', ':CustomAttributes', ':ContentProvider'
