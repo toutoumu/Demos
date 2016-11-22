@@ -46,6 +46,7 @@ public class CustomView extends View {
         text = a.getString(R.styleable.CustomView_CustomString);
         // 读取枚举类型的属性
         enumValue = a.getInt(R.styleable.CustomView_CustomEnum, 0);
+        a.recycle();
 
     }
 
