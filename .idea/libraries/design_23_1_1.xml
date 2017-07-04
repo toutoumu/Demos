@@ -1,15 +1,12 @@
 <component name="libraryTable">
   <library name="design-23.1.1">
-    <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/AIDL/build/intermediates/exploded-aar/com.android.support/design/23.1.1/annotations.zip!/" />
-    </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/AIDL/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/AIDL/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/01d2b7790cf11087376b63480fac2b19f65e5727/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/01d2b7790cf11087376b63480fac2b19f65e5727/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/WorkSpace/sdk/extras/android/m2repository/com/android/support/design/23.1.1/design-23.1.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/libs/android-sdk-macosx/extras/android/m2repository/com/android/support/design/23.1.1/design-23.1.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

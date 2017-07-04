@@ -16,4 +16,9 @@
         <item name="CustomHeight">34</item>
     </style>
 
+    <style name="myStyleOne1">
+        <item name="CustomColor">#3333</item>
+        <item name="CustomHeight">66</item>
+    </style>
+
 </resources>

@@ -17,6 +17,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+/**
+ * 具体说明 http://blog.csdn.net/liuhe688/article/details/7050868
+ */
 public class MainActivity extends AppCompatActivity {
 
   private ContentResolver resolver;
@@ -30,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
       //update records.
       requery();
     }
-
-    ;
   };
 
   @Override public void onCreate(Bundle savedInstanceState) {

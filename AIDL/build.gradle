@@ -46,6 +46,7 @@ android {
             buildConfigField "int", "serviceEnvironment", "1"   // 测试环境
         }
     }
+  buildToolsVersion '25.0.0'
 }
 
 dependencies {
