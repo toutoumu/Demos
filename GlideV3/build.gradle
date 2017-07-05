@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+
+android {
+  /*签名信息*/
+  signingConfigs {
+    toutoumu {
+      keyAlias 'toutoumu'
+      keyPassword '123456'
+      storeFile file('./toutoumu.jks')
+      storePassword '198868'
+    }
+  }
+  compileSdkVersion COMPILE_SDK_VERSION as int
+  buildToolsVersion BUILD_TOOLS_VERSION
+
+  defaultConfig {
+    applicationId "com.example.glidev3"
+    minSdkVersion MAIN_SDK_VERSION as int
+    targetSdkVersion TARGET_SDK_VERSION as int
+    versionCode 1
+    versionName "1.0"
+  }
+
+  /*构建类型*/
+  buildTypes {
+    debug {
+      applicationIdSuffix ".debug"
+      versionNameSuffix "-dev"
+      minifyEnabled false
+      signingConfig signingConfigs.toutoumu
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    release {
+      minifyEnabled true
+      signingConfig signingConfigs.toutoumu
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  productFlavors {
+    abcde {
+      minSdkVersion MAIN_SDK_VERSION as int
+      /*这样配置可以在java代码中这样调用 BuildConfig.serviceEnvironment*/
+      buildConfigField "int", "serviceEnvironment", "1"
+    }
+    wocao {
+      buildConfigField "int", "serviceEnvironment", "1"
+    }
+  }
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  testCompile 'junit:junit:4.12'
+  compile 'com.android.support:support-v4:25.3.1'
+  compile 'com.android.support:appcompat-v7:25.3.1'
+  compile 'com.jakewharton.timber:timber:4.5.1'
+  compile 'com.facebook.conceal:conceal:1.1.2@aar'
+  //Glide
+  compile 'com.github.bumptech.glide:glide:3.8.0'
+  //compile 'jp.wasabeef:glide-transformations:2.0.2'
+  //compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+
+  // butterknife
+  compile 'com.jakewharton:butterknife:8.6.0'
+  annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+}
+

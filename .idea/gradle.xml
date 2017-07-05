@@ -5,6 +5,15 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AIDL" />
+            <option value="$PROJECT_DIR$/ContentProvider" />
+            <option value="$PROJECT_DIR$/CustomAttributes" />
+            <option value="$PROJECT_DIR$/GlideV3" />
+          </set>
+        </option>
         <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>

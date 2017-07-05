@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="liubin.com.contentprovider">
+    package="com.contentprovider">
 
   <application
       android:allowBackup="true"
@@ -26,7 +26,7 @@
     </activity>
     <provider
         android:name=".PersonProvider"
-        android:authorities="com.liubin.contentprovider.PersonProvider"
+        android:authorities="com.contentprovider.PersonProvider"
         android:multiprocess="true"/>
   </application>
 

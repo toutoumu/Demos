@@ -1,1 +1,1 @@
-include ':AIDL', ':CustomAttributes', ':ContentProvider'
+include ':AIDL', ':CustomAttributes', ':ContentProvider', ':GlideV3'
