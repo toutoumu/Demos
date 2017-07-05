@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/ContentProvider" />
             <option value="$PROJECT_DIR$/CustomAttributes" />
             <option value="$PROJECT_DIR$/GlideV3" />
+            <option value="$PROJECT_DIR$/GlideV4" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

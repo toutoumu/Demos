@@ -1,4 +1,4 @@
-package com.example.glidev3.glide;
+package com.example.glidev4.glide;
 
 import android.content.Context;
 import com.facebook.android.crypto.keychain.AndroidConceal;
@@ -33,6 +33,7 @@ public class ConcealUtil {
     entity = Entity.create(e);
     crypto = AndroidConceal.get()
         .createDefaultCrypto(new SharedPrefsBackedKeyChain(context, CryptoConfig.KEY_256));
+
     if (!crypto.isAvailable()) {
       destroy();
     }

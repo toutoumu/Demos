@@ -7,20 +7,19 @@ import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.GenericLoaderFactory;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
-import com.example.glidev3.Picture;
 import java.io.IOException;
 import java.io.InputStream;
 
 /**
  * 加密数据加载类
  */
-public class ImageLoader implements ModelLoader<Picture, InputStream> {
+public class ImageLoader implements ModelLoader<IPicture, InputStream> {
 
   public ImageLoader() {
   }
 
   @Override
-  public DataFetcher<InputStream> getResourceFetcher(Picture model, int width, int height) {
+  public DataFetcher<InputStream> getResourceFetcher(IPicture model, int width, int height) {
     return new ImageDataFetcher(model);
   }
 
@@ -33,10 +32,10 @@ public class ImageLoader implements ModelLoader<Picture, InputStream> {
     // 检查是否取消任务的标识
     private volatile boolean mIsCanceled;
 
-    private final Picture mPath;
+    private final IPicture mPath;
     private InputStream mInputStream;
 
-    public ImageDataFetcher(Picture filePath) {
+    public ImageDataFetcher(IPicture filePath) {
       mPath = filePath;
     }
 
@@ -98,9 +97,9 @@ public class ImageLoader implements ModelLoader<Picture, InputStream> {
   /**
    * ModelLoader工厂，在向Glide注册自定义ModelLoader时使用到
    */
-  public static class Factory implements ModelLoaderFactory<Picture, InputStream> {
+  public static class Factory implements ModelLoaderFactory<IPicture, InputStream> {
 
-    @Override public ModelLoader<Picture, InputStream> build(Context context,
+    @Override public ModelLoader<IPicture, InputStream> build(Context context,
         GenericLoaderFactory factories) {
       // 返回ImageLoader对象
       return new ImageLoader();

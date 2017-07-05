@@ -20,6 +20,6 @@ public class CustomGlideModule implements GlideModule {
 
   @Override public void registerComponents(Context context, Glide glide) {
     // 注册我们的ImageLoader
-    glide.register(Picture.class, InputStream.class, new ImageLoader.Factory());
+    glide.register(IPicture.class, InputStream.class, new ImageLoader.Factory());
   }
 }

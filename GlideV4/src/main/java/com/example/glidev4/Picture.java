@@ -1,8 +1,6 @@
-package com.example.glidev3;
+package com.example.glidev4;
 
-import com.example.glidev3.glide.IPicture;
-
-public class Picture implements IPicture {
+public class Picture {
 
   public Picture() {
 
