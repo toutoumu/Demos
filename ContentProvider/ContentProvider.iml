@@ -41,13 +41,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/abcdeDebug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/abcdeDebug/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/abcdeDebug/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/abcde/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/abcde/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/abcde/debug" isTestSource="true" generated="true" />
@@ -55,6 +48,13 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/abcde/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/abcde/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/abcde/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testAbcdeDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/abcde/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/abcde/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/abcde/assets" type="java-resource" />
@@ -62,13 +62,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/abcde/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/abcde/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/abcde/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testAbcde/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testAbcde/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testAbcde/assets" type="java-test-resource" />
@@ -76,6 +69,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/testAbcde/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testAbcde/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testAbcde/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestAbcde/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/assets" type="java-resource" />

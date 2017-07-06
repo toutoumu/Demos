@@ -5,11 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.glidev4.glide.ConcealUtil;
 import com.example.glidev4.glide.GlideApp;
 import java.io.File;
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     ConcealUtil.saveFile(inputStream, file);
   }
 
-  @OnClick({ R.id.btn1, R.id.btn2, R.id.btn3 }) public void onViewClicked(View view) {
+  @OnClick({ R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4 }) public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.btn1: {//加载正常数据
         Glide.with(this).load(url).apply(mOptions).into(mImage);
@@ -57,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
       }
       case R.id.btn3: {//自定义GlideModel加载图片
         GlideApp.with(this).load(new Picture(file)).apply(mOptions).into(mImage);
+        break;
+      }
+      case R.id.btn4: {// 下载图片
+        Glide.with(this).downloadOnly().load(url).into(new SimpleTarget<File>() {
+          @Override
+          public void onResourceReady(File resource, Transition<? super File> transition) {
+            Toast.makeText(MainActivity.this, "图片下载成功", Toast.LENGTH_SHORT).show();
+          }
+        });
         break;
       }
     }
