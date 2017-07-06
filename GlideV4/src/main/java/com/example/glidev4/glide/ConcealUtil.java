@@ -8,7 +8,6 @@ import com.facebook.crypto.CryptoConfig;
 import com.facebook.crypto.Entity;
 import com.facebook.crypto.exception.CryptoInitializationException;
 import com.facebook.crypto.exception.KeyChainException;
-import com.facebook.crypto.util.SystemNativeCryptoLibrary;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -22,15 +22,17 @@ android {
   /*构建类型*/
   buildTypes {
     debug {
-      applicationIdSuffix ".debug"
       versionNameSuffix "-dev"
+      applicationIdSuffix ".debug"
       minifyEnabled false
+      shrinkResources false
       signingConfig signingConfigs.toutoumu
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
 
     release {
       minifyEnabled true
+      shrinkResources true
       signingConfig signingConfigs.toutoumu
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
