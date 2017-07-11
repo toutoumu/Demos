@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/CustomAttributes" />
             <option value="$PROJECT_DIR$/GlideV3" />
             <option value="$PROJECT_DIR$/GlideV4" />
+            <option value="$PROJECT_DIR$/RxJava1" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

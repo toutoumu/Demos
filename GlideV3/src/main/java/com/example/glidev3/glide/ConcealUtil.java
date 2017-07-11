@@ -8,10 +8,8 @@ import com.facebook.crypto.CryptoConfig;
 import com.facebook.crypto.Entity;
 import com.facebook.crypto.exception.CryptoInitializationException;
 import com.facebook.crypto.exception.KeyChainException;
-import com.facebook.crypto.util.SystemNativeCryptoLibrary;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,8 +82,6 @@ public class ConcealUtil {
     try {
       InputStream inputStream = new FileInputStream(file);
       return crypto.getCipherInputStream(inputStream, entity);
-    } catch (FileNotFoundException e) {
-      Timber.e(e);
     } catch (KeyChainException e) {
       Timber.e(e);
     } catch (CryptoInitializationException e) {

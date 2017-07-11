@@ -2,9 +2,7 @@ package com.example.glidev4.glide;
 
 import android.content.Context;
 import com.facebook.android.crypto.keychain.AndroidConceal;
-import com.facebook.android.crypto.keychain.SharedPrefsBackedKeyChain;
 import com.facebook.crypto.Crypto;
-import com.facebook.crypto.CryptoConfig;
 import com.facebook.crypto.Entity;
 import com.facebook.crypto.exception.CryptoInitializationException;
 import com.facebook.crypto.exception.KeyChainException;
@@ -31,7 +29,7 @@ public class ConcealUtil {
   public static void init(Context context, String e) {
     entity = Entity.create(e);
     crypto = AndroidConceal.get()
-        .createDefaultCrypto(new SharedPrefsBackedKeyChain(context, CryptoConfig.KEY_256));
+        .createDefaultCrypto(new MyKeyChain()/*new SharedPrefsBackedKeyChain(context, CryptoConfig.KEY_256)*/);
 
     if (!crypto.isAvailable()) {
       destroy();
@@ -127,9 +125,9 @@ public class ConcealUtil {
       while ((read = inputStream.read(buffer)) != -1) {
         outputStream.write(buffer, 0, read);
       }
+      inputStream.close();
       outputStream.flush();
       outputStream.close();
-      inputStream.close();
     } catch (IOException e) {
       Timber.e(e);
     }

@@ -20,7 +20,7 @@ import jp.wasabeef.glide.transformations.MaskTransformation;
 public class MainActivity extends AppCompatActivity {
 
   @BindView(R.id.image) ImageView mImage;
-  private String file;
+  private String file;//本地加密文件路径
   private static final String url =
       "http://upload-images.jianshu.io/upload_images/1980684-2266bd1e30bd65fe.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
   private static final String gif =
