@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+  /*签名信息*/
+  signingConfigs {
+    toutoumu {
+      keyAlias 'toutoumu'
+      keyPassword '123456'
+      storeFile file('./toutoumu.jks')
+      storePassword '198868'
+    }
+  }
+  compileSdkVersion COMPILE_SDK_VERSION as int
+  buildToolsVersion BUILD_TOOLS_VERSION
+  defaultConfig {
+    applicationId "com.example.imageselector"
+    minSdkVersion MAIN_SDK_VERSION as int
+    targetSdkVersion TARGET_SDK_VERSION as int
+    versionCode 1
+    versionName "1.0"
+  }
+  /*构建类型*/
+  buildTypes {
+    debug {
+      versionNameSuffix "-dev"
+      applicationIdSuffix ".debug"
+      minifyEnabled false
+      shrinkResources false
+      signingConfig signingConfigs.toutoumu
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    release {
+      minifyEnabled true
+      shrinkResources true
+      signingConfig signingConfigs.toutoumu
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+  flavorDimensions "mode"
+
+  productFlavors {
+    abcde {
+      dimension "mode"
+      minSdkVersion MAIN_SDK_VERSION as int
+      /*这样配置可以在java代码中这样调用 BuildConfig.serviceEnvironment*/
+      buildConfigField "int", "serviceEnvironment", "1" // 测试环境
+    }
+    wocao {
+      dimension "mode"
+      buildConfigField "int", "serviceEnvironment", "1" // 测试环境
+    }
+  }
+}
+
+dependencies {
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+  compile fileTree(include: ['*.jar'], dir: 'libs')
+  testCompile 'junit:junit:4.12'
+
+  compile "com.android.support:design:25.3.1"
+  compile "com.android.support:appcompat-v7:25.3.1"
+
+  //RxJava
+  compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+  compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+  compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+  compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+  compile("com.github.hotchemi:permissionsdispatcher:2.4.0") {
+    // if you don't use android.app.Fragment you can exclude support for them
+    exclude module: "support-v13"
+  }
+  annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:2.4.0"
+}
+repositories {
+  mavenCentral()
+  jcenter()
+  maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+}

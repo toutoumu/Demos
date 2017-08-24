@@ -1,22 +1,61 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.3"
+  /*签名信息*/
+  signingConfigs {
+    toutoumu {
+      keyAlias 'toutoumu'
+      keyPassword '123456'
+      storeFile file('./toutoumu.jks')
+      storePassword '198868'
+    }
+  }
+  compileSdkVersion COMPILE_SDK_VERSION as int
+  buildToolsVersion BUILD_TOOLS_VERSION
 
   defaultConfig {
     applicationId "com.example.rxjava"
-    minSdkVersion 15
-    targetSdkVersion 25
+    minSdkVersion MAIN_SDK_VERSION as int
+    targetSdkVersion TARGET_SDK_VERSION as int
     versionCode 1
     versionName "1.0"
-
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
+
+  compileOptions {
+    //sourceCompatibility JavaVersion.VERSION_1_8
+    //targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  /*构建类型*/
   buildTypes {
-    release {
+    debug {
+      applicationIdSuffix ".debug"
+      versionNameSuffix "-dev"
       minifyEnabled false
+      signingConfig signingConfigs.toutoumu
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    release {
+      minifyEnabled true
+      signingConfig signingConfigs.toutoumu
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  flavorDimensions "mode"
+
+  productFlavors {
+    abcde {
+      dimension "mode"
+      minSdkVersion MAIN_SDK_VERSION as int
+      /*这样配置可以在java代码中这样调用 BuildConfig.serviceEnvironment*/
+      buildConfigField "int", "serviceEnvironment", "1"
+    }
+    wocao {
+      dimension "mode"
+      buildConfigField "int", "serviceEnvironment", "1"
     }
   }
 }

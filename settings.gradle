@@ -1,1 +1,1 @@
-include ':AIDL', ':CustomAttributes', ':ContentProvider', ':GlideV3', ':GlideV4', ':RxJava1'
+include ':AIDL', ':CustomAttributes', ':ContentProvider', ':GlideV3', ':GlideV4', ':RxJava1', ':ImageSelector'
