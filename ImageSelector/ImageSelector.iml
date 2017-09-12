@@ -150,11 +150,11 @@
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="annotations-4.0.0-RC1" level="project" />
-    <orderEntry type="library" name="kotlin-stdlib-1.1.4-2" level="project" />
+    <orderEntry type="library" name="kotlin-stdlib-1.1.4-3" level="project" />
     <orderEntry type="library" name="constraint-layout-1.0.2" level="project" />
+    <orderEntry type="library" name="kotlin-stdlib-jre7-1.1.4-3" level="project" />
     <orderEntry type="library" name="permissionsdispatcher-2.4.0" level="project" />
     <orderEntry type="library" name="transition-25.3.1" level="project" />
-    <orderEntry type="library" name="kotlin-stdlib-jre7-1.1.4-2" level="project" />
     <orderEntry type="library" name="design-25.3.1" level="project" />
     <orderEntry type="library" name="support-core-ui-25.3.1" level="project" />
     <orderEntry type="library" name="disklrucache-4.0.0-RC1" level="project" />

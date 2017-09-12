@@ -10,7 +10,6 @@ import com.bumptech.glide.load.model.FileLoader;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ViewTarget;
-import com.example.glidev4.Picture;
 import com.example.glidev4.R;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +31,7 @@ import timber.log.Timber;
 
   @Override public void registerComponents(Context context, Glide glide, Registry registry) {
     // 指定Model类型为Picture的处理方式
-    registry.append(Picture.class, InputStream.class, new MyModelLoader.LoaderFactory());
+    registry.append(IPicture.class, InputStream.class, new MyModelLoader.LoaderFactory());
 
     // 指定Model类型为File的处理方式
     registry.append(File.class, InputStream.class,

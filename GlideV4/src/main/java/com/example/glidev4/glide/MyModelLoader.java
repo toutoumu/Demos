@@ -10,7 +10,6 @@ import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import com.bumptech.glide.signature.ObjectKey;
-import com.example.glidev4.Picture;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,18 +22,18 @@ import static com.bumptech.glide.load.DataSource.REMOTE;
  * Glide 4.x 自定义GlideModel
  * 这里指定Picture类型的Model由用户处理
  */
-public class MyModelLoader implements ModelLoader<Picture, InputStream> {
+public class MyModelLoader implements ModelLoader<IPicture, InputStream> {
 
   public MyModelLoader() {
   }
 
   @Nullable @Override
-  public LoadData<InputStream> buildLoadData(Picture model, int width, int height,
+  public LoadData<InputStream> buildLoadData(IPicture model, int width, int height,
       Options options) {
     return new LoadData<InputStream>(new MyKey(model), new MyDataFetcher(model));
   }
 
-  @Override public boolean handles(Picture s) {
+  @Override public boolean handles(IPicture s) {
     return true;
   }
 
@@ -43,9 +42,9 @@ public class MyModelLoader implements ModelLoader<Picture, InputStream> {
    * 这个类可以使用 {@link ObjectKey} 代替
    */
   public static class MyKey implements Key {
-    Picture path;
+    IPicture path;
 
-    public MyKey(Picture path) {
+    public MyKey(IPicture path) {
       this.path = path;
     }
 
@@ -71,11 +70,11 @@ public class MyModelLoader implements ModelLoader<Picture, InputStream> {
    */
   public static class MyDataFetcher implements DataFetcher<InputStream> {
 
-    private Picture file;
+    private IPicture file;
     private boolean isCanceled;
     InputStream mInputStream = null;
 
-    public MyDataFetcher(Picture file) {
+    public MyDataFetcher(IPicture file) {
       this.file = file;
     }
 
@@ -118,12 +117,13 @@ public class MyModelLoader implements ModelLoader<Picture, InputStream> {
   /**
    * 构造工厂类
    */
-  public static class LoaderFactory implements ModelLoaderFactory<Picture, InputStream> {
+  public static class LoaderFactory implements ModelLoaderFactory<IPicture, InputStream> {
 
     public LoaderFactory() {
     }
 
-    @Override public ModelLoader<Picture, InputStream> build(MultiModelLoaderFactory multiFactory) {
+    @Override
+    public ModelLoader<IPicture, InputStream> build(MultiModelLoaderFactory multiFactory) {
       return new MyModelLoader();
     }
 
