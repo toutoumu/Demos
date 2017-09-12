@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
       public boolean flag;
 
       @Override public void onClick(View v) {
-
+        new Test().log();
         if (flag) {
           textView.setText("透明");
           setTransparentForWindow();

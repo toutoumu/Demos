@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="permissionsdispatcher-2.4.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permissionsdispatcher-2.4.0.aar/ba19e3aa945f92a85887c33773444158/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permissionsdispatcher-2.4.0.aar/ba19e3aa945f92a85887c33773444158/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permissionsdispatcher-2.4.0.aar/828421d1b3358d6bdbead349a70cfc00/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permissionsdispatcher-2.4.0.aar/828421d1b3358d6bdbead349a70cfc00/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.hotchemi/permissionsdispatcher/2.4.0/2a8e242b5303935b9b46f0df804947220bd2d2a9/permissionsdispatcher-2.4.0-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.hotchemi/permissionsdispatcher/2.4.0/e64325a01e9b890a7c3986a4acf5a0f7fc5fa1/permissionsdispatcher-2.4.0-sources.jar!/" />
     </SOURCES>

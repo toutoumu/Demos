@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/GlideV3/GlideV3.iml" filepath="$PROJECT_DIR$/GlideV3/GlideV3.iml" />
       <module fileurl="file://$PROJECT_DIR$/GlideV4/GlideV4.iml" filepath="$PROJECT_DIR$/GlideV4/GlideV4.iml" />
       <module fileurl="file://$PROJECT_DIR$/ImageSelector/ImageSelector.iml" filepath="$PROJECT_DIR$/ImageSelector/ImageSelector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kotlin/Kotlin.iml" filepath="$PROJECT_DIR$/Kotlin/Kotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/RxJava1/RxJava1.iml" filepath="$PROJECT_DIR$/RxJava1/RxJava1.iml" />
     </modules>
   </component>

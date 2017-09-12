@@ -64,9 +64,11 @@ dependencies {
   compile 'com.facebook.conceal:conceal:2.0.1@aar'
 
   //Glide
-  compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
+  compile 'com.github.bumptech.glide:glide:4.1.1'
+  //适用于Glide 4.x 的图片形状处理
+  compile 'jp.wasabeef:glide-transformations:3.0.1'
   compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
-  annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
+  annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
 
   // butterknife
   compile 'com.jakewharton:butterknife:8.6.0'
