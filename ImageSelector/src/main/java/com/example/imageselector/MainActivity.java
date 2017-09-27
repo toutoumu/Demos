@@ -280,15 +280,22 @@ import permissions.dispatcher.RuntimePermissions;
     Toast.makeText(this, "不在询问,需要自己设置", Toast.LENGTH_SHORT).show();
   }
 
+  /**
+   * [系统请求存储权限询问对话框] ,选择了禁止(拒绝),下次再调用需要存储权限的方法时候就会调用此方法,
+   * 此方法点击确定之后弹出 [系统请求存储权限询问对话框]
+   * 点击拒绝之后,将调用 {@link #showDeniedForStorage}
+   *
+   * @param request {@link PermissionRequest}
+   */
   @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE) void showRationaleForStorage(
       final PermissionRequest request) {
-    new AlertDialog.Builder(this).setMessage("授予权限")
+    new AlertDialog.Builder(this).setMessage("是否授予权限")
         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialog, int which) {
             request.proceed();
           }
         })
-        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        .setNegativeButton("拒绝", new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialog, int which) {
             request.cancel();
           }
@@ -296,12 +303,18 @@ import permissions.dispatcher.RuntimePermissions;
         .show();
   }
 
+  /**
+   * 拒绝之后的提示信息
+   */
   @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE) void showDeniedForStorage() {
-    Toast.makeText(this, "拒绝", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "您已拒绝授予该权限", Toast.LENGTH_SHORT).show();
   }
 
+  /**
+   * [系统请求存储权限询问对话框] ,勾选不在提示, 点击禁止.后弹出次提示,再次请求权限时候也会弹出
+   */
   @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE) void showNeverAskForStorage() {
-    Toast.makeText(this, "不在询问,需要自己设置", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "您选择了不在询问,需要进入设置页面开启该权限", Toast.LENGTH_SHORT).show();
   }
 
   @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
