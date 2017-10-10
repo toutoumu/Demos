@@ -52,14 +52,20 @@ class MainActivity : AppCompatActivity() {
     // 常量使用
     Companion.ITEM_TYPE_DATA
 
-    mText?.setOnClickListener(View.OnClickListener {
-
-    })
-
     // 点击事件
+    text?.setOnClickListener {
+      var age: Int = 23
+      var name: String = "name"
+    }
+
     text.setOnClickListener({
       toast("hahah")
       vars(1, 2, 3, 4, 5)  // 输出12345
+    })
+
+    text?.setOnClickListener(View.OnClickListener { v ->
+      (v as TextView).text = "hah"
+
     })
 
     text.setOnClickListener({ v ->
