@@ -58,19 +58,19 @@ android {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   testCompile 'junit:junit:4.12'
-  compile 'com.android.support:support-v4:26.0.2'
-  compile 'com.android.support:appcompat-v7:26.0.2'
-  compile 'com.jakewharton.timber:timber:4.5.1'
+  compile 'com.android.support:support-v4:26.1.0'
+  compile 'com.android.support:appcompat-v7:26.1.0'
+  compile 'com.jakewharton.timber:timber:4.6.0'
   compile 'com.facebook.conceal:conceal:2.0.1@aar'
 
   //Glide
-  compile 'com.github.bumptech.glide:glide:4.1.1'
+  compile 'com.github.bumptech.glide:glide:4.3.1'
   //适用于Glide 4.x 的图片形状处理
   compile 'jp.wasabeef:glide-transformations:3.0.1'
   compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
-  annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
+  annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
 
   // butterknife
-  compile 'com.jakewharton:butterknife:8.6.0'
-  annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+  compile 'com.jakewharton:butterknife:8.8.1'
+  annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

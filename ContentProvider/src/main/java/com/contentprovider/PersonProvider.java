@@ -7,6 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 public class PersonProvider extends ContentProvider {
 
@@ -110,9 +111,9 @@ public class PersonProvider extends ContentProvider {
 		return count;
 	}
 
-	@Override
-	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-		db = helper.getWritableDatabase();
+	@Override public int update(@NonNull Uri uri, ContentValues values, String selection,
+      String[] selectionArgs) {
+    db = helper.getWritableDatabase();
 		int match = matcher.match(uri);
 		switch (match) {
 		case PERSON_ALL:
