@@ -44,7 +44,7 @@ public class DragView1 extends View {
       case MotionEvent.ACTION_MOVE:
         // 如果使用的是当前View为参照(参考系)event.getX,event.getY
         // 那么按下时候位置为A 第一次移动后的位置为B 第二次移动后的位置为C
-        // 第一次移动后重新布局此时手指按下的位置任然为A 因此不需要重新设置坐标
+        // 第一次移动后重新布局此时手指按下的位置任然为A 因此不需要重新设置坐标(当前按下位置相对于参考系并没有移动)
 
         // 如果将上面代码
         // int x = (int) event.getX();
@@ -52,7 +52,7 @@ public class DragView1 extends View {
         // 直接改成getRawX()和getRawY()的话
         // 如果以window边框为参照 按下的时候位置为A 第一次移动后的位置为B 第二次移动后的位置为C
         // 那么第一次移动的偏移参考点为A ,第二次移动的参考点为B(由于View已经被重新布局因此B点为第二次移动的起始点)
-        // 所以在以window为参照的时候需要重置坐标点
+        // 所以在以window为参照的时候需要重置坐标点(按下位置相等于参考系有移动)
 
         int offsetX = x - lastX;
         int offsetY = y - lastY;
