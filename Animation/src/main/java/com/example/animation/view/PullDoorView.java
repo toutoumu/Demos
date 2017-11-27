@@ -1,4 +1,4 @@
-package com.example.animation;
+package com.example.animation.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -17,6 +17,7 @@ import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
+import com.example.animation.R;
 
 public class PullDoorView extends RelativeLayout implements GestureDetector.OnGestureListener {
 

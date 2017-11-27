@@ -7,12 +7,12 @@
     tools:context="com.example.animation.MainActivity1"
     >
 
-  <com.example.animation.DragView1
+  <com.example.animation.view.DragDoorView1
       android:id="@+id/dd"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />
-  <!--<com.example.animation.PullDoorView
+  <!--<com.example.animation.view.PullDoorViewView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />-->

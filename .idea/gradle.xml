@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/ImageSelector" />
             <option value="$PROJECT_DIR$/Kotlin" />
             <option value="$PROJECT_DIR$/RxJava1" />
+            <option value="$PROJECT_DIR$/ZBaselibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
