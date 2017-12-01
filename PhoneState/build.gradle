@@ -13,7 +13,7 @@ android {
   compileSdkVersion COMPILE_SDK_VERSION as int
   buildToolsVersion BUILD_TOOLS_VERSION
   defaultConfig {
-    applicationId "com.example.library"
+    applicationId "com.example.phone.state"
     minSdkVersion MAIN_SDK_VERSION as int
     targetSdkVersion TARGET_SDK_VERSION as int
     versionCode 1
@@ -60,4 +60,10 @@ dependencies {
   compile 'com.jakewharton.timber:timber:4.6.0'
   compile "com.android.support:design:26.1.0"
   compile "com.android.support:appcompat-v7:26.1.0"
+
+  compile("com.github.hotchemi:permissionsdispatcher:2.4.0") {
+    // if you don't use android.app.Fragment you can exclude support for them
+    exclude module: "support-v13"
+  }
+  annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.0.1"
 }

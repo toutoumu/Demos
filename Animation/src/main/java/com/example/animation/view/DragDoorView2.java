@@ -15,7 +15,7 @@ import com.example.animation.R;
 import timber.log.Timber;
 
 /**
- * 卷闸门效果
+ * 图片拖动缩放消失效果
  */
 public class DragDoorView2 extends RelativeLayout {
 

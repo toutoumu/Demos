@@ -1,2 +1,2 @@
 include ':AIDL', ':CustomAttributes', ':ContentProvider', ':GlideV3', ':GlideV4', ':RxJava1', ':ImageSelector', ':Kotlin', ':Animation',
-    ':ZBaselibrary'
+    ':PhoneState'
