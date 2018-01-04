@@ -211,38 +211,39 @@ public class PhoneStateActivity extends AppCompatActivity {
 
     public void getServerCellInfo() {
       try {
-        List<CellInfo> allCellinfo;
-        allCellinfo = phoneManager.getAllCellInfo();
-        if (allCellinfo != null) {
-          CellInfo cellInfo = allCellinfo.get(0);
-          serverCellInfo.getInfoType = 1;
-          if (cellInfo instanceof CellInfoGsm) {
-            CellInfoGsm cellInfoGsm = (CellInfoGsm) cellInfo;
-            serverCellInfo.CId = cellInfoGsm.getCellIdentity().getCid();
-            serverCellInfo.rsrp = cellInfoGsm.getCellSignalStrength().getDbm();
-            serverCellInfo.asulevel = cellInfoGsm.getCellSignalStrength().getAsuLevel();
-            serverCellInfo.lac = cellInfoGsm.getCellIdentity().getLac();
-            serverCellInfo.RatType = TelephonyManager.NETWORK_TYPE_GSM;
-          } else if (cellInfo instanceof CellInfoWcdma) {
-            CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
-            serverCellInfo.CId = cellInfoWcdma.getCellIdentity().getCid();
-            serverCellInfo.psc = cellInfoWcdma.getCellIdentity().getPsc();
-            serverCellInfo.lac = cellInfoWcdma.getCellIdentity().getLac();
-            serverCellInfo.rsrp = cellInfoWcdma.getCellSignalStrength().getDbm();
-            serverCellInfo.asulevel = cellInfoWcdma.getCellSignalStrength().getAsuLevel();
-            serverCellInfo.RatType = TelephonyManager.NETWORK_TYPE_UMTS;
-          } else if (cellInfo instanceof CellInfoLte) {
-            CellInfoLte cellInfoLte = (CellInfoLte) cellInfo;
-            serverCellInfo.CId = cellInfoLte.getCellIdentity().getCi();
-            serverCellInfo.pci = cellInfoLte.getCellIdentity().getPci();
-            serverCellInfo.tac = cellInfoLte.getCellIdentity().getTac();
-            serverCellInfo.rsrp = cellInfoLte.getCellSignalStrength().getDbm();
-            serverCellInfo.asulevel = cellInfoLte.getCellSignalStrength().getAsuLevel();
-            serverCellInfo.RatType = TelephonyManager.NETWORK_TYPE_LTE;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+          List<CellInfo> allCellinfo;
+          allCellinfo = phoneManager.getAllCellInfo();
+          if (allCellinfo != null) {
+            CellInfo cellInfo = allCellinfo.get(0);
+            serverCellInfo.getInfoType = 1;
+            if (cellInfo instanceof CellInfoGsm) {
+              CellInfoGsm cellInfoGsm = (CellInfoGsm) cellInfo;
+              serverCellInfo.CId = cellInfoGsm.getCellIdentity().getCid();
+              serverCellInfo.rsrp = cellInfoGsm.getCellSignalStrength().getDbm();
+              serverCellInfo.asulevel = cellInfoGsm.getCellSignalStrength().getAsuLevel();
+              serverCellInfo.lac = cellInfoGsm.getCellIdentity().getLac();
+              serverCellInfo.RatType = TelephonyManager.NETWORK_TYPE_GSM;
+            } else if (cellInfo instanceof CellInfoWcdma) {
+              CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
+              serverCellInfo.CId = cellInfoWcdma.getCellIdentity().getCid();
+              serverCellInfo.psc = cellInfoWcdma.getCellIdentity().getPsc();
+              serverCellInfo.lac = cellInfoWcdma.getCellIdentity().getLac();
+              serverCellInfo.rsrp = cellInfoWcdma.getCellSignalStrength().getDbm();
+              serverCellInfo.asulevel = cellInfoWcdma.getCellSignalStrength().getAsuLevel();
+              serverCellInfo.RatType = TelephonyManager.NETWORK_TYPE_UMTS;
+            } else if (cellInfo instanceof CellInfoLte) {
+              CellInfoLte cellInfoLte = (CellInfoLte) cellInfo;
+              serverCellInfo.CId = cellInfoLte.getCellIdentity().getCi();
+              serverCellInfo.pci = cellInfoLte.getCellIdentity().getPci();
+              serverCellInfo.tac = cellInfoLte.getCellIdentity().getTac();
+              serverCellInfo.rsrp = cellInfoLte.getCellSignalStrength().getDbm();
+              serverCellInfo.asulevel = cellInfoLte.getCellSignalStrength().getAsuLevel();
+              serverCellInfo.RatType = TelephonyManager.NETWORK_TYPE_LTE;
+            }
           }
-        } else
-        //for older devices
-        {
+        } else {//for older devices
           getServerCellInfoOnOlderDevices();
         }
       } catch (Exception e) {
