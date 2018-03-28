@@ -53,17 +53,17 @@ import permissions.dispatcher.RuntimePermissions;
     mImageView = (ImageView) findViewById(R.id.image);
     findViewById(R.id.select).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {//openAlbum();
-        MainActivityPermissionsDispatcher.openAlbumWithCheck(MainActivity.this);
+        MainActivityPermissionsDispatcher.openAlbumWithPermissionCheck(MainActivity.this);
       }
     });
     findViewById(R.id.takepicture).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {//openCamera();
-        MainActivityPermissionsDispatcher.openCameraWithCheck(MainActivity.this);
+        MainActivityPermissionsDispatcher.openCameraWithPermissionCheck(MainActivity.this);
       }
     });
     findViewById(R.id.custom).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {//openCamera();//showCustom();
-        MainActivityPermissionsDispatcher.showCustomWithCheck(MainActivity.this);
+        MainActivityPermissionsDispatcher.showCustomWithPermissionCheck(MainActivity.this);
       }
     });
   }

@@ -69,7 +69,6 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
   compile("com.github.hotchemi:permissionsdispatcher:2.4.0") {
-    // if you don't use android.app.Fragment you can exclude support for them
     exclude module: "support-v13"
   }
   annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.0.1"
