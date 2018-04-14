@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/PhoneState" />
             <option value="$PROJECT_DIR$/RxJava1" />
             <option value="$PROJECT_DIR$/bluetooth" />
+            <option value="$PROJECT_DIR$/bluetoothble" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

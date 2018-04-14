@@ -12,15 +12,18 @@ android {
       storePassword '198868'
     }
   }
-  compileSdkVersion COMPILE_SDK_VERSION as int
-  buildToolsVersion BUILD_TOOLS_VERSION
+
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
   defaultConfig {
     applicationId "com.example.kotlin"
-    minSdkVersion MAIN_SDK_VERSION as int
-    targetSdkVersion TARGET_SDK_VERSION as int
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
     versionCode 1
     versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
+
   /*构建类型*/
   buildTypes {
     debug {
@@ -38,13 +41,18 @@ android {
       signingConfig signingConfigs.toutoumu
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+
+    compileOptions {
+      sourceCompatibility JavaVersion.VERSION_1_8
+      targetCompatibility JavaVersion.VERSION_1_8
+    }
   }
   flavorDimensions "mode"
 
   productFlavors {
     abcde {
       dimension "mode"
-      minSdkVersion MAIN_SDK_VERSION as int
+      minSdkVersion rootProject.ext.minSdkVersion
       /*这样配置可以在java代码中这样调用 BuildConfig.serviceEnvironment*/
       buildConfigField "int", "serviceEnvironment", "1" // 测试环境
     }
@@ -56,12 +64,12 @@ android {
 }
 
 dependencies {
-  compile fileTree(include: ['*.jar'], dir: 'libs')
-  testCompile 'junit:junit:4.12'
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
+  testImplementation 'junit:junit:4.12'
 
-  compile "com.android.support:design:26.1.0"
-  compile "com.android.support:appcompat-v7:26.1.0"
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+  implementation "com.android.support:design:$rootProject.ext.supportVersion"
+  implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
   mavenCentral()

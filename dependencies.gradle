@@ -1,0 +1,29 @@
+ext {
+    minSdkVersion=18
+    targetSdkVersion=27
+    buildToolsVersion='27.0.3'
+    compileSdkVersion=27
+    supportVersion= '27.1.0'
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+    targetCompatibilityVersion = JavaVersion.VERSION_1_8
+
+    rxJavaVersion = '2.1.11'
+    shadowPluginVersion = '2.0.2'
+    daggerVersion = '2.15'
+    libs = [
+            /* Application dependencies */
+            support            : "com.android.support:support-v4:$supportVersion",
+            support_annotations: "com.android.support:support-annotations:$supportVersion",
+            rxjava             : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+            rxandroid          : 'io.reactivex.rxjava2:rxandroid:2.0.2',
+            rxrelay            : 'com.jakewharton.rxrelay2:rxrelay:2.0.0',
+            junit              : 'junit:junit:4.12',
+            groovy             : 'org.codehaus.groovy:groovy:2.4.12:grooid',
+            spock              : ['org.spockframework:spock-core:1.1-groovy-2.4',
+                                  'cglib:cglib-nodep:3.2.6',
+                                  'org.objenesis:objenesis:2.6'],
+            robospock          : 'org.robospock:robospock:1.0.1',
+            dagger             : "com.google.dagger:dagger:$daggerVersion",
+            dagger_compiler    : "com.google.dagger:dagger-compiler:$daggerVersion"
+    ]
+}

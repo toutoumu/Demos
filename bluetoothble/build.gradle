@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+  /*签名信息*/
+  signingConfigs {
+    toutoumu {
+      keyAlias 'toutoumu'
+      keyPassword '123456'
+      storeFile file('./toutoumu.jks')
+      storePassword '198868'
+    }
+  }
+
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+  defaultConfig {
+    applicationId "com.example.bluetoothble"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+  /*构建类型*/
+  buildTypes {
+    debug {
+      versionNameSuffix "-dev"
+      applicationIdSuffix ".debug"
+      minifyEnabled false
+      shrinkResources false
+      signingConfig signingConfigs.toutoumu
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    release {
+      minifyEnabled true
+      shrinkResources true
+      signingConfig signingConfigs.toutoumu
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    compileOptions {
+      sourceCompatibility JavaVersion.VERSION_1_8
+      targetCompatibility JavaVersion.VERSION_1_8
+    }
+  }
+  flavorDimensions "mode"
+
+  productFlavors {
+    abcde {
+      dimension "mode"
+      minSdkVersion rootProject.ext.minSdkVersion
+      /*这样配置可以在java代码中这样调用 BuildConfig.serviceEnvironment*/
+      buildConfigField "int", "serviceEnvironment", "1" // 测试环境
+    }
+    wocao {
+      dimension "mode"
+      buildConfigField "int", "serviceEnvironment", "1" // 测试环境
+    }
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+  implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+  implementation "com.android.support:design:$rootProject.ext.supportVersion"
+  implementation 'com.jakewharton:butterknife:8.8.1'
+  annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+  implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+  implementation rootProject.ext.libs.rxjava
+  implementation rootProject.ext.libs.rxandroid
+  implementation 'com.jakewharton.timber:timber:4.6.0'
+  implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+  implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+  implementation 'com.jakewharton.rx2:replaying-share:2.0.1'
+  implementation "com.polidea.rxandroidble2:rxandroidble:1.5.0"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+  mavenCentral()
+}
