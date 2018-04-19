@@ -1,5 +1,7 @@
 package com.example.bluetoothble;
 
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.example.googledemo.DeviceScanActivity;
 import com.polidea.rxandroidble2.RxBleClient;
 import com.polidea.rxandroidble2.exceptions.BleScanException;
 import com.polidea.rxandroidble2.scan.ScanFilter;
@@ -31,13 +34,20 @@ public class MainActivity extends RxAppCompatActivity {
   private RxBleClient rxBleClient;
   private Disposable scanDisposable;
   private ScanResultsAdapter resultsAdapter;
+  private int REQUEST_ENABLE_BT = 33;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
     rxBleClient = SampleApplication.getRxBleClient(this);
+    requestBT();
     configureResultList();
+  }
+
+  @OnClick(R.id.demo_google) public void onStartGoogleDemo() {
+    Intent intent = new Intent(this, DeviceScanActivity.class);
+    startActivity(intent);
   }
 
   @OnClick(R.id.scan_toggle_btn) public void onScanToggleClick() {
@@ -51,9 +61,10 @@ public class MainActivity extends RxAppCompatActivity {
               .build(), new ScanFilter.Builder()//.setDeviceName("1010999999")
               // .setDeviceAddress("B4:99:4C:34:DC:8B")
               // add custom filters if needed
-              .build())
-          .filter(result -> "1010999999".equals(result.getBleDevice().getName()))
-          .take(1)
+              .build()).filter(result -> {
+        return result.getBleDevice().getName() != null;
+        //return "1010999999".equals(result.getBleDevice().getName());
+      }).take(5)
           .observeOn(AndroidSchedulers.mainThread())
           .doFinally(this::dispose)
           .subscribe(resultsAdapter::addScanResult, this::onScanFailure);
@@ -163,5 +174,18 @@ public class MainActivity extends RxAppCompatActivity {
 
   private void updateButtonUIState() {
     scanToggleButton.setText(isScanning() ? R.string.stop_scan : R.string.start_scan);
+  }
+
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_ENABLE_BT && resultCode != Activity.RESULT_OK) {
+      requestBT();
+      return;
+    }
+    super.onActivityResult(requestCode, resultCode, data);
+  }
+
+  private void requestBT() {
+    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
   }
 }

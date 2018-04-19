@@ -27,6 +27,7 @@ public class SampleApplication extends Application {
     if (BuildConfig.DEBUG) {
       Timber.plant(new Timber.DebugTree());
     } else {
+      Timber.plant(new Timber.DebugTree());
       //Timber.plant(new CrashReportingTree());
     }
   }

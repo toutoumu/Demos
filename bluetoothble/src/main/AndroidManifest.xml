@@ -26,6 +26,14 @@
       </intent-filter>
     </activity>
     <activity android:name=".CharacteristicOperationExampleActivity"/>
+    <activity
+        android:name="com.example.googledemo.DeviceScanActivity"
+        android:theme="@android:style/Theme.Holo.Light"/>
+    <activity
+        android:name="com.example.googledemo.DeviceControlActivity"
+        android:theme="@android:style/Theme.Holo.Light"/>
+
+    <service android:name="com.example.googledemo.BluetoothLeService"/>
   </application>
 
 </manifest>
