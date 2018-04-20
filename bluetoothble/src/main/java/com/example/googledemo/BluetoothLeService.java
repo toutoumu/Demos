@@ -30,64 +30,125 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 import java.util.List;
 import java.util.UUID;
+import timber.log.Timber;
+
+import static com.example.googledemo.SampleGattAttributes.HEART_RATE_MEASUREMENT;
 
 /**
  * BLE 设备可以通过该服务 与 Android 的 BLE API 进行互动
  */
 public class BluetoothLeService extends Service {
-  private final static String TAG = BluetoothLeService.class.getSimpleName();
 
   private BluetoothManager mBluetoothManager;
   private BluetoothAdapter mBluetoothAdapter;
   private String mBluetoothDeviceAddress;
   private BluetoothGatt mBluetoothGatt;
-  private int mConnectionState = STATE_DISCONNECTED;
 
+  /** 连接状态 */
+  private int mConnectionState = STATE_DISCONNECTED;
   private static final int STATE_DISCONNECTED = 0;
   private static final int STATE_CONNECTING = 1;
   private static final int STATE_CONNECTED = 2;
 
-  public final static String ACTION_GATT_CONNECTED =
-      "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
-  public final static String ACTION_GATT_DISCONNECTED =
-      "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED";
-  public final static String ACTION_GATT_SERVICES_DISCOVERED =
-      "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
-  public final static String ACTION_DATA_AVAILABLE =
-      "com.example.bluetooth.le.ACTION_DATA_AVAILABLE";
-  public final static String EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA";
+  /** 蓝牙已连接 */
+  public final static String ACTION_GATT_CONNECTED = "a.ACTION_GATT_CONNECTED";
+  /** 蓝牙连接中 */
+  public final static String ACTION_GATT_CONNECTING = "a.ACTION_GATT_CONNECTING";
+  /** 蓝牙已断开 */
+  public final static String ACTION_GATT_DISCONNECTED = "a.ACTION_GATT_DISCONNECTED";
+  /** 蓝牙连接失败 */
+  public final static String ACTION_GATT_CONNECT_FAILURE = "a.ACTION_GATT_CONNECT_FAILURE";
 
-  public final static UUID UUID_HEART_RATE_MEASUREMENT =
-      UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
+  /** 正在扫描服务 */
+  public final static String ACTION_GATT_SERVICES_DISCOVERING =
+      "a.ACTION_GATT_SERVICES_DISCOVERING";
+  /** 扫描服务成功 */
+  public final static String ACTION_GATT_SERVICES_DISCOVERED = "a.ACTION_GATT_SERVICES_DISCOVERED";
+  /** 扫描服务失败 */
+  public final static String ACTION_GATT_SERVICES_DISCOVER_FAILURE =
+      "a.ACTION_GATT_SERVICES_DISCOVER_FAILURE";
+
+  /** 读成功 */
+  public final static String ACTION_DATA_READ_SUCCESS = "a.ACTION_DATA_READ_SUCCESS";
+  /** 读失败 */
+  public final static String ACTION_DATA_READ_FAILURE = "a.ACTION_DATA_READ_FAILURE";
+  /** 写成功 */
+  public final static String ACTION_DATA_WRITE_SUCCESS = "a.ACTION_DATA_WRITE_SUCCESS";
+  /** 写失败 */
+  public final static String ACTION_DATA_WRITE_FAILURE = "a.ACTION_DATA_WRITE_FAILURE";
+  /** 收到消息通知 */
+  public final static String ACTION_DATA_NOTIFY_SUCCESS = "a.ACTION_DATA_NOTIFY_SUCCESS";
+
+  /** 通知开启成功 */
+  public final static String ACTION_NOTIFY_OPEN_SUCCESS = "a.ACTION_NOTIFY_OPEN_SUCCESS";
+  /** 通知开启失败 */
+  public final static String ACTION_NOTIFY_OPEN_FAILURE = "a.ACTION_NOTIFY_OPEN_FAILURE";
+  /** 通知关闭失败 */
+  public static final String ACTION_NOTIFY_CLOSE_FAILURE = "a.ACTION_NOTIFY_CLOSE_FAILURE";
+  /** 通知关闭成功 */
+  public static final String ACTION_NOTIFY_CLOSE_SUCCESS = "a.ACTION_NOTIFY_CLOSE_SUCCESS";
+
+  /** 扩展数据 */
+  public final static String EXTRA_DATA = "a.EXTRA_DATA";
+
+  /** 心率检测特征UUDI */
+  public final static UUID UUID_HEART_RATE_MEASUREMENT = UUID.fromString(HEART_RATE_MEASUREMENT);
 
   // Implements callback methods for GATT events that the app cares about.  For example,
   // connection change and services discovered.
   private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
     @Override public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
       String intentAction;
-      if (newState == BluetoothProfile.STATE_CONNECTED) {
-        intentAction = ACTION_GATT_CONNECTED;
-        mConnectionState = STATE_CONNECTED;
-        broadcastUpdate(intentAction);
-        Log.i(TAG, "Connected to GATT server.");
-        // Attempts to discover services after successful connection.
-        Log.i(TAG, "Attempting to start service discovery:" + mBluetoothGatt.discoverServices());
-      } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-        intentAction = ACTION_GATT_DISCONNECTED;
-        mConnectionState = STATE_DISCONNECTED;
-        Log.i(TAG, "Disconnected from GATT server.");
+      if (status == BluetoothGatt.GATT_SUCCESS) {//连接或断开成功
+        if (newState == BluetoothProfile.STATE_CONNECTED) {// 蓝牙已连接
+          intentAction = ACTION_GATT_CONNECTED;
+          mConnectionState = STATE_CONNECTED;
+          broadcastUpdate(intentAction);
+          Timber.e("onConnectionStateChange 蓝牙已连接");
+
+          // 蓝牙连接成功后查找服务
+          boolean b = mBluetoothGatt.discoverServices();
+          Timber.e("onConnectionStateChange 尝试扫描服务:" + (b ? "成功" : "失败"));
+          if (b) {// 正在扫描服务
+            Timber.e("正在扫描服务");
+            intentAction = ACTION_GATT_SERVICES_DISCOVERING;
+            broadcastUpdate(intentAction);
+          } else {// 开启扫描失败,连接失败
+            // TODO: 2018/4/20 是调用断开连接,还是通知连接失败,还是在界面添加扫描服务功能????
+            //intentAction = ACTION_GATT_CONNECT_FAILURE;
+            //broadcastUpdate(intentAction);
+            disconnect();
+          }
+        } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {// 蓝牙已断开
+          intentAction = ACTION_GATT_DISCONNECTED;
+          mConnectionState = STATE_DISCONNECTED;
+          Timber.e("onConnectionStateChange 蓝牙已断开");
+          broadcastUpdate(intentAction);
+        }
+      } else {// 断开或连接失败
+        if (newState == BluetoothProfile.STATE_CONNECTED) {
+          Timber.e("onConnectionStateChange 蓝牙断开失败" + status);
+        } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+          Timber.e("onConnectionStateChange 蓝牙连接失败" + status);
+        }
+        intentAction = ACTION_GATT_CONNECT_FAILURE;
         broadcastUpdate(intentAction);
       }
     }
 
+    /**
+     * discoverServices() 回调
+     */
     @Override public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-      if (status == BluetoothGatt.GATT_SUCCESS) {
+      if (status == BluetoothGatt.GATT_SUCCESS) { // 扫描成功
         broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
-      } else {
-        Log.w(TAG, "onServicesDiscovered received: " + status);
+        Timber.e("onServicesDiscovered 扫描成功");
+      } else {//扫描失败
+        broadcastUpdate(ACTION_GATT_SERVICES_DISCOVER_FAILURE);
+        Timber.e("onServicesDiscovered received: " + status);
+        disconnect();// todo 扫描失败是断开连接,还是在界面添加扫描服务功能 ????
       }
     }
 
@@ -95,13 +156,30 @@ public class BluetoothLeService extends Service {
     public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic,
         int status) {
       if (status == BluetoothGatt.GATT_SUCCESS) {
-        broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+        Timber.e("onCharacteristicRead 成功: ");
+        broadcastUpdate(ACTION_DATA_READ_SUCCESS, characteristic);
+      } else {
+        Timber.e("onCharacteristicRead 失败: " + status);
+        broadcastUpdate(ACTION_DATA_READ_FAILURE, characteristic);
+      }
+    }
+
+    @Override public void onCharacteristicWrite(BluetoothGatt gatt,
+        BluetoothGattCharacteristic characteristic, int status) {
+      super.onCharacteristicWrite(gatt, characteristic, status);
+      if (status == BluetoothGatt.GATT_SUCCESS) {
+        Timber.e("onCharacteristicWrite 成功: ");
+        broadcastUpdate(ACTION_DATA_WRITE_SUCCESS, characteristic);
+      } else {
+        Timber.e("onCharacteristicWrite 失败: " + status);
+        broadcastUpdate(ACTION_DATA_WRITE_FAILURE, characteristic);
       }
     }
 
     @Override public void onCharacteristicChanged(BluetoothGatt gatt,
         BluetoothGattCharacteristic characteristic) {
-      broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+      broadcastUpdate(ACTION_DATA_NOTIFY_SUCCESS, characteristic);
+      Timber.e("onCharacteristicChanged: 收到通知");
     }
   };
 
@@ -117,28 +195,22 @@ public class BluetoothLeService extends Service {
     // This is special handling for the Heart Rate Measurement profile.  Data parsing is
     // carried out as per profile specifications:
     // http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
+    // 蓝牙心率处理
     if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
       int flag = characteristic.getProperties();
-      int format = -1;
+      int format;
       if ((flag & 0x01) != 0) {
         format = BluetoothGattCharacteristic.FORMAT_UINT16;
-        Log.d(TAG, "Heart rate format UINT16.");
+        Timber.e("Heart rate format UINT16.");
       } else {
         format = BluetoothGattCharacteristic.FORMAT_UINT8;
-        Log.d(TAG, "Heart rate format UINT8.");
+        Timber.e("Heart rate format UINT8.");
       }
       final int heartRate = characteristic.getIntValue(format, 1);
-      Log.d(TAG, String.format("Received heart rate: %d", heartRate));
+      Timber.e(String.format("Received heart rate: %d", heartRate));
       intent.putExtra(EXTRA_DATA, String.valueOf(heartRate));
     } else {
-      // For all other profiles, writes the data formatted in HEX.
-      final byte[] data = characteristic.getValue();
-      if (data != null && data.length > 0) {
-        final StringBuilder stringBuilder = new StringBuilder(data.length);
-        for (byte byteChar : data)
-          stringBuilder.append(String.format("%02X ", byteChar));
-        intent.putExtra(EXTRA_DATA, new String(data) + "\n" + stringBuilder.toString());
-      }
+      intent.putExtra(EXTRA_DATA, characteristic.getValue());
     }
     sendBroadcast(intent);
   }
@@ -174,14 +246,14 @@ public class BluetoothLeService extends Service {
     if (mBluetoothManager == null) {
       mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
       if (mBluetoothManager == null) {
-        Log.e(TAG, "Unable to initialize BluetoothManager.");
+        Timber.e("Unable to initialize BluetoothManager.");
         return false;
       }
     }
 
     mBluetoothAdapter = mBluetoothManager.getAdapter();
     if (mBluetoothAdapter == null) {
-      Log.e(TAG, "Unable to obtain a BluetoothAdapter.");
+      Timber.e("Unable to obtain a BluetoothAdapter.");
       return false;
     }
 
@@ -199,7 +271,7 @@ public class BluetoothLeService extends Service {
    */
   public boolean connect(final String address) {
     if (mBluetoothAdapter == null || address == null) {
-      Log.w(TAG, "BluetoothAdapter not initialized or unspecified address.");
+      Timber.e("BluetoothAdapter not initialized or unspecified address.");
       return false;
     }
 
@@ -207,26 +279,33 @@ public class BluetoothLeService extends Service {
     if (mBluetoothDeviceAddress != null
         && address.equals(mBluetoothDeviceAddress)
         && mBluetoothGatt != null) {
-      Log.d(TAG, "Trying to use an existing mBluetoothGatt for connection.");
+      Timber.e("Trying to use an existing mBluetoothGatt for connection.");
       if (mBluetoothGatt.connect()) {
         mConnectionState = STATE_CONNECTING;
+        broadcastUpdate(ACTION_GATT_CONNECTING);
         return true;
       } else {
+        mConnectionState = STATE_DISCONNECTED;
+        broadcastUpdate(ACTION_GATT_CONNECT_FAILURE);
+        Timber.e("连接失败");
         return false;
       }
     }
 
     final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
     if (device == null) {
-      Log.w(TAG, "Device not found.  Unable to connect.");
+      mConnectionState = STATE_DISCONNECTED;
+      broadcastUpdate(ACTION_GATT_CONNECT_FAILURE);
+      Timber.e("设备未找到,连接失败.");
       return false;
     }
     // We want to directly connect to the device, so we are setting the autoConnect
     // parameter to false.
     mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
-    Log.d(TAG, "Trying to create a new connection.");
+    Timber.e("Trying to create a new connection.");
     mBluetoothDeviceAddress = address;
     mConnectionState = STATE_CONNECTING;
+    broadcastUpdate(ACTION_GATT_CONNECTING);
     return true;
   }
 
@@ -238,10 +317,11 @@ public class BluetoothLeService extends Service {
    */
   public void disconnect() {
     if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-      Log.w(TAG, "BluetoothAdapter not initialized");
+      Timber.e("BluetoothAdapter not initialized");
       return;
     }
     mBluetoothGatt.disconnect();
+    Timber.e("disconnect 断开蓝牙");
   }
 
   /**
@@ -254,9 +334,11 @@ public class BluetoothLeService extends Service {
     }
     mBluetoothGatt.close();
     mBluetoothGatt = null;
+    Timber.e("close 关闭蓝牙");
   }
 
   /**
+   * 读取
    * Request a read on a given {@code BluetoothGattCharacteristic}. The read result is reported
    * asynchronously through the {@code BluetoothGattCallback#onCharacteristicRead(android.bluetooth.BluetoothGatt, android.bluetooth.BluetoothGattCharacteristic, int)}
    * callback.
@@ -265,13 +347,35 @@ public class BluetoothLeService extends Service {
    */
   public void readCharacteristic(BluetoothGattCharacteristic characteristic) {
     if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-      Log.w(TAG, "BluetoothAdapter not initialized");
+      Timber.e("BluetoothAdapter not initialized");
       return;
     }
-    mBluetoothGatt.readCharacteristic(characteristic);
+    if (!mBluetoothGatt.readCharacteristic(characteristic)) {
+      Timber.e("readCharacteristic 读取失败");
+      broadcastUpdate(ACTION_DATA_READ_FAILURE, characteristic);
+    }
   }
 
   /**
+   * 写入
+   *
+   * @param characteristic
+   * @param data
+   */
+  public void writeCharacteristic(BluetoothGattCharacteristic characteristic, byte[] data) {
+    if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+      Timber.e("BluetoothAdapter not initialized");
+      return;
+    }
+    characteristic.setValue(data);
+    if (!mBluetoothGatt.writeCharacteristic(characteristic)) {
+      Timber.e("writeCharacteristic 写入失败");
+      broadcastUpdate(ACTION_DATA_WRITE_FAILURE, characteristic);
+    }
+  }
+
+  /**
+   * 通知开启或关闭
    * Enables or disables notification on a give characteristic.
    *
    * @param characteristic Characteristic to act on.
@@ -280,12 +384,18 @@ public class BluetoothLeService extends Service {
   public void setCharacteristicNotification(BluetoothGattCharacteristic characteristic,
       boolean enabled) {
     if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-      Log.w(TAG, "BluetoothAdapter not initialized");
+      Timber.e("BluetoothAdapter未初始化");
       return;
     }
-    mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
-
-    // This is specific to Heart Rate Measurement.
+    boolean b = mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
+    if (enabled) {
+      broadcastUpdate(b ? ACTION_NOTIFY_OPEN_SUCCESS : ACTION_NOTIFY_OPEN_FAILURE);
+      Timber.e("setCharacteristicNotification 通知开启" + (b ? "成功 : " : "失败 : "));
+    } else {
+      broadcastUpdate(b ? ACTION_NOTIFY_CLOSE_SUCCESS : ACTION_NOTIFY_CLOSE_FAILURE);
+      Timber.e("setCharacteristicNotification 通知关闭" + (b ? "成功 : " : "失败 : "));
+    }
+    // 心率测量 This is specific to Heart Rate Measurement.
     if (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
       BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
           UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
@@ -302,7 +412,6 @@ public class BluetoothLeService extends Service {
    */
   public List<BluetoothGattService> getSupportedGattServices() {
     if (mBluetoothGatt == null) return null;
-
     return mBluetoothGatt.getServices();
   }
 }

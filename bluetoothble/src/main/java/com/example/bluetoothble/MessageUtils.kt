@@ -5,6 +5,7 @@ import com.example.bluetoothble.MessageUtils.CMD_HAND
 import com.example.bluetoothble.MessageUtils.intToBytes
 import com.example.bluetoothble.MessageUtils.makeMessage
 import com.example.bluetoothble.MessageUtils.strToByteArray
+import com.example.utils.Strings
 
 object MessageUtils {
   private val HEX_ARRAY = "0123456789ABCDEF".toCharArray()
@@ -80,6 +81,7 @@ object MessageUtils {
     val hexChars = CharArray(bytes.size * 2)
 
     for (j in bytes.indices) {
+      bytes[0].toUnsignedInt()
       val v = bytes[j].toInt() and 0xFF
       hexChars[j * 2] = HEX_ARRAY[v.ushr(4)]
       hexChars[j * 2 + 1] = HEX_ARRAY[v and 0x0F]

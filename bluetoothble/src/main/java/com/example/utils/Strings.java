@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.example.bluetoothble;
+package com.example.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

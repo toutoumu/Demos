@@ -37,23 +37,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.bluetoothble.R;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
- * Activity for scanning and displaying available Bluetooth LE devices.
+ * 搜索 和 展示 可用的蓝牙设备 的 Activity 界面
  */
 public class DeviceScanActivity extends ListActivity {
   private LeDeviceListAdapter mLeDeviceListAdapter;
   private BluetoothAdapter mBluetoothAdapter;
-  private boolean mScanning;
+  private boolean mScanning;//是否正在扫描
   private Handler mHandler;
 
   private static final int REQUEST_ENABLE_BT = 1;
-  // Stops scanning after 10 seconds.
+  // 10 秒后停止搜索
   private static final long SCAN_PERIOD = 10000;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    getActionBar().setTitle(R.string.title_devices);
+    Objects.requireNonNull(getActionBar()).setTitle(R.string.title_devices);
     mHandler = new Handler();
 
     // Use this check to determine whether BLE is supported on the device.  Then you can
@@ -150,35 +151,51 @@ public class DeviceScanActivity extends ListActivity {
     startActivity(intent);
   }
 
+  /**
+   * 开启扫描
+   *
+   * @param enable true 开启 false 停止
+   */
   private void scanLeDevice(final boolean enable) {
     if (enable) {
-      // Stops scanning after a pre-defined scan period.
-      mHandler.postDelayed(new Runnable() {
-        @Override public void run() {
-          mScanning = false;
-          mBluetoothAdapter.stopLeScan(mLeScanCallback);
-          invalidateOptionsMenu();
-        }
+      // 在一个预先定义的时间段后停止扫描.
+      mHandler.postDelayed(() -> {
+        mScanning = false;
+        mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        invalidateOptionsMenu();
       }, SCAN_PERIOD);
 
+      //开始扫描
       mScanning = true;
       mBluetoothAdapter.startLeScan(mLeScanCallback);
     } else {
+      //停止扫描
       mScanning = false;
       mBluetoothAdapter.stopLeScan(mLeScanCallback);
     }
     invalidateOptionsMenu();
   }
 
+  // 设备扫描回调
+  private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
+
+    @Override public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+      runOnUiThread(() -> {
+        mLeDeviceListAdapter.addDevice(device);
+        mLeDeviceListAdapter.notifyDataSetChanged();
+      });
+    }
+  };
+
   // Adapter for holding devices found through scanning.
   private class LeDeviceListAdapter extends BaseAdapter {
     private ArrayList<BluetoothDevice> mLeDevices;
-    private LayoutInflater mInflator;
+    private LayoutInflater inflater;
 
     public LeDeviceListAdapter() {
       super();
-      mLeDevices = new ArrayList<BluetoothDevice>();
-      mInflator = DeviceScanActivity.this.getLayoutInflater();
+      mLeDevices = new ArrayList<>();
+      inflater = DeviceScanActivity.this.getLayoutInflater();
     }
 
     public void addDevice(BluetoothDevice device) {
@@ -211,10 +228,10 @@ public class DeviceScanActivity extends ListActivity {
       ViewHolder viewHolder;
       // General ListView optimization code.
       if (view == null) {
-        view = mInflator.inflate(R.layout.listitem_device, null);
+        view = inflater.inflate(R.layout.listitem_device, null);
         viewHolder = new ViewHolder();
-        viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
-        viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
+        viewHolder.deviceAddress = view.findViewById(R.id.device_address);
+        viewHolder.deviceName = view.findViewById(R.id.device_name);
         view.setTag(viewHolder);
       } else {
         viewHolder = (ViewHolder) view.getTag();
@@ -223,28 +240,15 @@ public class DeviceScanActivity extends ListActivity {
       BluetoothDevice device = mLeDevices.get(i);
       final String deviceName = device.getName();
       if (deviceName != null && deviceName.length() > 0) {
-        viewHolder.deviceName.setText(deviceName);
+        viewHolder.deviceName.setText(String.format("设备名称: %s", deviceName));
       } else {
         viewHolder.deviceName.setText(R.string.unknown_device);
       }
-      viewHolder.deviceAddress.setText(device.getAddress());
+      viewHolder.deviceAddress.setText(String.format("MAC地址: %s", device.getAddress()));
 
       return view;
     }
   }
-
-  // Device scan callback.
-  private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
-
-    @Override public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-      runOnUiThread(new Runnable() {
-        @Override public void run() {
-          mLeDeviceListAdapter.addDevice(device);
-          mLeDeviceListAdapter.notifyDataSetChanged();
-        }
-      });
-    }
-  };
 
   static class ViewHolder {
     TextView deviceName;

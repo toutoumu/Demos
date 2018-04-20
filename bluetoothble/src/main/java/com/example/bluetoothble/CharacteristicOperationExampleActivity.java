@@ -10,6 +10,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.example.utils.BluetoothUtils;
+import com.example.utils.HexString;
 import com.jakewharton.rx.ReplayingShare;
 import com.polidea.rxandroidble2.RxBleConnection;
 import com.polidea.rxandroidble2.RxBleDevice;
@@ -20,41 +22,16 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 import timber.log.Timber;
 
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_BROADCAST;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_EXTENDED_PROPS;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_INDICATE;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_NOTIFY;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_READ;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_SIGNED_WRITE;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_WRITE;
-import static android.bluetooth.BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE;
-import static com.example.bluetoothble.CharacteristicOperationExampleActivity.BluetoothUtils.getNotifyCharacteristic;
-import static com.example.bluetoothble.CharacteristicOperationExampleActivity.BluetoothUtils.getReadCharacteristic;
-import static com.example.bluetoothble.CharacteristicOperationExampleActivity.BluetoothUtils.getWriteCharacteristic;
-import static com.example.bluetoothble.CharacteristicOperationExampleActivity.BluetoothUtils.hasProperty;
+import static com.example.utils.BluetoothUtils.getNotifyCharacteristic;
+import static com.example.utils.BluetoothUtils.getReadCharacteristic;
+import static com.example.utils.BluetoothUtils.getWriteCharacteristic;
 import static com.trello.rxlifecycle2.android.ActivityEvent.DESTROY;
 import static com.trello.rxlifecycle2.android.ActivityEvent.PAUSE;
 
 /**
  * 关于UUID https://www.cnblogs.com/michaelzero/p/6835642.html
- * 服务UUID:00001800-0000-1000-8000-00805f9b34fb
- * 特征值UUID:00002a00-0000-1000-8000-00805f9b34fb
- * 特征值UUID:00002a01-0000-1000-8000-00805f9b34fb
- * 服务UUID:00001801-0000-1000-8000-00805f9b34fb
- * 特征值UUID:00002a05-0000-1000-8000-00805f9b34fb
- * 服务UUID:0000fff0-0000-1000-8000-00805f9b34fb
- * 特征值UUID:0000fff2-0000-1000-8000-00805f9b34fb
- * 特征值UUID:0000fff1-0000-1000-8000-00805f9b34fb
- * 服务UUID:0000fd00-0000-1000-8000-00805f9b34fb
- * 特征值UUID:0000fd01-0000-1000-8000-00805f9b34fb
- * 特征值UUID:0000fd02-0000-1000-8000-00805f9b34fb
- *
- * 读特征值UUID:00002a00-0000-1000-8000-00805f9b34fb
- * 写特征值UUID:0000fff2-0000-1000-8000-00805f9b34fb
- * 通知特征值UUID:0000fff1-0000-1000-8000-00805f9b34fb
  */
 public class CharacteristicOperationExampleActivity extends RxAppCompatActivity {
 
@@ -114,47 +91,15 @@ public class CharacteristicOperationExampleActivity extends RxAppCompatActivity 
           .observeOn(AndroidSchedulers.mainThread())
           .doOnSubscribe(disposable -> connectButton.setText(R.string.connecting))
           .subscribe(bleDeviceServices -> {
-            //mReadCharacteristic = getReadCharacteristic(bleDeviceServices.getBluetoothGattServices());
-            //mWriteCharacteristic = getWriteCharacteristic(bleDeviceServices.getBluetoothGattServices());
-            //mNotifyCharacteristic = getNotifyCharacteristic(bleDeviceServices.getBluetoothGattServices());
+            List<BluetoothGattService> services = bleDeviceServices.getBluetoothGattServices();
 
-            updateUI(bleDeviceServices.getBluetoothGattServices());
-            for (BluetoothGattService service : bleDeviceServices.getBluetoothGattServices()) {
-              if (mReadCharacteristic == null) {
-                mReadCharacteristic = service.getCharacteristic(
-                    UUID.fromString("00002a00-0000-1000-8000-00805f9b34fb"));
-              }
-              if (mWriteCharacteristic == null) {
-                mWriteCharacteristic = service.getCharacteristic(
-                    UUID.fromString("0000fff2-0000-1000-8000-00805f9b34fb"));
-              }
-              if (mNotifyCharacteristic == null) {
-                mNotifyCharacteristic = service.getCharacteristic(
-                    UUID.fromString("0000fff1-0000-1000-8000-00805f9b34fb"));
-              }
-              Timber.e("####服务UUID : %s", service.getUuid());
-              for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-                String message = "";
-                boolean b;
-                b = hasProperty(characteristic, PROPERTY_BROADCAST);
-                if (b) message += " PROPERTY_BROADCAST";
-                b = hasProperty(characteristic, PROPERTY_READ);
-                if (b) message += " PROPERTY_READ";
-                b = hasProperty(characteristic, PROPERTY_WRITE);
-                if (b) message += " PROPERTY_WRITE";
-                b = hasProperty(characteristic, PROPERTY_NOTIFY);
-                if (b) message += " PROPERTY_NOTIFY";
-                b = hasProperty(characteristic, PROPERTY_WRITE_NO_RESPONSE);
-                if (b) message += " PROPERTY_WRITE_NO_RESPONSE";
-                b = hasProperty(characteristic, PROPERTY_INDICATE);
-                if (b) message += " PROPERTY_INDICATE";
-                b = hasProperty(characteristic, PROPERTY_SIGNED_WRITE);
-                if (b) message += " PROPERTY_SIGNED_WRITE";
-                b = hasProperty(characteristic, PROPERTY_EXTENDED_PROPS);
-                if (b) message += " PROPERTY_EXTENDED_PROPS";
-                Timber.e("        特征值UUID : %s, %s", characteristic.getUuid(), message);
-              }
-            }
+            updateUI(services);
+            mReadCharacteristic = getReadCharacteristic(services);
+            mWriteCharacteristic = getWriteCharacteristic(services);
+            mNotifyCharacteristic = getNotifyCharacteristic(services);
+
+            // 打印服务UUID 以及 特征值UUID
+            BluetoothUtils.listService(services);
             Timber.e("读特征值UUID : %s", mReadCharacteristic.getUuid());
             Timber.e("写特征值UUID : %s", mWriteCharacteristic.getUuid());
             Timber.d("通知特征值UUID : %s", mNotifyCharacteristic.getUuid());
@@ -235,7 +180,8 @@ public class CharacteristicOperationExampleActivity extends RxAppCompatActivity 
     //noinspection ConstantConditions
     Timber.e("onConnectionFailure");
     Timber.e(throwable);
-    Snackbar.make(findViewById(R.id.main), "Connection error: " + throwable, Snackbar.LENGTH_LONG).show();
+    Snackbar.make(findViewById(R.id.main), "Connection error: " + throwable, Snackbar.LENGTH_LONG)
+        .show();
     updateUI(null);
   }
 
@@ -277,7 +223,8 @@ public class CharacteristicOperationExampleActivity extends RxAppCompatActivity 
   private void onWriteFailure(Throwable throwable) {
     //noinspection ConstantConditions
     Timber.e(throwable);
-    Snackbar.make(findViewById(R.id.main), "Write error: " + throwable, Snackbar.LENGTH_LONG).show();
+    Snackbar.make(findViewById(R.id.main), "Write error: " + throwable, Snackbar.LENGTH_LONG)
+        .show();
   }
 
   /**
@@ -301,7 +248,8 @@ public class CharacteristicOperationExampleActivity extends RxAppCompatActivity 
       int socketCount = array[10] & 0xFF;
       int socketStart = array[11] & 0xFF;
 
-      Snackbar.make(findViewById(R.id.main), "Change: " + HexString.bytesToHex(bytes), Snackbar.LENGTH_LONG).show();
+      Snackbar.make(findViewById(R.id.main), "Change: " + HexString.bytesToHex(bytes),
+          Snackbar.LENGTH_LONG).show();
     }
   }
 
@@ -314,13 +262,15 @@ public class CharacteristicOperationExampleActivity extends RxAppCompatActivity 
     Timber.e("NotificationSetupFailure");
     //noinspection ConstantConditions
     Timber.e(throwable);
-    Snackbar.make(findViewById(R.id.main), "Notifications error: " + throwable, Snackbar.LENGTH_LONG).show();
+    Snackbar.make(findViewById(R.id.main), "Notifications error: " + throwable,
+        Snackbar.LENGTH_LONG).show();
   }
 
   private void notificationHasBeenSetUp() {
     Timber.e("notificationHasBeenSetUp");
     //noinspection ConstantConditions
-    Snackbar.make(findViewById(R.id.main), "Notifications has been set up", Snackbar.LENGTH_LONG).show();
+    Snackbar.make(findViewById(R.id.main), "Notifications has been set up", Snackbar.LENGTH_LONG)
+        .show();
   }
 
   /**
@@ -347,111 +297,5 @@ public class CharacteristicOperationExampleActivity extends RxAppCompatActivity 
     readButton.setEnabled(getReadCharacteristic(characteristic) != null);
     writeButton.setEnabled(getWriteCharacteristic(characteristic) != null);
     notifyButton.setEnabled(getNotifyCharacteristic(characteristic) != null);
-  }
-
-  static class BluetoothUtils {
-    public static boolean hasProperty(BluetoothGattCharacteristic characteristic, int property) {
-      return characteristic != null && (characteristic.getProperties() & property) > 0;
-    }
-
-    /**
-     * 是否可通知
-     */
-    private static boolean isCharacteristicNotifiable(BluetoothGattCharacteristic characteristic) {
-      return hasProperty(characteristic, PROPERTY_NOTIFY);
-    }
-
-    /**
-     * 是否可读
-     */
-    private static boolean isCharacteristicReadable(BluetoothGattCharacteristic characteristic) {
-      return hasProperty(characteristic, PROPERTY_READ);
-    }
-
-    /**
-     * 是否可写(带响应,不带响应)
-     */
-    private static boolean isCharacteristicWriteable(BluetoothGattCharacteristic characteristic) {
-      return hasProperty(characteristic, PROPERTY_WRITE | PROPERTY_WRITE_NO_RESPONSE);
-    }
-
-    /**
-     * 获取带通知,读属性的特征值
-     */
-    private static BluetoothGattCharacteristic getReadNotifyCharacteristic(
-        List<BluetoothGattService> services) {
-      for (BluetoothGattService service : services) {
-        for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-          if (isCharacteristicReadable(characteristic) && isCharacteristicNotifiable(
-              characteristic)) {
-            return characteristic;
-          }
-        }
-      }
-      return null;
-    }
-
-    /**
-     * 获取带通知,写属性的特征值
-     */
-    private static BluetoothGattCharacteristic getWriteNotifyCharacteristic(
-        List<BluetoothGattService> services) {
-      for (BluetoothGattService service : services) {
-        for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-          if (isCharacteristicWriteable(characteristic) && isCharacteristicNotifiable(
-              characteristic)) {
-            return characteristic;
-          }
-        }
-      }
-      return null;
-    }
-
-    /**
-     * 获取带写属性的特征值(不带通知属性)
-     */
-    public static BluetoothGattCharacteristic getWriteCharacteristic(
-        List<BluetoothGattService> services) {
-      for (BluetoothGattService service : services) {
-        for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-          if (isCharacteristicWriteable(characteristic) && !isCharacteristicNotifiable(
-              characteristic)) {
-            return characteristic;
-          }
-        }
-      }
-      return null;
-    }
-
-    /**
-     * 获取带读属性的特征值(不带通知属性)
-     */
-    public static BluetoothGattCharacteristic getReadCharacteristic(
-        List<BluetoothGattService> services) {
-      for (BluetoothGattService service : services) {
-        for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-          if (isCharacteristicReadable(characteristic) && !isCharacteristicNotifiable(
-              characteristic)) {
-            return characteristic;
-          }
-        }
-      }
-      return null;
-    }
-
-    /**
-     * 获取带通知属性的特征值
-     */
-    public static BluetoothGattCharacteristic getNotifyCharacteristic(
-        List<BluetoothGattService> services) {
-      for (BluetoothGattService service : services) {
-        for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-          if (isCharacteristicNotifiable(characteristic)) {
-            return characteristic;
-          }
-        }
-      }
-      return null;
-    }
   }
 }

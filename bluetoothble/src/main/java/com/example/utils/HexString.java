@@ -1,4 +1,4 @@
-package com.example.bluetoothble;
+package com.example.utils;
 
 public class HexString {
 
@@ -9,6 +9,7 @@ public class HexString {
   private final static char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
   public static String bytesToHex(byte[] bytes) {
+    if (bytes == null || bytes.length == 0) return "";
     char[] hexChars = new char[bytes.length * 2];
 
     for (int j = 0; j < bytes.length; j++) {
