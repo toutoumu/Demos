@@ -1,9 +1,12 @@
 package com.example.bluetoothble;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,10 +27,16 @@ import io.reactivex.disposables.Disposable;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
 import static com.example.bluetoothble.BluetoothControlActivity.EXTRA_MAC_ADDRESS;
 
-public class MainActivity extends RxAppCompatActivity {
+@RuntimePermissions public class MainActivity extends RxAppCompatActivity {
 
   @BindView(R.id.scan_toggle_btn) Button scanToggleButton;
   @BindView(R.id.scan_results) RecyclerView recyclerView;
@@ -46,12 +55,19 @@ public class MainActivity extends RxAppCompatActivity {
   }
 
   @OnClick(R.id.demo_google) public void onStartGoogleDemo() {
+    MainActivityPermissionsDispatcher.startGoogleWithPermissionCheck(this);
+  }
+
+  @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION) public void startGoogle() {
     Intent intent = new Intent(this, DeviceScanActivity.class);
     startActivity(intent);
   }
 
   @OnClick(R.id.scan_toggle_btn) public void onScanToggleClick() {
+    MainActivityPermissionsDispatcher.scanWithPermissionCheck(this);
+  }
 
+  @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION) public void scan() {
     if (isScanning()) {
       scanDisposable.dispose();
     } else {
@@ -61,10 +77,12 @@ public class MainActivity extends RxAppCompatActivity {
               .build(), new ScanFilter.Builder()//.setDeviceName("1010999999")
               // .setDeviceAddress("B4:99:4C:34:DC:8B")
               // add custom filters if needed
-              .build()).filter(result -> {
-        return result.getBleDevice().getName() != null;
-        //return "1010999999".equals(result.getBleDevice().getName());
-      }).take(5)
+              .build())
+          .filter(result -> {
+            return result.getBleDevice().getName() != null;
+            //return "1010999999".equals(result.getBleDevice().getName());
+          })
+          .take(5)
           .observeOn(AndroidSchedulers.mainThread())
           .doFinally(this::dispose)
           .subscribe(resultsAdapter::addScanResult, this::onScanFailure);
@@ -187,5 +205,29 @@ public class MainActivity extends RxAppCompatActivity {
   private void requestBT() {
     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
     startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+  }
+
+  //***************************权限相关处理*******************
+
+  @OnShowRationale(Manifest.permission.ACCESS_COARSE_LOCATION) void showRationaleForCamera(
+      final PermissionRequest request) {
+    new AlertDialog.Builder(this).setMessage("授予位置权限")
+        .setPositiveButton("确定", (dialog, which) -> request.proceed())
+        .setNegativeButton("取消", (dialog, which) -> request.cancel())
+        .show();
+  }
+
+  @OnPermissionDenied(Manifest.permission.ACCESS_COARSE_LOCATION) void showDeniedForCamera() {
+    Toast.makeText(this, "拒绝授予位置权限", Toast.LENGTH_SHORT).show();
+  }
+
+  @OnNeverAskAgain(Manifest.permission.ACCESS_COARSE_LOCATION) void showNeverAskForCamera() {
+    Toast.makeText(this, "位置权限被禁止,不在询问,需要自己设置", Toast.LENGTH_SHORT).show();
+  }
+
+  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+      @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
   }
 }

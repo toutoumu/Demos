@@ -27,7 +27,8 @@
     <provider
         android:name=".PersonProvider"
         android:authorities="com.contentprovider.PersonProvider"
-        android:multiprocess="true"/>
+        android:multiprocess="true"
+        android:exported="false"/>
   </application>
 
 </manifest>

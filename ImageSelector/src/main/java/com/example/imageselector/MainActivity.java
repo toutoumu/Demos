@@ -2,7 +2,6 @@ package com.example.imageselector;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,7 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -50,21 +48,15 @@ import permissions.dispatcher.RuntimePermissions;
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    mImageView = (ImageView) findViewById(R.id.image);
-    findViewById(R.id.select).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {//openAlbum();
-        MainActivityPermissionsDispatcher.openAlbumWithPermissionCheck(MainActivity.this);
-      }
+    mImageView = findViewById(R.id.image);
+    findViewById(R.id.select).setOnClickListener(v -> {//openAlbum();
+      MainActivityPermissionsDispatcher.openAlbumWithPermissionCheck(MainActivity.this);
     });
-    findViewById(R.id.takepicture).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {//openCamera();
-        MainActivityPermissionsDispatcher.openCameraWithPermissionCheck(MainActivity.this);
-      }
+    findViewById(R.id.takepicture).setOnClickListener(v -> {//openCamera();
+      MainActivityPermissionsDispatcher.openCameraWithPermissionCheck(MainActivity.this);
     });
-    findViewById(R.id.custom).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {//openCamera();//showCustom();
-        MainActivityPermissionsDispatcher.showCustomWithPermissionCheck(MainActivity.this);
-      }
+    findViewById(R.id.custom).setOnClickListener(v -> {//openCamera();//showCustom();
+      MainActivityPermissionsDispatcher.showCustomWithPermissionCheck(MainActivity.this);
     });
   }
 
@@ -100,7 +92,7 @@ import permissions.dispatcher.RuntimePermissions;
   @NeedsPermission(Manifest.permission.CAMERA) void openCamera() {
     try {
       mCameraFile = createOriImageFile();
-    } catch (IOException e) {
+    } catch (IOException ignored) {
     }
 
     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -184,7 +176,7 @@ import permissions.dispatcher.RuntimePermissions;
 
     try {
       mCropFile = createCropImageFile();
-    } catch (IOException e) {
+    } catch (IOException ignored) {
     }
     Intent intent = new Intent("com.android.camera.action.CROP");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -259,16 +251,8 @@ import permissions.dispatcher.RuntimePermissions;
   @OnShowRationale(Manifest.permission.CAMERA) void showRationaleForCamera(
       final PermissionRequest request) {
     new AlertDialog.Builder(this).setMessage("授予权限")
-        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-          @Override public void onClick(DialogInterface dialog, int which) {
-            request.proceed();
-          }
-        })
-        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-          @Override public void onClick(DialogInterface dialog, int which) {
-            request.cancel();
-          }
-        })
+        .setPositiveButton("确定", (dialog, which) -> request.proceed())
+        .setNegativeButton("取消", (dialog, which) -> request.cancel())
         .show();
   }
 
@@ -290,16 +274,8 @@ import permissions.dispatcher.RuntimePermissions;
   @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE) void showRationaleForStorage(
       final PermissionRequest request) {
     new AlertDialog.Builder(this).setMessage("是否授予权限")
-        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-          @Override public void onClick(DialogInterface dialog, int which) {
-            request.proceed();
-          }
-        })
-        .setNegativeButton("拒绝", new DialogInterface.OnClickListener() {
-          @Override public void onClick(DialogInterface dialog, int which) {
-            request.cancel();
-          }
-        })
+        .setPositiveButton("确定", (dialog, which) -> request.proceed())
+        .setNegativeButton("拒绝", (dialog, which) -> request.cancel())
         .show();
   }
 
