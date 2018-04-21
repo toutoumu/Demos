@@ -6,7 +6,7 @@ import com.polidea.rxandroidble2.RxBleClient;
 import com.polidea.rxandroidble2.internal.RxBleLog;
 import timber.log.Timber;
 
-public class SampleApplication extends Application {
+public class App extends Application {
 
   private RxBleClient rxBleClient;
 
@@ -14,7 +14,7 @@ public class SampleApplication extends Application {
    * In practise you will use some kind of dependency injection pattern.
    */
   public static RxBleClient getRxBleClient(Context context) {
-    SampleApplication application = (SampleApplication) context.getApplicationContext();
+    App application = (App) context.getApplicationContext();
     return application.rxBleClient;
   }
 

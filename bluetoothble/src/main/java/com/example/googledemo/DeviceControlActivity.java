@@ -34,8 +34,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.example.bluetoothble.Cmd;
 import com.example.bluetoothble.R;
+import com.example.utils.Cmd;
 import com.example.utils.HexString;
 import java.util.List;
 import java.util.Objects;
@@ -52,7 +52,6 @@ import static com.example.utils.BluetoothUtils.getWriteCharacteristic;
  * Bluetooth LE API.
  */
 public class DeviceControlActivity extends Activity {
-  private final static String TAG = DeviceControlActivity.class.getSimpleName();
 
   public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
   public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
@@ -70,11 +69,10 @@ public class DeviceControlActivity extends Activity {
   private BluetoothGattCharacteristic mWriteCharacteristic; // 写特征值
   private BluetoothGattCharacteristic mNotifyCharacteristic; // 通知特征值
 
-  private String mDeviceName;
   private String mDeviceAddress;
   private BluetoothLeService mBluetoothLeService;
   private boolean mConnected = false;//是否连接
-  private boolean mNotifyable = false;//通知是否开启
+  private boolean mNotifyEnabled = false;//通知是否开启
 
   // Code to manage Service lifecycle.
   private final ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -103,23 +101,29 @@ public class DeviceControlActivity extends Activity {
       switch (action) {
         case BluetoothLeService.ACTION_GATT_CONNECT_FAILURE: {// 蓝牙连接失败
           mConnected = false;
-          mNotifyable = false;
+          mNotifyEnabled = false;
           connectButton.setEnabled(true);
           connectButton.setText(R.string.connect);
           updateConnectionState(R.string.disconnected);
           invalidateOptionsMenu();
-          clearUI();
+          mDataField.setText(R.string.no_data);
           updateUI(null);
           break;
         }
         case BluetoothLeService.ACTION_GATT_CONNECTING: {// 蓝牙连接中
           mConnected = false;
-          mNotifyable = false;
+          mNotifyEnabled = false;
           connectButton.setEnabled(false);
           connectButton.setText(R.string.connecting);
           updateConnectionState(R.string.connecting);
-          clearUI();
+          mDataField.setText(R.string.no_data);
           updateUI(null);
+          break;
+        }
+        case BluetoothLeService.ACTION_GATT_DISCONNECTING: {// 断开连接中
+          connectButton.setEnabled(false);
+          connectButton.setText(R.string.disconnecting);
+          updateConnectionState(R.string.disconnecting);
           break;
         }
         case BluetoothLeService.ACTION_GATT_CONNECTED: {// 蓝牙已经连接
@@ -132,12 +136,12 @@ public class DeviceControlActivity extends Activity {
         }
         case BluetoothLeService.ACTION_GATT_DISCONNECTED: {// 蓝牙已断开
           mConnected = false;
-          mNotifyable = false;
+          mNotifyEnabled = false;
           connectButton.setEnabled(true);
           connectButton.setText(R.string.connect);
           updateConnectionState(R.string.disconnected);
           invalidateOptionsMenu();
-          clearUI();
+          mDataField.setText(R.string.no_data);
           updateUI(null);
           break;
         }
@@ -170,14 +174,14 @@ public class DeviceControlActivity extends Activity {
           break;
         }
         case BluetoothLeService.ACTION_NOTIFY_OPEN_SUCCESS: {//开启通知成功
-          mNotifyable = true;
+          mNotifyEnabled = true;
           break;
         }
         case BluetoothLeService.ACTION_NOTIFY_OPEN_FAILURE: {//开启通知失败
           break;
         }
         case BluetoothLeService.ACTION_NOTIFY_CLOSE_SUCCESS: {//关闭通知成功
-          mNotifyable = false;
+          mNotifyEnabled = false;
           break;
         }
         case BluetoothLeService.ACTION_NOTIFY_CLOSE_FAILURE: {//关闭通知失败
@@ -192,8 +196,9 @@ public class DeviceControlActivity extends Activity {
           byte[] data = intent.getByteArrayExtra(BluetoothLeService.EXTRA_DATA);
           if (data != null && data.length > 0) {
             Timber.e(action + ": " + HexString.bytesToHex(data));
-            displayData(HexString.bytesToHex(data));
+            mDataField.setText(HexString.bytesToHex(data));
           } else {
+            mDataField.setText(R.string.no_data);
             Timber.e(action);
           }
           break;
@@ -201,10 +206,6 @@ public class DeviceControlActivity extends Activity {
       }
     }
   };
-
-  private void clearUI() {
-    mDataField.setText(R.string.no_data);
-  }
 
   /**
    * This method updates the UI to a proper state.
@@ -230,7 +231,7 @@ public class DeviceControlActivity extends Activity {
     ButterKnife.bind(this);
 
     final Intent intent = getIntent();
-    mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
+    String mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
     mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
 
     // Sets up UI references.
@@ -238,6 +239,10 @@ public class DeviceControlActivity extends Activity {
 
     Objects.requireNonNull(getActionBar()).setTitle(mDeviceName);
     getActionBar().setDisplayHomeAsUpEnabled(true);
+
+    // 绑定服务
+    Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
+    bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
   }
 
   @Override protected void onResume() {
@@ -247,10 +252,6 @@ public class DeviceControlActivity extends Activity {
     if (mBluetoothLeService != null) {
       final boolean result = mBluetoothLeService.connect(mDeviceAddress);
       Timber.e("Connect request result=" + result);
-    } else {// 由于放在oncreate里面有可能收不到连接蓝牙的广播(广播的初始化在服务绑定完成之后)
-      // 绑定服务
-      Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
-      bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
     }
   }
 
@@ -303,7 +304,7 @@ public class DeviceControlActivity extends Activity {
    */
   @OnClick(R.id.notify) public void onNotifyClick() {
     if (isConnected()) {
-      mBluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, !mNotifyable);
+      mBluetoothLeService.setCharacteristicNotification(mNotifyCharacteristic, !mNotifyEnabled);
     }
   }
 
@@ -334,19 +335,19 @@ public class DeviceControlActivity extends Activity {
     runOnUiThread(() -> mConnectionState.setText(resourceId));
   }
 
-  private void displayData(String data) {
-    if (data != null) {
-      mDataField.setText(data);
-    }
-  }
-
+  /**
+   * 接收哪些广播
+   *
+   * @return {@link IntentFilter}
+   */
   private static IntentFilter makeGattUpdateIntentFilter() {
     final IntentFilter intentFilter = new IntentFilter();
     // 蓝牙连接
     intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECTING);//蓝牙连接中
-    intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECT_FAILURE);//蓝牙连接失败
     intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECTED);//蓝牙已连接
+    intentFilter.addAction(BluetoothLeService.ACTION_GATT_DISCONNECTING);//蓝牙断开中
     intentFilter.addAction(BluetoothLeService.ACTION_GATT_DISCONNECTED);//蓝牙已断开
+    intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECT_FAILURE);//蓝牙连接失败
     // 扫描服务
     intentFilter.addAction(BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERING);//正在扫描成功
     intentFilter.addAction(BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED);//扫描成功

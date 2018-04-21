@@ -43,19 +43,27 @@ public class BluetoothLeService extends Service {
 
   private BluetoothManager mBluetoothManager;
   private BluetoothAdapter mBluetoothAdapter;
-  private String mBluetoothDeviceAddress;
   private BluetoothGatt mBluetoothGatt;
+  private String mMacAddress;
 
   /** 连接状态 */
   private int mConnectionState = STATE_DISCONNECTED;
   private static final int STATE_DISCONNECTED = 0;
   private static final int STATE_CONNECTING = 1;
+  private static final int STATE_DISCONNECTING = 3;
   private static final int STATE_CONNECTED = 2;
+
+  /** 扩展数据 */
+  public final static String EXTRA_DATA = "a.EXTRA_DATA";
+  /** 心率检测特征UUDI */
+  public final static UUID UUID_HEART_RATE_MEASUREMENT = UUID.fromString(HEART_RATE_MEASUREMENT);
 
   /** 蓝牙已连接 */
   public final static String ACTION_GATT_CONNECTED = "a.ACTION_GATT_CONNECTED";
   /** 蓝牙连接中 */
   public final static String ACTION_GATT_CONNECTING = "a.ACTION_GATT_CONNECTING";
+  /** 蓝牙断开中 */
+  public final static String ACTION_GATT_DISCONNECTING = "a.ACTION_GATT_DISCONNECTING";
   /** 蓝牙已断开 */
   public final static String ACTION_GATT_DISCONNECTED = "a.ACTION_GATT_DISCONNECTED";
   /** 蓝牙连接失败 */
@@ -89,12 +97,6 @@ public class BluetoothLeService extends Service {
   public static final String ACTION_NOTIFY_CLOSE_FAILURE = "a.ACTION_NOTIFY_CLOSE_FAILURE";
   /** 通知关闭成功 */
   public static final String ACTION_NOTIFY_CLOSE_SUCCESS = "a.ACTION_NOTIFY_CLOSE_SUCCESS";
-
-  /** 扩展数据 */
-  public final static String EXTRA_DATA = "a.EXTRA_DATA";
-
-  /** 心率检测特征UUDI */
-  public final static UUID UUID_HEART_RATE_MEASUREMENT = UUID.fromString(HEART_RATE_MEASUREMENT);
 
   // Implements callback methods for GATT events that the app cares about.  For example,
   // connection change and services discovered.
@@ -276,9 +278,7 @@ public class BluetoothLeService extends Service {
     }
 
     // Previously connected device.  Try to reconnect.
-    if (mBluetoothDeviceAddress != null
-        && address.equals(mBluetoothDeviceAddress)
-        && mBluetoothGatt != null) {
+    if (mMacAddress != null && address.equals(mMacAddress) && mBluetoothGatt != null) {
       Timber.e("Trying to use an existing mBluetoothGatt for connection.");
       if (mBluetoothGatt.connect()) {
         mConnectionState = STATE_CONNECTING;
@@ -303,7 +303,7 @@ public class BluetoothLeService extends Service {
     // parameter to false.
     mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
     Timber.e("Trying to create a new connection.");
-    mBluetoothDeviceAddress = address;
+    mMacAddress = address;
     mConnectionState = STATE_CONNECTING;
     broadcastUpdate(ACTION_GATT_CONNECTING);
     return true;
@@ -321,6 +321,8 @@ public class BluetoothLeService extends Service {
       return;
     }
     mBluetoothGatt.disconnect();
+    mConnectionState = STATE_DISCONNECTING;
+    broadcastUpdate(ACTION_GATT_DISCONNECTING);
     Timber.e("disconnect 断开蓝牙");
   }
 

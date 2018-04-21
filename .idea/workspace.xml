@@ -6,22 +6,22 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0fed8dc-b8c6-48d7-ad79-04dda7b45a1e" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/BluetoothUtils.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/Strings.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java" />
-      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/HexString.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/HexString.java" />
-      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MessageUtils.kt" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MessageUtils.kt" />
-      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/Strings.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/bluetoothble/build/generated/source/apt/abcde/debug/com/example/bluetoothble/CharacteristicOperationExampleActivity_ViewBinding.java" afterPath="$PROJECT_DIR$/bluetoothble/build/generated/source/apt/abcde/debug/com/example/bluetoothble/CharacteristicOperationExampleActivity_ViewBinding.java" />
+      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/bluetoothble/src/main/AndroidManifest.xml" />
+      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java" />
+      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MainActivity.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MainActivity.java" />
+      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/Message.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MessageUtils.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/SampleApplication.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/App.java" />
       <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/BluetoothLeService.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/BluetoothLeService.java" />
       <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceControlActivity.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceControlActivity.java" />
-      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceScanActivity.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceScanActivity.java" />
-      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/res/layout/gatt_services_characteristics.xml" afterPath="$PROJECT_DIR$/bluetoothble/src/main/res/layout/gatt_services_characteristics.xml" />
+      <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/HexString.java" afterPath="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/HexString.java" />
       <change beforePath="$PROJECT_DIR$/bluetoothble/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/bluetoothble/src/main/res/values/strings.xml" />
     </list>
     <ignored path="Demos.iws" />
@@ -66,42 +66,110 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DeviceControlActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceControlActivity.java">
+      <file leaf-file-name="BluetoothControlActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4366">
-              <caret line="362" column="75" lean-forward="false" selection-start-line="362" selection-start-column="75" selection-end-line="362" selection-end-column="75" />
+            <state relative-caret-position="147">
+              <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
               <folding>
-                <element signature="e#3779#7800#0" expanded="true" />
-                <element signature="e#4154#4170#0" expanded="true" />
-                <element signature="e#4205#4226#0" expanded="true" />
-                <element signature="e#4859#4878#0" expanded="true" />
-                <element signature="e#4913#4931#0" expanded="true" />
-                <element signature="e#5199#5215#0" expanded="true" />
-                <element signature="e#5250#5271#0" expanded="true" />
-                <element signature="e#7799#7800#0" expanded="true" />
-                <element signature="e#7828#7829#0" expanded="true" />
-                <element signature="e#7853#7869#0" expanded="true" />
-                <element signature="e#7874#7875#0" expanded="true" />
-                <element signature="e#10907#10908#0" expanded="true" />
-                <element signature="e#10934#10935#0" expanded="true" />
+                <element signature="docComment;method#triggerDisconnect#0;class#BluetoothControlActivity#0" expanded="false" />
+                <marker date="1524292543341" expanded="true" signature="10023:10042" ph="&quot;Disconnect&quot;" />
+                <marker date="1524292543341" expanded="true" signature="10045:10061" ph="&quot;Connect&quot;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BluetoothLeService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HexString.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/HexString.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="34" column="27" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Strings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/Strings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4086">
+              <caret line="82" column="29" lean-forward="false" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="49" column="24" lean-forward="false" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeviceControlActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceControlActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="876">
+              <caret line="203" column="16" lean-forward="true" selection-start-line="203" selection-start-column="16" selection-end-line="203" selection-end-column="16" />
+              <folding>
+                <element signature="e#3664#8091#0" expanded="true" />
+                <element signature="e#4042#4058#0" expanded="true" />
+                <element signature="e#4093#4114#0" expanded="true" />
+                <element signature="e#4181#4197#0" expanded="true" />
+                <element signature="e#4458#4477#0" expanded="true" />
+                <element signature="e#4512#4531#0" expanded="true" />
+                <element signature="e#4563#4579#0" expanded="true" />
+                <element signature="e#4779#4801#0" expanded="true" />
+                <element signature="e#4836#4858#0" expanded="true" />
+                <element signature="e#5057#5076#0" expanded="true" />
+                <element signature="e#5111#5129#0" expanded="true" />
+                <element signature="e#5400#5416#0" expanded="true" />
+                <element signature="e#5451#5472#0" expanded="true" />
+                <element signature="e#5539#5555#0" expanded="true" />
+                <element signature="e#7986#8002#0" expanded="true" />
+                <element signature="e#8090#8091#0" expanded="true" />
+                <element signature="e#11069#11070#0" expanded="true" />
+                <element signature="e#11096#11097#0" expanded="true" />
+                <element signature="method#makeGattUpdateIntentFilter#0;class#DeviceControlActivity#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BluetoothLeService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/BluetoothLeService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="79" column="55" lean-forward="false" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="55" />
+            <state relative-caret-position="399">
+              <caret line="291" column="7" lean-forward="true" selection-start-line="291" selection-start-column="7" selection-end-line="291" selection-end-column="7" />
               <folding>
-                <element signature="e#8774#8775#0" expanded="true" />
-                <element signature="e#8818#8819#0" expanded="true" />
-                <element signature="e#8874#8875#0" expanded="true" />
-                <element signature="e#8898#8899#0" expanded="true" />
                 <element signature="method#getSupportedGattServices#0;class#BluetoothLeService#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessageUtils.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/MessageUtils.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="36" column="6" lean-forward="false" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+              <folding>
+                <element signature="e#27#275#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ScanResultsAdapter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/ScanResultsAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-783">
+              <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -124,19 +192,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mHandler</find>
-      <find>writeCharacteristic</find>
-      <find>writeCharacteristic 成功</find>
-      <find>todo</find>
-      <find>ACTION_NOTIFY_CLOSE_AVAILABLE</find>
-      <find>ACTION_NOTIFY_OPEN_AVAILABLE</find>
       <find>mConnected =</find>
       <find>mNotifyable</find>
       <find>Trying to create a ne</find>
       <find>mGattUpdateReceiver</find>
       <find>mServiceConnection</find>
       <find>connectButton.setEnabled(true);</find>
-      <find>ACTION_GATT_CONNECTING</find>
       <find>read_hex_output</find>
       <find>readOutputView</find>
       <find>connectButton</find>
@@ -154,6 +215,13 @@
       <find>ACTION_DATA_WRITE_SUCCESS</find>
       <find>ACTION_DATA_WRITE_FAILURE</find>
       <find>ACTION_DATA_NOTIFY_SUCCESS</find>
+      <find>mDeviceName</find>
+      <find>mDeviceAddress</find>
+      <find>BluetoothLeService</find>
+      <find>EXTRAS_DEVICE_NAME</find>
+      <find>displayData</find>
+      <find>ACTION_GATT_CONNECTING</find>
+      <find>mDataField.setT</find>
     </findStrings>
     <replaceStrings>
       <replace>26.0.2</replace>
@@ -27869,8 +27937,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/PhoneState/src/main/java/com/example/phone/state/PhoneStateActivity.java" />
-        <option value="$PROJECT_DIR$/PhoneState/src/main/java/com/example/phone/state/MainActivity.java" />
         <option value="$PROJECT_DIR$/Animation/src/main/java/com/example/animation/view/DragDoorView.java" />
         <option value="$PROJECT_DIR$/ImageSelector/src/main/java/com/example/imageselector/MainActivity.java" />
         <option value="$PROJECT_DIR$/bluetooth/src/main/res/layout/activity_main.xml" />
@@ -27913,18 +27979,19 @@
         <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceScanActivity.java" />
         <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/Strings.java" />
         <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/BluetoothUtils.java" />
-        <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java" />
-        <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MessageUtils.kt" />
         <option value="$PROJECT_DIR$/bluetoothble/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/HexString.java" />
         <option value="$PROJECT_DIR$/bluetoothble/src/main/res/layout/gatt_services_characteristics.xml" />
+        <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/HexString.java" />
         <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceControlActivity.java" />
         <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/BluetoothLeService.java" />
+        <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java" />
+        <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java" />
+        <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MessageUtils.kt" />
+        <option value="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/MessageUtils.kt" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="y" value="22" />
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
@@ -28132,119 +28199,6 @@
               <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
               <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="bluetoothble" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="googledemo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="menu" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="bluetoothble" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="values" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -28269,7 +28223,7 @@
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.profiler.active" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1524220695356" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1524290864789" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -28294,6 +28248,7 @@
       <recent name="com.example.animation" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils" />
       <recent name="$PROJECT_DIR$/AIDL/src/main/aidl/com/example/myapplication" />
       <recent name="$PROJECT_DIR$/GlideV3/src/main/res/drawable-xxhdpi" />
     </key>
@@ -29424,7 +29379,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524142649274</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="BLE DEMO 完善">
+      <created>1524220856505</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1524220856506</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView">
@@ -29438,12 +29400,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5946924" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23638968" sideWeight="0.5084541" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4101291" sideWeight="0.5021299" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31876862" sideWeight="0.4978701" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44091362" sideWeight="0.4978701" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969216" sideWeight="0.4978701" order="10" side_tool="false" content_ui="tabs" />
@@ -29461,7 +29422,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23833168" sideWeight="0.49307775" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32770607" sideWeight="0.4978701" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24920128" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19808307" sideWeight="0.4915459" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19808307" sideWeight="0.4915459" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19808307" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -29489,7 +29450,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4101291" sideWeight="0.5021299" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41737032" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31876862" sideWeight="0.4978701" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44091362" sideWeight="0.4978701" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
@@ -29513,7 +29474,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32770607" sideWeight="0.4978701" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24920128" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19808307" sideWeight="0.4915459" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19808307" sideWeight="0.4915459" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19808307" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -29572,7 +29533,8 @@
     <MESSAGE value="更新Glide" />
     <MESSAGE value="动画" />
     <MESSAGE value="蓝牙" />
-    <option name="LAST_COMMIT_MESSAGE" value="蓝牙" />
+    <MESSAGE value="BLE DEMO 完善" />
+    <option name="LAST_COMMIT_MESSAGE" value="BLE DEMO 完善" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -29753,38 +29715,38 @@
           <option name="timeStamp" value="131" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java</url>
-          <line>253</line>
+          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java</url>
+          <line>247</line>
           <properties />
           <option name="timeStamp" value="138" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java</url>
-          <line>107</line>
+          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java</url>
+          <line>101</line>
           <properties />
           <option name="timeStamp" value="140" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java</url>
-          <line>143</line>
+          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java</url>
+          <line>137</line>
           <properties />
           <option name="timeStamp" value="141" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java</url>
-          <line>224</line>
+          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java</url>
+          <line>218</line>
           <properties />
           <option name="timeStamp" value="142" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java</url>
-          <line>234</line>
+          <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java</url>
+          <line>228</line>
           <properties />
           <option name="timeStamp" value="143" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/BluetoothLeService.java</url>
-          <line>190</line>
+          <line>194</line>
           <properties />
           <option name="timeStamp" value="147" />
         </line-breakpoint>
@@ -29828,21 +29790,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CustomAttributes/src/main/java/com/example/customattributes/CustomView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="41" column="4" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CustomAttributes/src/main/res/values/attrs.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="7" column="41" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bluetoothble/build/generated/source/apt/abcde/debug/com/example/bluetoothble/MainActivity_ViewBinding.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -29969,26 +29916,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.polidea.rxandroidble2/rxandroidble/1.5.0/c1c586f1e1664a9773795381c9a9d80f359bc544/rxandroidble-1.5.0-sources.jar!/com/polidea/rxandroidble2/RxBleConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="905">
-          <caret line="319" column="81" lean-forward="false" selection-start-line="319" selection-start-column="81" selection-end-line="319" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.polidea.rxandroidble2/rxandroidble/1.5.0/c1c586f1e1664a9773795381c9a9d80f359bc544/rxandroidble-1.5.0-sources.jar!/com/polidea/rxandroidble2/internal/connection/RxBleConnectionImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="477">
           <caret line="333" column="13" lean-forward="false" selection-start-line="333" selection-start-column="13" selection-end-line="333" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/SampleApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -30002,14 +29933,6 @@
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/SampleGattAttributes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/res/menu/main.xml">
@@ -30034,38 +29957,6 @@
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="49" column="24" lean-forward="false" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-          <folding>
-            <element signature="e#5792#5793#0" expanded="false" />
-            <element signature="e#5831#5832#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="777">
-          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="e#716#734#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/Strings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="42" column="7" lean-forward="true" selection-start-line="42" selection-start-column="7" selection-end-line="42" selection-end-column="7" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bluetoothble/README.Md">
@@ -30101,26 +29992,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MessageUtils.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="166" column="31" lean-forward="true" selection-start-line="166" selection-start-column="31" selection-end-line="166" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.21/795e111c612ba96d0175f5705291228ca8167dc8/kotlin-stdlib-1.2.21-sources.jar!/kotlin/Primitives.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="194" column="1" lean-forward="true" selection-start-line="194" selection-start-column="1" selection-end-line="194" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/BluetoothUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="128" column="41" lean-forward="false" selection-start-line="128" selection-start-column="34" selection-end-line="128" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -30194,14 +30069,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/HexString.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/libs/android-sdk-macosx/sources/android-27/android/content/ContextWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -30231,22 +30098,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/libs/android-sdk-macosx/sources/android-27/android/bluetooth/BluetoothGatt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="853" column="19" lean-forward="false" selection-start-line="853" selection-start-column="19" selection-end-line="853" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/libs/android-sdk-macosx/sources/android-27/android/bluetooth/BluetoothDevice.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="387">
@@ -30255,51 +30106,162 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/CharacteristicOperationExampleActivity.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.polidea.rxandroidble2/rxandroidble/1.5.0/c1c586f1e1664a9773795381c9a9d80f359bc544/rxandroidble-1.5.0-sources.jar!/com/polidea/rxandroidble2/RxBleConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3198">
-          <caret line="115" column="34" lean-forward="false" selection-start-line="115" selection-start-column="34" selection-end-line="115" selection-end-column="34" />
-          <folding>
-            <element signature="docComment;method#triggerDisconnect#0;class#CharacteristicOperationExampleActivity#0" expanded="false" />
-            <marker date="1524191009910" expanded="true" signature="10706:10725" ph="&quot;Disconnect&quot;" />
-            <marker date="1524191009910" expanded="true" signature="10728:10744" ph="&quot;Connect&quot;" />
-          </folding>
+        <state relative-caret-position="411">
+          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/BluetoothUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="91" column="20" lean-forward="false" selection-start-line="91" selection-start-column="20" selection-end-line="91" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/HexString.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="34" column="27" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/Strings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4086">
+          <caret line="82" column="29" lean-forward="false" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/libs/android-sdk-macosx/sources/android-27/android/bluetooth/BluetoothGatt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="833" column="16" lean-forward="false" selection-start-line="833" selection-start-column="16" selection-end-line="833" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/SampleGattAttributes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/DeviceControlActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4366">
-          <caret line="362" column="75" lean-forward="false" selection-start-line="362" selection-start-column="75" selection-end-line="362" selection-end-column="75" />
+        <state relative-caret-position="876">
+          <caret line="203" column="16" lean-forward="true" selection-start-line="203" selection-start-column="16" selection-end-line="203" selection-end-column="16" />
           <folding>
-            <element signature="e#3779#7800#0" expanded="true" />
-            <element signature="e#4154#4170#0" expanded="true" />
-            <element signature="e#4205#4226#0" expanded="true" />
-            <element signature="e#4859#4878#0" expanded="true" />
-            <element signature="e#4913#4931#0" expanded="true" />
-            <element signature="e#5199#5215#0" expanded="true" />
-            <element signature="e#5250#5271#0" expanded="true" />
-            <element signature="e#7799#7800#0" expanded="true" />
-            <element signature="e#7828#7829#0" expanded="true" />
-            <element signature="e#7853#7869#0" expanded="true" />
-            <element signature="e#7874#7875#0" expanded="true" />
-            <element signature="e#10907#10908#0" expanded="true" />
-            <element signature="e#10934#10935#0" expanded="true" />
+            <element signature="e#3664#8091#0" expanded="true" />
+            <element signature="e#4042#4058#0" expanded="true" />
+            <element signature="e#4093#4114#0" expanded="true" />
+            <element signature="e#4181#4197#0" expanded="true" />
+            <element signature="e#4458#4477#0" expanded="true" />
+            <element signature="e#4512#4531#0" expanded="true" />
+            <element signature="e#4563#4579#0" expanded="true" />
+            <element signature="e#4779#4801#0" expanded="true" />
+            <element signature="e#4836#4858#0" expanded="true" />
+            <element signature="e#5057#5076#0" expanded="true" />
+            <element signature="e#5111#5129#0" expanded="true" />
+            <element signature="e#5400#5416#0" expanded="true" />
+            <element signature="e#5451#5472#0" expanded="true" />
+            <element signature="e#5539#5555#0" expanded="true" />
+            <element signature="e#7986#8002#0" expanded="true" />
+            <element signature="e#8090#8091#0" expanded="true" />
+            <element signature="e#11069#11070#0" expanded="true" />
+            <element signature="e#11096#11097#0" expanded="true" />
+            <element signature="method#makeGattUpdateIntentFilter#0;class#DeviceControlActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/googledemo/BluetoothLeService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="79" column="55" lean-forward="false" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="55" />
+        <state relative-caret-position="399">
+          <caret line="291" column="7" lean-forward="true" selection-start-line="291" selection-start-column="7" selection-end-line="291" selection-end-column="7" />
           <folding>
-            <element signature="e#8774#8775#0" expanded="true" />
-            <element signature="e#8818#8819#0" expanded="true" />
-            <element signature="e#8874#8875#0" expanded="true" />
-            <element signature="e#8898#8899#0" expanded="true" />
             <element signature="method#getSupportedGattServices#0;class#BluetoothLeService#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/BluetoothControlActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+          <folding>
+            <element signature="docComment;method#triggerDisconnect#0;class#BluetoothControlActivity#0" expanded="false" />
+            <marker date="1524292543341" expanded="true" signature="10023:10042" ph="&quot;Disconnect&quot;" />
+            <marker date="1524292543341" expanded="true" signature="10045:10061" ph="&quot;Connect&quot;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="49" column="24" lean-forward="false" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/Message.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/utils/MessageUtils.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="36" column="6" lean-forward="false" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+          <folding>
+            <element signature="e#27#275#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bluetoothble/src/main/java/com/example/bluetoothble/ScanResultsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-783">
+          <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>

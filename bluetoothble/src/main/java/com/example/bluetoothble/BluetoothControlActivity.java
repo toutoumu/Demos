@@ -11,7 +11,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.example.utils.BluetoothUtils;
+import com.example.utils.Cmd;
 import com.example.utils.HexString;
+import com.example.utils.MessageUtils;
 import com.jakewharton.rx.ReplayingShare;
 import com.polidea.rxandroidble2.RxBleConnection;
 import com.polidea.rxandroidble2.RxBleDevice;
@@ -33,15 +35,16 @@ import static com.trello.rxlifecycle2.android.ActivityEvent.PAUSE;
 /**
  * 关于UUID https://www.cnblogs.com/michaelzero/p/6835642.html
  */
-public class CharacteristicOperationExampleActivity extends RxAppCompatActivity {
+public class BluetoothControlActivity extends RxAppCompatActivity {
 
   /** 蓝牙mac地址 */
   public static String EXTRA_MAC_ADDRESS = "address";
 
-  @BindView(R.id.connect) Button connectButton;
   @BindView(R.id.read_output) TextView readOutputView;
   @BindView(R.id.read_hex_output) TextView readHexOutputView;
   @BindView(R.id.write_input) TextView writeInput;
+
+  @BindView(R.id.connect) Button connectButton;
   @BindView(R.id.read) Button readButton;
   @BindView(R.id.write) Button writeButton;
   @BindView(R.id.notify) Button notifyButton;
@@ -60,12 +63,13 @@ public class CharacteristicOperationExampleActivity extends RxAppCompatActivity 
     String macAddress = getIntent().getStringExtra(EXTRA_MAC_ADDRESS);
     getSupportActionBar().setSubtitle(getString(R.string.mac_address, macAddress));
 
-    bleDevice = SampleApplication.getRxBleClient(this).getBleDevice(macAddress);
+    bleDevice = App.getRxBleClient(this).getBleDevice(macAddress);
     // 监听链接状态
     bleDevice.observeConnectionStateChanges()
         .compose(bindUntilEvent(DESTROY))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onConnectionStateChange);
+
     connectionObservable = prepareConnectionObservable();
   }
 

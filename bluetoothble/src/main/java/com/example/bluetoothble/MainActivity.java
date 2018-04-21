@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import static com.example.bluetoothble.CharacteristicOperationExampleActivity.EXTRA_MAC_ADDRESS;
+import static com.example.bluetoothble.BluetoothControlActivity.EXTRA_MAC_ADDRESS;
 
 public class MainActivity extends RxAppCompatActivity {
 
@@ -40,7 +40,7 @@ public class MainActivity extends RxAppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
-    rxBleClient = SampleApplication.getRxBleClient(this);
+    rxBleClient = App.getRxBleClient(this);
     requestBT();
     configureResultList();
   }
@@ -154,7 +154,7 @@ public class MainActivity extends RxAppCompatActivity {
 
   private void onAdapterItemClick(ScanResult scanResults) {
     final String macAddress = scanResults.getBleDevice().getMacAddress();
-    final Intent intent = new Intent(this, CharacteristicOperationExampleActivity.class);
+    final Intent intent = new Intent(this, BluetoothControlActivity.class);
     intent.putExtra(EXTRA_MAC_ADDRESS, macAddress);
     startActivity(intent);
   }
