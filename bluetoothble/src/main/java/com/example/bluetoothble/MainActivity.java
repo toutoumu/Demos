@@ -82,7 +82,7 @@ import static com.example.bluetoothble.BluetoothControlActivity.EXTRA_MAC_ADDRES
             return result.getBleDevice().getName() != null;
             //return "1010999999".equals(result.getBleDevice().getName());
           })
-          .take(5)
+          //.take(5)
           .observeOn(AndroidSchedulers.mainThread())
           .doFinally(this::dispose)
           .subscribe(resultsAdapter::addScanResult, this::onScanFailure);

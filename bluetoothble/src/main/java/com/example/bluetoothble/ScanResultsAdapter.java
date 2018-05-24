@@ -9,6 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.polidea.rxandroidble2.RxBleDevice;
 import com.polidea.rxandroidble2.scan.ScanResult;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -81,7 +82,7 @@ class ScanResultsAdapter extends RecyclerView.Adapter<ScanResultsAdapter.ViewHol
     final ScanResult rxBleScanResult = data.get(position);
     final RxBleDevice bleDevice = rxBleScanResult.getBleDevice();
     holder.line1.setText(String.format(Locale.getDefault(), "%s (%s)", bleDevice.getMacAddress(),
-        bleDevice.getName()));
+        URLEncoder.encode(bleDevice.getName())));
     holder.line2.setText(String.format(Locale.getDefault(), "RSSI: %d", rxBleScanResult.getRssi()));
   }
 
