@@ -15,12 +15,21 @@ android {
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
   defaultConfig {
-    applicationId "com.example.rxjava1"
+    applicationId "com.example.room"
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    // 解决警告: Schema export directory is not provided to the annotation processor so we cannot export the schema.
+    // You can either provide `room.schemaLocation` annotation processor argument OR set exportSchema to false.
+    // for room, 这里添加room的schemas导出地点
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
   }
 
   /*构建类型*/
@@ -40,12 +49,13 @@ android {
       signingConfig signingConfigs.toutoumu
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-
-    compileOptions {
-      sourceCompatibility JavaVersion.VERSION_1_8
-      targetCompatibility JavaVersion.VERSION_1_8
-    }
   }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
   flavorDimensions "mode"
 
   productFlavors {
@@ -67,11 +77,18 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
   implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
-  // https://github.com/ReactiveX/RxAndroid
-  implementation "io.reactivex:rxandroid:1.1.0"
-  implementation "io.reactivex:rxjava:1.3.2"
+
   implementation 'com.jakewharton.timber:timber:4.6.0'
 
+  // Room
+  implementation "android.arch.persistence.room:runtime:1.1.1"
+  annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+
+  // RxJava support for Room (use 1.1.0-beta3 for latest beta)
+  // https://github.com/ReactiveX/RxAndroid
+  implementation "android.arch.persistence.room:rxjava2:1.1.1"
+  implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+  implementation "io.reactivex.rxjava2:rxjava:2.1.13"
 
   testImplementation 'junit:junit:4.12'
   androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
