@@ -1,2 +1,2 @@
-include ':AIDL', ':CustomAttributes', ':ContentProvider', ':GlideV3', ':GlideV4', ':RxJava1', ':ImageSelector', ':Kotlin', ':Animation', ':bluetooth', ':bluetoothble', ':room',
-    ':PhoneState'
+//include ':AIDL', ':CustomAttributes', ':ContentProvider', ':GlideV3', ':GlideV4', ':RxJava1', ':ImageSelector', ':Kotlin', ':Animation', ':bluetooth', ':bluetoothble', ':room', ':livedata', ':PhoneState'
+include ':livedata'
