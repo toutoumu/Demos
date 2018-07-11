@@ -43,12 +43,10 @@ public class BluetoothUtils {
   /**
    * 获取带通知,读属性的特征值
    */
-  private static BluetoothGattCharacteristic getReadNotifyCharacteristic(
-      List<BluetoothGattService> services) {
+  private static BluetoothGattCharacteristic getReadNotifyCharacteristic(List<BluetoothGattService> services) {
     for (BluetoothGattService service : services) {
       for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-        if (isCharacteristicReadable(characteristic) && isCharacteristicNotifiable(
-            characteristic)) {
+        if (isCharacteristicReadable(characteristic) && isCharacteristicNotifiable(characteristic)) {
           return characteristic;
         }
       }
@@ -59,12 +57,10 @@ public class BluetoothUtils {
   /**
    * 获取带通知,写属性的特征值
    */
-  private static BluetoothGattCharacteristic getWriteNotifyCharacteristic(
-      List<BluetoothGattService> services) {
+  private static BluetoothGattCharacteristic getWriteNotifyCharacteristic(List<BluetoothGattService> services) {
     for (BluetoothGattService service : services) {
       for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-        if (isCharacteristicWriteable(characteristic) && isCharacteristicNotifiable(
-            characteristic)) {
+        if (isCharacteristicWriteable(characteristic) && isCharacteristicNotifiable(characteristic)) {
           return characteristic;
         }
       }
@@ -75,12 +71,10 @@ public class BluetoothUtils {
   /**
    * 获取带写属性的特征值(不带通知属性)
    */
-  public static BluetoothGattCharacteristic getWriteCharacteristic(
-      List<BluetoothGattService> services) {
+  public static BluetoothGattCharacteristic getWriteCharacteristic(List<BluetoothGattService> services) {
     for (BluetoothGattService service : services) {
       for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-        if (isCharacteristicWriteable(characteristic) && !isCharacteristicNotifiable(
-            characteristic)) {
+        if (isCharacteristicWriteable(characteristic) && !isCharacteristicNotifiable(characteristic)) {
           return characteristic;
         }
       }
@@ -91,12 +85,10 @@ public class BluetoothUtils {
   /**
    * 获取带读属性的特征值(不带通知属性)
    */
-  public static BluetoothGattCharacteristic getReadCharacteristic(
-      List<BluetoothGattService> services) {
+  public static BluetoothGattCharacteristic getReadCharacteristic(List<BluetoothGattService> services) {
     for (BluetoothGattService service : services) {
       for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-        if (isCharacteristicReadable(characteristic) && !isCharacteristicNotifiable(
-            characteristic)) {
+        if (isCharacteristicReadable(characteristic) && !isCharacteristicNotifiable(characteristic)) {
           return characteristic;
         }
       }
@@ -107,16 +99,17 @@ public class BluetoothUtils {
   /**
    * 获取带通知属性的特征值
    */
-  public static BluetoothGattCharacteristic getNotifyCharacteristic(
-      List<BluetoothGattService> services) {
+  public static BluetoothGattCharacteristic getNotifyCharacteristic(List<BluetoothGattService> services) {
+    BluetoothGattCharacteristic temp = null;
     for (BluetoothGattService service : services) {
       for (BluetoothGattCharacteristic characteristic : service.getCharacteristics()) {
-        if (isCharacteristicNotifiable(characteristic)) {
-          return characteristic;
+        if (isCharacteristicNotifiable(
+          characteristic) /*&& characteristic.getUuid().toString().equals("0000fff1-0000-1000-8000-00805f9b34fb")*/) {
+          temp = characteristic;
         }
       }
     }
-    return null;
+    return temp;
   }
 
   /**

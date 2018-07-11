@@ -1,11 +1,13 @@
 package com.example.livedata;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.MainThread;
+import android.support.annotation.Nullable;
 
 /**
  * 广播监听
@@ -25,9 +27,12 @@ public class SystemActionLiveData extends LiveData<String> {
       }
       setValue(action);
       switch (action) {
-        case Intent.ACTION_SCREEN_ON: break;// 开屏
-        case Intent.ACTION_SCREEN_OFF: break;// 锁屏
-        case Intent.ACTION_USER_PRESENT: break;//解锁
+        case Intent.ACTION_SCREEN_ON:
+          break;// 开屏
+        case Intent.ACTION_SCREEN_OFF:
+          break;// 锁屏
+        case Intent.ACTION_USER_PRESENT:
+          break;//解锁
       }
     }
   };

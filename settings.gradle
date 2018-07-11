@@ -1,2 +1,18 @@
-//include ':AIDL', ':CustomAttributes', ':ContentProvider', ':GlideV3', ':GlideV4', ':RxJava1', ':ImageSelector', ':Kotlin', ':Animation', ':bluetooth', ':bluetoothble', ':room', ':livedata', ':PhoneState'
-include ':livedata'
+//include ':AIDL'
+//include ':CustomAttributes'
+//include ':ContentProvider'
+//include ':GlideV3'
+//include ':GlideV4'
+//include ':RxJava1'
+//include ':ImageSelector'
+//include ':Kotlin'
+//include ':Animation'
+//include ':BlueTooth'
+include ':BlueToothBLE'
+//include ':PhoneState'
+
+//include ':Room'
+include ':LiveData'
+include ':DataBinding'
+
+

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BlueToothBLE/BlueToothBLE.iml" filepath="$PROJECT_DIR$/BlueToothBLE/BlueToothBLE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DataBinding/DataBinding.iml" filepath="$PROJECT_DIR$/DataBinding/DataBinding.iml" />
       <module fileurl="file://$PROJECT_DIR$/Demos.iml" filepath="$PROJECT_DIR$/Demos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/livedata/livedata.iml" filepath="$PROJECT_DIR$/livedata/livedata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LiveData/LiveData.iml" filepath="$PROJECT_DIR$/LiveData/LiveData.iml" />
     </modules>
   </component>
 </project>
