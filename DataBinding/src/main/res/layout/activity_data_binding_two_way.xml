@@ -1,0 +1,181 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+  <data>
+    <!--如果遇到类名称相同的 可以使用别名alias ,或者直接在variable中直接引用,使用不同的name值-->
+    <import type="com.example.databinding.Utils"/>
+    <import type="com.example.databinding.R"/>
+    <import type="android.view.View"/>
+
+    <variable
+        name="user"
+        type="com.example.databinding.ObservableUser"
+        />
+    <variable
+        name="handles"
+        type="com.example.databinding.DataBindingTwoWayActivity"
+        />
+
+  </data>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="30dp"
+      >
+    <!--双向绑定使用 @= 才能在使界面文件的值同步到实体-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="?selectableItemBackground"
+          android:padding="10dp"
+          android:text="输入user.lastName"
+          />
+
+      <EditText
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="?selectableItemBackground"
+          android:inputType="textEmailAddress"
+          android:padding="10dp"
+          android:text="@={user.lastName}"
+          />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="?selectableItemBackground"
+          android:padding="10dp"
+          android:text="输入user.middleName"
+          />
+
+      <EditText
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="?selectableItemBackground"
+          android:inputType="textEmailAddress"
+          android:padding="10dp"
+          android:text="@={user.middleName}"
+          />
+    </LinearLayout>
+
+    <!--使用普通绑定,不需要使用 @= 能接收变更通知-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="?selectableItemBackground"
+          android:padding="10dp"
+          android:text="使用普通绑定lastName"
+          />
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="?selectableItemBackground"
+          android:padding="10dp"
+          android:text="@{user.lastName}"
+          />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="?selectableItemBackground"
+          android:padding="10dp"
+          android:text="使用普通绑定middleName"
+          />
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="?selectableItemBackground"
+          android:padding="10dp"
+          android:text="@{user.middleName}"
+          />
+    </LinearLayout>
+
+    <!--使用静态方法-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="?selectableItemBackground"
+          android:padding="10dp"
+          android:text="使用静态方法"
+          />
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="?selectableItemBackground"
+          android:padding="10dp"
+          android:text="@{Utils.Convete(user.lastName)}"
+          />
+    </LinearLayout>
+
+    <!--根据adult切换背景图片-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@{user.adult ? @drawable/ic_launcher_background : @drawable/ic_launcher_foreground}"
+        android:foreground="?selectableItemBackground"
+        android:onClick="onChangeAdult"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="10dp"
+          android:text="点击修改Adult"
+          />
+      <!--根据adult切换背景颜色-->
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="@{user.adult ? @color/colorPrimary : @color/colorAccent}"
+          android:padding="10dp"
+          android:text='@{user.adult ? "true" : "false"}'
+          />
+    </LinearLayout>
+
+    <!--user.lastName?? user.firstName 等价于 user.firstName != null ? user.firstName : user.lastName-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@{user.lastName?? user.firstName}"
+        android:visibility="@{user.adult ? View.VISIBLE : View.GONE}"
+        />
+
+  </LinearLayout>
+</layout>

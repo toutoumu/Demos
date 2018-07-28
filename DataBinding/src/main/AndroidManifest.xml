@@ -17,7 +17,23 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".DynamicActivity"/>
+    <activity
+        android:name=".AdapterBindingActivity"
+        android:label="RecycleView适配器绑定"/>
+    <activity
+        android:name=".DataBindingOneWayActivity"
+        android:label="单向数据绑定">
+    </activity>
+    <activity
+        android:name=".DataBindingTwoWayActivity"
+        android:label="双向数据绑定">
+    </activity>
+    <activity
+        android:name=".CustomBindingAdapterActivity"
+        android:label="自定义绑定">
+    </activity>
+    <activity android:name=".ObservableFiledActivity">
+    </activity>
   </application>
 
 </manifest>

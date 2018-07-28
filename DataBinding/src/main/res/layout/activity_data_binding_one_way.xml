@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+  <data>
+    <import type="android.view.View"/>
+    <import type="com.example.databinding.Utils"/>
+    <variable
+        name="user"
+        type="com.example.databinding.User"
+        />
+  </data>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="30dp"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="12dp"
+          android:text="基本使用"
+          />
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:padding="12dp"
+          android:text="@{user.firstName}"
+          />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="12dp"
+          android:text="调用其他类的方法"
+          />
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:padding="12dp"
+          android:text="@{Utils.Convete(user.lastName)}"
+          />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{user.visible ? @color/colorAccent : @color/colorPrimary}"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="12dp"
+          android:text="二元表达式使用"
+          />
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:padding="12dp"
+          android:text="visiable"
+          android:visibility="@{user.visible ? View.VISIBLE : View.GONE}"
+          />
+    </LinearLayout>
+  </LinearLayout>
+</layout>

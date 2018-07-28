@@ -12,23 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by rufi on 6/5/15.
+ * RecyclerView使用数据绑定
  */
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
-  private static final int USER_COUNT = 10;
+public class AdapterBindingAdapter extends RecyclerView.Adapter<AdapterBindingAdapter.UserHolder> {
 
-  @NonNull private List<User> mUsers;
+  @NonNull private final List<User> mUsers;
 
-  public UserAdapter() {
-    mUsers = new ArrayList<>(10);
-    for (int i = 0; i < USER_COUNT; i++) {
-      User user = new User(Randoms.nextFirstName(), Randoms.nextLastName());
-      mUsers.add(user);
-    }
+  public AdapterBindingAdapter(@NonNull List<User> data) {
+    mUsers = data;
   }
 
+  @NonNull
   @Override
-  public UserHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+  public UserHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    // 也可以这样
+    /*UserItemBinding binding =
+      DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()), R.layout.user_item, viewGroup, false);
+    return new UserHolder(binding.getRoot(), binding);*/
+
     View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.user_item, viewGroup, false);
     return new UserHolder(itemView);
   }
@@ -49,6 +50,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
     public UserHolder(View itemView) {
       super(itemView);
       mBinding = DataBindingUtil.bind(itemView);
+    }
+
+    public UserHolder(View itemView, UserItemBinding binding) {
+      super(itemView);
+      mBinding = binding;
     }
 
     public void bind(@NonNull User user) {

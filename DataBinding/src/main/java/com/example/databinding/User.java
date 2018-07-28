@@ -1,29 +1,29 @@
 package com.example.databinding;
 
 public class User {
-    private final String firstName;
-    private final String lastName;
+  private final String firstName;
+  private final String lastName;
+  private boolean visible;
 
-    private  boolean isAdult;
+  public User(String firstName, String lastName, boolean visible) {
+    this.visible = visible;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public boolean isVisible() {
+    return visible;
+  }
 
-    public boolean isAdult() {
-        return isAdult;
-    }
-
-    public void setAdult(boolean adult) {
-        isAdult = adult;
-    }
+  public boolean getVisible() {
+    return visible;
+  }
 }

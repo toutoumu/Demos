@@ -8,11 +8,12 @@
 //include ':Kotlin'
 //include ':Animation'
 //include ':BlueTooth'
-include ':BlueToothBLE'
+//include ':BlueToothBLE'
 //include ':PhoneState'
 
 //include ':Room'
-include ':LiveData'
-include ':DataBinding'
+//include ':LiveData'
+//include ':DataBinding'
+include ':UIAutomator'
 
 
