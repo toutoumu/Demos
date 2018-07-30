@@ -11,6 +11,7 @@ import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
 import java.io.IOException;
+import java.util.Random;
 
 public abstract class BaseTest {
   public final String TAG = this.getClass().getName();
@@ -29,6 +30,46 @@ public abstract class BaseTest {
     BySelector selector = By.res(getPackageName(), id);
     SearchCondition<UiObject2> condition = Until.findObject(selector);
     return getDevice().wait(condition, 1000 * 10);
+  }
+
+  /**
+   * 根据ID查找, 超时时间为10秒
+   *
+   * @param id id
+   * @param second 多少秒超时
+   * @return
+   */
+  public UiObject2 findById(String id, int second) {
+    BySelector selector = By.res(getPackageName(), id);
+    SearchCondition<UiObject2> condition = Until.findObject(selector);
+    return getDevice().wait(condition, 1000 * second);
+  }
+
+  /**
+   * 根据文本内容查找
+   *
+   * @param text
+   * @return
+   */
+  public UiObject2 findByText(String text) {
+    BySelector selector = By.text(text);
+    SearchCondition<UiObject2> condition = Until.findObject(selector);
+    UiObject2 share = getDevice().wait(condition, 1000 * 10);
+    return share;
+  }
+
+  /**
+   * 根据文本内容查找
+   *
+   * @param text
+   * @param second 多少秒超时
+   * @return
+   */
+  public UiObject2 findByText(String text, int second) {
+    BySelector selector = By.text(text);
+    SearchCondition<UiObject2> condition = Until.findObject(selector);
+    UiObject2 share = getDevice().wait(condition, 1000 * second);
+    return share;
   }
 
   public void sleep(int second) {
@@ -88,5 +129,22 @@ public abstract class BaseTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  public String getComment(int length) {
+    //定义一个字符串（A-Z，a-z，0-9）即62位；
+    String str = "zxcvbnmlkjhgfdsaqwertyuiopQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+    //由Random生成随机数
+    Random random = new Random();
+    StringBuffer sb = new StringBuffer();
+    //长度为几就循环几次
+    for (int i = 0; i < length; ++i) {
+      //产生0-61的数字
+      int number = random.nextInt(62);
+      //将产生的数字通过length次承载到sb中
+      sb.append(str.charAt(number));
+    }
+    //将承载的字符转换成字符串
+    return sb.toString();
   }
 }

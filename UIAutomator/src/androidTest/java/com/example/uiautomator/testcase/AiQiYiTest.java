@@ -6,6 +6,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import java.util.Random;
 
 /**
  * 爱奇艺测试
@@ -33,6 +34,9 @@ public class AiQiYiTest extends BaseTest {
     int step = 30;
     int count = 0;
 
+    int commentCount = 0;
+    int shareCount = 0;
+
     // 启动App
     startAPP();
 
@@ -41,11 +45,14 @@ public class AiQiYiTest extends BaseTest {
       if (startPlay()) {
         count++;
 
-        // 分享
-        share();
-
         // 发表评论
-        comment();
+        if (commentCount < 5 && comment()) {
+          commentCount++;
+        }
+        // 分享
+        if (shareCount < 5 && share()) {
+          shareCount++;
+        }
 
         // 等待视频播放完成
         sleep(35);
@@ -62,15 +69,90 @@ public class AiQiYiTest extends BaseTest {
       mDevice.waitForIdle(timeOut * 3);
     }
 
+    // 关注
+    int followCount = 0;
+    while (followCount < 3 && follow()) {
+      followCount++;
+    }
+
     // 关闭应用
     closeAPP();
+  }
+
+  // com.iqiyi.news:id/tabHome 推荐
+  // com.iqiyi.news:id/tabFollow 关注
+  // com.iqiyi.news:id/tabRecord +
+  // com.iqiyi.news:id/tabDiscover 发现
+  // com.iqiyi.news:id/tabMe 我
+
+  /**
+   * 关注
+   *
+   * @return
+   */
+  private boolean follow() {
+    // 切换到关注页面
+    UiObject2 follow = findById("tabFollow");
+    if (follow == null) {
+      Log.e(TAG, "没有关注Tab");
+      return false;
+    }
+    // 如果未选中
+    if (!follow.isSelected()) {
+      follow.click();
+    }
+    mDevice.waitForIdle(timeOut);
+
+    // RecyclerView 只能这样查找咯
+    UiObject2 addFollow = findByText("关注推荐");
+    if (addFollow == null) {
+      Log.e(TAG, "没有关注推荐");
+      return false;
+    }
+    addFollow.click();
+    mDevice.waitForIdle(timeOut);
+
+    // 点击关注
+    UiObject2 add = findByText("关注");
+    if (add == null) {
+      Log.e(TAG, "没有可以关注的");
+      return false;
+    }
+    add.click();
+    Log.e(TAG, "已经关注");
+    mDevice.waitForIdle(timeOut);
+
+    // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
+    UiObject2 confirm = findById("fsg_confirm_btn");
+    if (confirm != null) {
+      confirm.click();
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "关闭关注对话框");
+    }
+    // 返回主页面
+    mDevice.pressBack();
+    mDevice.waitForIdle(timeOut);
+    return true;
   }
 
   /**
    * 开始播放
    */
   private boolean startPlay() {
-    // com.iqiyi.news:id/comment_btn
+    // 切换到主页面
+    UiObject2 home = findById("tabHome");
+    if (home == null) {
+      Log.e(TAG, "播放失败: 可能未停留在主页");
+      return false;
+    }
+    // 无关当前不是主页
+    if (!home.isSelected()) {
+      home.click();
+      Log.e(TAG, "切换到推荐Tab");
+      mDevice.waitForIdle(timeOut);
+    }
+
+    // 点击评论按钮开始播放 com.iqiyi.news:id/comment_btn
     UiObject2 playBtn = findById("comment_btn");
     if (playBtn == null) {
       Log.e(TAG, "开始播放失败");
@@ -80,7 +162,7 @@ public class AiQiYiTest extends BaseTest {
     Log.e(TAG, "开始播放视频");
     playBtn.click();
     mDevice.waitForIdle(timeOut);
-    sleep(3);
+    sleep(1);
     return true;
   }
 
@@ -107,7 +189,8 @@ public class AiQiYiTest extends BaseTest {
       return false;
     }
     Log.e(TAG, "填写评论内容");
-    contentText.setText("爱奇艺的视频还是不错的,内容很好.");
+    /*"爱奇艺的视频还是不错的,内容很好."*/
+    contentText.setText(getComment(new Random().nextInt(10) + 5));
     mDevice.waitForIdle(timeOut);
 
     // 点击发表评论

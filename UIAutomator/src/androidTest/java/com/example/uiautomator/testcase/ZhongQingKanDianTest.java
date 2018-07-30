@@ -11,8 +11,11 @@ import java.util.Random;
 public class ZhongQingKanDianTest extends BaseTest {
 
   private final String packageName = "cn.youth.news";
-
   UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());//获取设备用例
+
+  private void read() {
+
+  }
 
   public void start() {
 
