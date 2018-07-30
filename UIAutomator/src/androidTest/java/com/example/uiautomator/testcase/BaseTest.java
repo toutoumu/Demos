@@ -84,7 +84,7 @@ public abstract class BaseTest {
 
   public void startAPP() {
     // 回到桌面首页
-    closeAPP();
+    // closeAPP();
     getDevice().pressBack();
     getDevice().waitForIdle(1000);
     getDevice().pressBack();
@@ -132,7 +132,7 @@ public abstract class BaseTest {
       Log.e(TAG, "尝试关闭app: " + getPackageName());
       getDevice().executeShellCommand("am force-stop " + getPackageName());//通过命令行关闭app
       Log.e(TAG, "app已经关闭: " + getPackageName());
-    } catch (IOException e) {
+    } catch (Exception e) {
       Log.e(TAG, "关闭app失败", e);
       getDevice().pressBack();
       getDevice().pressBack();

@@ -270,7 +270,7 @@ public class AiQiYiTest extends BaseTest {
 
   @Override
   String getAPPName() {
-    return "爱奇艺纳豆";
+    return "爱奇艺纳逗";
   }
 
   @Override
