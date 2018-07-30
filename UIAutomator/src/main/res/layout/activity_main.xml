@@ -12,6 +12,8 @@
       android:id="@+id/runBtn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:foreground="?selectableItemBackground"
+      android:padding="10dp"
       android:text="Hello World!"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintLeft_toLeftOf="parent"

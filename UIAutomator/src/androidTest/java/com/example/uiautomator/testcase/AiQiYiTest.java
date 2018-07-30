@@ -269,6 +269,11 @@ public class AiQiYiTest extends BaseTest {
   }
 
   @Override
+  String getAPPName() {
+    return "爱奇艺纳豆";
+  }
+
+  @Override
   String getPackageName() {
     return packageName;
   }

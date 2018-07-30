@@ -100,6 +100,11 @@ public class ZhongQingKanDianTest extends BaseTest {
   }
 
   @Override
+  String getAPPName() {
+    return "中青阅读";
+  }
+
+  @Override
   String getPackageName() {
     return packageName;
   }

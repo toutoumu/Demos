@@ -16,6 +16,8 @@ import java.util.Random;
 public abstract class BaseTest {
   public final String TAG = this.getClass().getName();
 
+  abstract String getAPPName();
+
   abstract String getPackageName();
 
   abstract UiDevice getDevice();
@@ -80,10 +82,29 @@ public abstract class BaseTest {
     }
   }
 
+  public void startAPP() {
+    // 回到桌面首页
+    closeAPP();
+    getDevice().pressBack();
+    getDevice().waitForIdle(1000);
+    getDevice().pressBack();
+    getDevice().waitForIdle(1000);
+    getDevice().pressHome();
+    getDevice().waitForIdle(1000);
+    getDevice().pressHome();
+    getDevice().waitForIdle(1000);
+
+    // 打开app
+    UiObject2 startIcon = getDevice().findObject(By.text(getAPPName()));
+    if (startIcon.isClickable()) {
+      startIcon.click();
+    }
+  }
+
   /**
    * 启动app
    */
-  public void startAPP() {
+  public void startAPP(String packageName) {
     getDevice().pressHome();
     getDevice().pressHome();
     getDevice().waitForIdle(1000);
@@ -123,14 +144,13 @@ public abstract class BaseTest {
    *
    * @param sLaunchActivity d
    */
-  private void startAPP(String sLaunchActivity) {
+ /* private void startAPP(String sLaunchActivity) {
     try {
       getDevice().executeShellCommand("am start -n " + getPackageName() + "/" + sLaunchActivity);//通过命令行启动app
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
+  }*/
   public String getComment(int length) {
     //定义一个字符串（A-Z，a-z，0-9）即62位；
     String str = "zxcvbnmlkjhgfdsaqwertyuiopQWERTYUIOPASDFGHJKLZXCVBNM1234567890";

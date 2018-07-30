@@ -1,5 +1,6 @@
 package com.example.uiautomator;
 
+import android.util.Log;
 import com.example.uiautomator.testcase.AiQiYiTest;
 import com.example.uiautomator.testcase.QuTouTiaoTest;
 import com.example.uiautomator.testcase.ZhongQingKanDianTest;
@@ -7,6 +8,17 @@ import org.junit.Test;
 
 public class AppTest {
   private final String TAG = getClass().getName();
+
+  public void StartTest() {
+    while (true) {
+      try {
+        aiQiYiTest();
+        quTouTiaoTest();
+      } catch (Exception e) {
+        Log.e(TAG, "出错了", e);
+      }
+    }
+  }
 
   /**
    * 中青看点测试
