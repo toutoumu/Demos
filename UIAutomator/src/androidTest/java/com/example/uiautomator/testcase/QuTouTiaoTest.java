@@ -456,12 +456,10 @@ public class QuTouTiaoTest extends BaseTest {
         }
 
         // 判断是否有底部导航栏来区分是否已经回到首页
-        UiObject2 toolbar = findById("iq");
-        if (toolbar == null) {
+        if (findById("iq") == null) {
           Log.e(TAG, "应用可能已经关闭,退出阅读");
-          return;
-        } else {
-          // 回列表页时出现对话框
+          break;
+        } else {// 回列表页时出现对话框
           closeDialog();
         }
       } catch (Exception e) {
