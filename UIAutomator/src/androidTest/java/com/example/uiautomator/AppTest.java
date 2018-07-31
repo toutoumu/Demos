@@ -9,6 +9,7 @@ import org.junit.Test;
 public class AppTest {
   private final String TAG = getClass().getName();
 
+  @Test
   public void StartTest() {
     while (true) {
       try {

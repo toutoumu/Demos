@@ -86,9 +86,21 @@ public abstract class BaseTest {
     // 回到桌面首页
     // closeAPP();
     getDevice().pressBack();
+    getDevice().waitForIdle(20);
+    getDevice().pressBack();
+    getDevice().waitForIdle(20);
+    getDevice().pressBack();
+    getDevice().waitForIdle(20);
+    getDevice().pressBack();
     getDevice().waitForIdle(1000);
     getDevice().pressBack();
     getDevice().waitForIdle(1000);
+    getDevice().pressBack();
+    getDevice().waitForIdle(1000);
+    getDevice().pressBack();
+    getDevice().waitForIdle(20);
+    getDevice().pressBack();
+    getDevice().waitForIdle(20);
     getDevice().pressHome();
     getDevice().waitForIdle(1000);
     getDevice().pressHome();

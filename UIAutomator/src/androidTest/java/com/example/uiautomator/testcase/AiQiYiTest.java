@@ -31,7 +31,7 @@ public class AiQiYiTest extends BaseTest {
     // startY > endY 向上滚动  startY < endY 向下滚动
     int startY = centerY;
     int endY = startY - dY;
-    int step = 30;
+    int step = 10;
     int count = 0;
 
     int commentCount = 0;
@@ -39,6 +39,12 @@ public class AiQiYiTest extends BaseTest {
 
     // 启动App
     startAPP();
+
+    // 关注
+    int followCount = 0;
+    while (followCount < 3 && follow()) {
+      followCount++;
+    }
 
     while (count <= 25) {
       // 打开视频
@@ -53,26 +59,20 @@ public class AiQiYiTest extends BaseTest {
         if (shareCount < 5 && share()) {
           shareCount++;
         }
-
         // 等待视频播放完成
         sleep(35);
       }
 
       // 返回视频列表
-      Log.e(TAG, "返回视频列表");
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "返回视频列表");
 
       // 向上滑动列表
-      Log.e(TAG, "向上滑动列表");
       mDevice.swipe(centerX, startY, centerX, endY, step);
-      mDevice.waitForIdle(timeOut * 3);
-    }
-
-    // 关注
-    int followCount = 0;
-    while (followCount < 3 && follow()) {
-      followCount++;
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "向上滑动列表");
     }
 
     // 关闭应用
@@ -100,38 +100,53 @@ public class AiQiYiTest extends BaseTest {
     // 如果未选中
     if (!follow.isSelected()) {
       follow.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "切换到关注Tab");
     }
-    mDevice.waitForIdle(timeOut);
 
     // RecyclerView 只能这样查找咯
     UiObject2 addFollow = findByText("关注推荐");
     if (addFollow == null) {
-      Log.e(TAG, "没有关注推荐");
+      mDevice.pressBack();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "没有关注推荐按钮");
       return false;
     }
     addFollow.click();
+    sleep(3);
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击关注推荐,跳转关注页面");
 
     // 点击关注
     UiObject2 add = findByText("关注");
     if (add == null) {
+      mDevice.pressBack();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
       Log.e(TAG, "没有可以关注的");
       return false;
     }
     add.click();
-    Log.e(TAG, "已经关注");
+    sleep(1);
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击关注");
 
     // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
     UiObject2 confirm = findById("fsg_confirm_btn");
     if (confirm != null) {
       confirm.click();
+      sleep(1);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "关闭关注对话框");
     }
+
     // 返回主页面
     mDevice.pressBack();
+    sleep(1);
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "返回主页面");
     return true;
   }
 
@@ -148,8 +163,9 @@ public class AiQiYiTest extends BaseTest {
     // 无关当前不是主页
     if (!home.isSelected()) {
       home.click();
-      Log.e(TAG, "切换到推荐Tab");
+      sleep(3);
       mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "切换到推荐Tab");
     }
 
     // 点击评论按钮开始播放 com.iqiyi.news:id/comment_btn
@@ -159,10 +175,10 @@ public class AiQiYiTest extends BaseTest {
       return false;
     }
     // 开始播放视频
-    Log.e(TAG, "开始播放视频");
     playBtn.click();
+    sleep(3);
     mDevice.waitForIdle(timeOut);
-    sleep(1);
+    Log.e(TAG, "开始播放视频");
     return true;
   }
 
@@ -178,9 +194,10 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "没有评论按钮");
       return false;
     }
-    Log.e(TAG, "点击评论按钮");
     commentBtn.click();
+    sleep(1);
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击评论按钮");
 
     // 输入评论 com.iqiyi.news:id/input_edit_text
     UiObject2 contentText = findById("input_edit_text");
@@ -188,10 +205,10 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "没有评论文本框");
       return false;
     }
-    Log.e(TAG, "填写评论内容");
     /*"爱奇艺的视频还是不错的,内容很好."*/
     contentText.setText(getComment(new Random().nextInt(10) + 5));
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "填写评论内容");
 
     // 点击发表评论
     UiObject2 sendBtn = findById("send_btn");
@@ -199,11 +216,11 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "没有发表评论按钮");
       return false;
     }
-    Log.e(TAG, "发表评论");
     sendBtn.click();
-    mDevice.waitForIdle(timeOut);
-
     sleep(3);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击发送,发表评论");
+
     return true;
   }
 
@@ -213,16 +230,16 @@ public class AiQiYiTest extends BaseTest {
    * @return
    */
   private boolean share() {
-
     // 分享按钮ID  com.iqiyi.news:id/news_article_footer_shareContainer
     UiObject2 shareBtn = findById("news_article_footer_shareContainer");
     if (shareBtn == null) {
       Log.e(TAG, "没有分享按钮");
       return false;
     }
-    Log.e(TAG, "点击分享按钮");
     shareBtn.click();
+    sleep(1);
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击分享按钮,调用分享对话框");
 
     // 分享到QQ ID com.iqiyi.news:id/rl_share_qq
     UiObject2 share = findById("rl_share_qq");
@@ -230,9 +247,10 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "没有打开QQ分享");
       return false;
     }
-    Log.e(TAG, "打开QQ分享");
     share.click();
+    sleep(3);
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "打开QQ分享");
 
     // 点击发表评论
     UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
@@ -240,9 +258,9 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "分享到我的电脑失败");
       return false;
     }
-    Log.e(TAG, "分享到我的电脑");
     publish.getParent().click();
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击分享到:我的电脑");
 
     // 分享到我的电脑确认
     UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
@@ -250,9 +268,9 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "分享到我的电脑确认失败");
       return false;
     }
-    Log.e(TAG, "分享到我的电脑确认");
     confirm.click();
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "分享到我的电脑确认");
 
     // 返回
     UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
@@ -260,9 +278,9 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "没有返回按钮");
       return false;
     }
-    Log.e(TAG, "分享返回");
     back.click();
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "分享返回");
 
     sleep(3);
     return true;
