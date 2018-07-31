@@ -9,6 +9,22 @@ import org.junit.Test;
 public class AppTest {
   private final String TAG = getClass().getName();
 
+  /**
+   * 趣头条测试
+   */
+  @Test
+  public void quTouTiaoTest() {
+    new QuTouTiaoTest().start();
+  }
+
+  /**
+   * 爱奇艺测试
+   */
+  @Test
+  public void aiQiYiTest() {
+    new AiQiYiTest().start();
+  }
+
   @Test
   public void StartTest() {
     while (true) {
@@ -27,21 +43,5 @@ public class AppTest {
   @Test
   public void zhongQingKanDianTest() {
     new ZhongQingKanDianTest().start();
-  }
-
-  /**
-   * 趣头条测试
-   */
-  @Test
-  public void quTouTiaoTest() {
-    new QuTouTiaoTest().start();
-  }
-
-  /**
-   * 爱奇艺测试
-   */
-  @Test
-  public void aiQiYiTest() {
-    new AiQiYiTest().start();
   }
 }

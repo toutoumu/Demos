@@ -108,9 +108,4 @@ public class ZhongQingKanDianTest extends BaseTest {
   String getPackageName() {
     return packageName;
   }
-
-  @Override
-  UiDevice getDevice() {
-    return mDevice;
-  }
 }

@@ -1,8 +1,6 @@
 package com.example.uiautomator.testcase;
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
@@ -12,28 +10,23 @@ import java.util.Random;
  * 爱奇艺测试
  */
 public class AiQiYiTest extends BaseTest {
-  private final static int timeOut = 1000; // 每次等待时间
-  private final String packageName = "com.iqiyi.news";
-  private final UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());//获取设备用例
 
-  // com.iqiyi.news:id/comment_btn 评论按钮
+  public AiQiYiTest() {
+    super();
+  }
+
+  @Override
   public void start() {
-    // 获取宽度高度
-    int h = mDevice.getDisplayHeight(); // 屏幕高度
-    int w = mDevice.getDisplayWidth(); // 屏幕宽度
-
-    int centerX = w / 2; // 中间位置
-    int centerY = h / 2; // 中间位置
-
-    int dX = w / 4; // 偏移
-    int dY = (int) (h / 2.5); // 偏移 这个越大移动距离越大
+    int dX = width / 4; // 偏移
+    int dY = (int) (height / 2.5); // 偏移 这个越大移动距离越大
 
     // startY > endY 向上滚动  startY < endY 向下滚动
     int startY = centerY;
     int endY = startY - dY;
-    int step = 10;
-    int count = 0;
 
+    // 次数统计
+    int playCount = 0;
+    int followCount = 0;
     int commentCount = 0;
     int shareCount = 0;
 
@@ -41,15 +34,14 @@ public class AiQiYiTest extends BaseTest {
     startAPP();
 
     // 关注
-    int followCount = 0;
-    while (followCount < 3 && follow()) {
+    while (followCount < 5 && follow()) {
       followCount++;
     }
 
-    while (count <= 25) {
+    while (playCount <= 25) {
       // 打开视频
       if (startPlay()) {
-        count++;
+        playCount++;
 
         // 发表评论
         if (commentCount < 5 && comment()) {
@@ -69,7 +61,7 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "返回视频列表");
 
       // 向上滑动列表
-      mDevice.swipe(centerX, startY, centerX, endY, step);
+      mDevice.swipe(centerX, startY, centerX, endY, 30);
       sleep(1);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "向上滑动列表");
@@ -87,8 +79,6 @@ public class AiQiYiTest extends BaseTest {
 
   /**
    * 关注
-   *
-   * @return
    */
   private boolean follow() {
     // 切换到关注页面
@@ -184,8 +174,6 @@ public class AiQiYiTest extends BaseTest {
 
   /**
    * 发表评论
-   *
-   * @return
    */
   private boolean comment() {
     // 点击输入评论文本框 com.iqiyi.news:id/input_click
@@ -207,6 +195,7 @@ public class AiQiYiTest extends BaseTest {
     }
     /*"爱奇艺的视频还是不错的,内容很好."*/
     contentText.setText(getComment(new Random().nextInt(10) + 5));
+    sleep(2); // 等待文本填写完成
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "填写评论内容");
 
@@ -225,9 +214,7 @@ public class AiQiYiTest extends BaseTest {
   }
 
   /**
-   * 发表评论
-   *
-   * @return
+   * 分享
    */
   private boolean share() {
     // 分享按钮ID  com.iqiyi.news:id/news_article_footer_shareContainer
@@ -293,11 +280,6 @@ public class AiQiYiTest extends BaseTest {
 
   @Override
   String getPackageName() {
-    return packageName;
-  }
-
-  @Override
-  UiDevice getDevice() {
-    return mDevice;
+    return "com.iqiyi.news";
   }
 }
