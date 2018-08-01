@@ -17,16 +17,12 @@ import java.util.Random;
  */
 public class JinRiTouTiaoTest extends BaseTest {
 
-  private int readCount; // 阅读次数
-  private int commentCount; // 评论次数
-  private int shareCount; // 分享次数
+  private int readCount = 0; // 阅读次数
+  private int commentCount = 0; // 评论次数
+  private int shareCount = 0; // 分享次数
 
   public JinRiTouTiaoTest() {
     super();
-
-    readCount = 0; // 阅读次数
-    commentCount = 0; // 评论次数
-    shareCount = 0; // 分享次数
   }
 
   @Override
@@ -80,8 +76,8 @@ public class JinRiTouTiaoTest extends BaseTest {
     }
 
     // 向上滚动列表 滚动距离 height / 3
-    int startY = centerY;
-    int endY = startY - height / 3;
+    int startY = height / 2;
+    int endY = height / 6;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     sleep(1);
     mDevice.waitForIdle(timeOut);
@@ -99,8 +95,8 @@ public class JinRiTouTiaoTest extends BaseTest {
       while (count++ < 10) {
         sleep(3);
         mDevice.waitForIdle(timeOut);
-        startY = 2 * height / 3; // 起点距离顶部 2 * height / 3
-        endY = startY - height / 2; // 终点距离顶部 height / 6
+        startY = height / 2 * 3; // 起点距离顶部  height / 2 * 3
+        endY = height / 6; // 终点距离顶部 height / 6
         mDevice.swipe(centerX, startY, centerX, endY, 20);
         Log.e(TAG, "向上滑动");
       }
@@ -162,8 +158,8 @@ public class JinRiTouTiaoTest extends BaseTest {
     }
 
     // 需要向上滚动列表
-    int startY = centerY;
-    int endY = (int) (startY - height / 2.5);
+    int startY = height / 2;
+    int endY = height / 10;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     Log.e(TAG, "列表向上滑动");
 
@@ -391,7 +387,8 @@ public class JinRiTouTiaoTest extends BaseTest {
     Rect recyclerView = findById("a2s", 3).getVisibleBounds();
     int y = (recyclerView.top + recyclerView.bottom) / 2;
     // 滑动使QQ分享显示出来
-    mDevice.swipe(width - 200, y, width / 6, y, 20);
+
+    mDevice.swipe(width * 4 / 5, y, width / 10, y, 20);
     mDevice.waitForIdle(timeOut);
     //请求分享按钮
     UiObject2 shareBtn = findByText("QQ好友");

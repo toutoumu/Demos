@@ -11,22 +11,12 @@ import java.util.Random;
  */
 public class QuTouTiaoTest extends BaseTest {
 
-  private int dX; // 偏移
-  private int dY; // 偏移
-
-  private int readCount; // 阅读次数
-  private int commentCount; // 评论次数
-  private int shareCount; // 分享次数
+  private int readCount = 0; // 阅读次数
+  private int commentCount = 0; // 评论次数
+  private int shareCount = 0; // 分享次数
 
   public QuTouTiaoTest() {
     super();
-
-    dX = width / 4; // 偏移
-    dY = height / 4; // 偏移
-
-    readCount = 0; // 阅读次数
-    commentCount = 0; // 评论次数
-    shareCount = 0; // 分享次数
   }
 
   @Override
@@ -83,8 +73,8 @@ public class QuTouTiaoTest extends BaseTest {
     }
 
     // 向上滚动列表
-    int startY = centerY;
-    int endY = startY - dY;
+    int startY = height / 2;
+    int endY = height / 4;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     Log.e(TAG, "列表向上滑动");
 
@@ -155,8 +145,8 @@ public class QuTouTiaoTest extends BaseTest {
     }
 
     // 需要向上滚动列表
-    int startY = centerY;
-    int endY = (int) (startY - height / 2.5);
+    int startY = height / 2;
+    int endY = height / 10;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     Log.e(TAG, "列表向上滑动");
 

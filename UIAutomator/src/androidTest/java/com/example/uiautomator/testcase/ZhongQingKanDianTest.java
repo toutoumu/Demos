@@ -1,8 +1,6 @@
 package com.example.uiautomator.testcase;
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
@@ -10,40 +8,27 @@ import java.util.Random;
 
 public class ZhongQingKanDianTest extends BaseTest {
 
-  private final String packageName = "cn.youth.news";
-  UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());//获取设备用例
+  public ZhongQingKanDianTest() {
+    super();
+  }
 
   private void read() {
 
   }
 
   public void start() {
+    int startY = height / 2;
+    int endY = height / 4;
 
-    int h = mDevice.getDisplayHeight(); // 屏幕高度
-    int w = mDevice.getDisplayWidth(); // 屏幕宽度
-
-    int timeOut = 1000; // 每次等待时间
-    int centerX = w / 2; // 中间位置
-    int centerY = h / 2; // 中间位置
-
-    int dX = w / 4; // 偏移
-    int dY = h / 4; // 偏移
-
-    int startY = centerY;
-    int endY = startY - dY;
-    int step = 30;
-
-    Random random = new Random();
     mDevice.pressHome();
     mDevice.waitForIdle(1000);
 
     startAPP();
 
     while (true) {
-      int randomInt = random.nextInt(100);
       // 点击跳转到详情页
-      Log.e(TAG, "点击跳转到详情页,随机数: " + randomInt + " startY : " + (startY + randomInt) + " endY :" + (endY + randomInt));
-      mDevice.click(w / 3, h / 4);
+      Log.e(TAG, "点击跳转到详情页,随机数: " + " startY : " + (startY) + " endY :" + (endY));
+      mDevice.click(width / 3, height / 4);
       mDevice.waitForIdle(timeOut);
 
       try {
@@ -56,10 +41,10 @@ public class ZhongQingKanDianTest extends BaseTest {
           while (count++ < 10) {
             if (count % 5 == 0 && count != 0) {
               Log.e(TAG, "向下滑动");
-              mDevice.swipe(w / 2, endY + randomInt, w / 2, startY + randomInt, step + random.nextInt(10));
+              mDevice.swipe(centerX, endY, centerX, startY, 30);
             } else {
               Log.e(TAG, "向上滑动");
-              mDevice.swipe(w / 2, startY + randomInt, w / 2, endY + randomInt, step + random.nextInt(10));
+              mDevice.swipe(centerX, startY, centerX, endY, 30);
             }
             mDevice.waitForIdle(timeOut);
             Thread.sleep(1000 * 3);
@@ -94,7 +79,7 @@ public class ZhongQingKanDianTest extends BaseTest {
 
       // 列表向上滑动
       Log.e(TAG, "列表向上滑动");
-      mDevice.swipe(w / 2, startY + randomInt, w / 2, endY + randomInt, step + random.nextInt(10));
+      mDevice.swipe(width / 2, startY, width / 2, endY, 30);
       mDevice.waitForIdle(timeOut * 3);
     }
   }
@@ -106,6 +91,6 @@ public class ZhongQingKanDianTest extends BaseTest {
 
   @Override
   String getPackageName() {
-    return packageName;
+    return "cn.youth.news";
   }
 }

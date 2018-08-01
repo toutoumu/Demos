@@ -11,30 +11,23 @@ import java.util.Random;
  */
 public class AiQiYiTest extends BaseTest {
 
+  // 次数统计
+  private int signCount = 0;
+  private int playCount = 0;
+  private int followCount = 0;
+  private int commentCount = 0;
+  private int shareCount = 0;
+
   public AiQiYiTest() {
     super();
   }
 
   @Override
   public void start() {
-    int dX = width / 4; // 偏移
-    int dY = (int) (height / 2.5); // 偏移 这个越大移动距离越大
-
-    // startY > endY 向上滚动  startY < endY 向下滚动
-    int startY = centerY;
-    int endY = startY - dY;
-
-    // 次数统计
-    int playCount = 0;
-    int followCount = 0;
-    int commentCount = 0;
-    int shareCount = 0;
-
     // 启动App
     startAPP();
 
     // 签到
-    int signCount = 0;
     while (signCount++ < 2 && !sign()) {
       closeAPP();
       startAPP();
@@ -45,34 +38,9 @@ public class AiQiYiTest extends BaseTest {
       followCount++;
     }
 
+    // 播放视频(评论,分享)
     while (playCount <= 25) {
-      // 打开视频
-      if (startPlay()) {
-        playCount++;
-
-        // 发表评论
-        if (commentCount < 5 && comment()) {
-          commentCount++;
-        }
-        // 分享
-        if (shareCount < 5 && share()) {
-          shareCount++;
-        }
-        // 等待视频播放完成
-        sleep(35);
-        Log.e(TAG, "视频播放完成");
-      }
-
-      // 返回视频列表
-      mDevice.pressBack();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "返回视频列表");
-
-      // 向上滑动列表
-      mDevice.swipe(centerX, startY, centerX, endY, 30);
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "向上滑动列表");
+      doPlay();
     }
 
     // 关闭应用
@@ -184,32 +152,65 @@ public class AiQiYiTest extends BaseTest {
   /**
    * 开始播放
    */
-  private boolean startPlay() {
+  private boolean doPlay() {
     // 切换到主页面
     UiObject2 home = findById("tabHome");
     if (home == null) {
-      Log.e(TAG, "播放失败: 可能未停留在主页");
+      Log.e(TAG, "播放失败,没有找到视频Tab");
       return false;
     }
-    // 无关当前不是主页
+    // 如果当前不是视频列表 ,切换到视频列表
     if (!home.isSelected()) {
       home.click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到推荐Tab");
+      Log.e(TAG, "切换到[推荐]Tab");
     }
 
-    // 点击评论按钮开始播放 com.iqiyi.news:id/comment_btn
+    // 向上滑动列表
+    // startY > endY 向上滚动  startY < endY 向下滚动
+    int startY = height / 2;
+    int endY = height / 10;
+    mDevice.swipe(centerX, startY, centerX, endY, 30);
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "向上滑动列表");
+
+    // 点击播放
     UiObject2 playBtn = findById("comment_btn");
     if (playBtn == null) {
-      Log.e(TAG, "开始播放失败");
+      Log.e(TAG, "播放失败:没有播放按钮");
       return false;
     }
     // 开始播放视频
     playBtn.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "开始播放视频");
+
+    if (findById("input_click", 3) != null) {
+      Log.e(TAG, "开始播放视频");
+      // 等待视频播放完成
+      sleep(35);
+      playCount++;
+
+      // 发表评论
+      if (commentCount < 5 && comment()) {
+        commentCount++;
+      }
+      // 分享
+      if (shareCount < 5 && share()) {
+        shareCount++;
+      }
+
+      mDevice.pressBack();
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "播放完成,返回首页");
+    } else {
+      mDevice.pressBack();
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "返回首页:不是视频页面");
+    }
+
     return true;
   }
 
