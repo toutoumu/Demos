@@ -88,6 +88,7 @@ public class JinRiTouTiaoTest extends BaseTest {
     Log.e(TAG, "列表向上滑动");
 
     mDevice.click(width / 3, height / 3);
+    sleep(3);
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "打开文章");
 

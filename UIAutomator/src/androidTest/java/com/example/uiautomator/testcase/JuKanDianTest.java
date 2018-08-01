@@ -35,22 +35,22 @@ public class JuKanDianTest extends BaseTest {
     startAPP();
 
     // 执行阅读,播放操作
-    while (readCount < 100) {
+    while (readCount < 200) {
       try {
-        // 判断是否有底部导航栏来区分是否已经回到首页, com.jifen.qukan:id/iq 底部tab容器
-        UiObject2 toolBar = findById("iq");
-        if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
+        // 判断是否有看点Tab来确定是否已经回到首页
+        UiObject2 tab = findById("tv_tab1");
+        if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
           closeDialog();
-          toolBar = findById("iq");
-          if (toolBar == null) {// 关闭对话框之后再次查找是否已经回到首页
+          tab = findById("tv_tab1");
+          if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
             Log.e(TAG, "应用可能已经关闭,退出阅读");
             break;
           }
         }
-        if (random.nextInt(10) % 2 == 0) {
-          doRead(toolBar);// 阅读
+        if (readCount % 3 == 0) {
+          doPlay(); // 播放
         } else {
-          doPlay(toolBar); //播放
+          doRead();// 阅读
         }
       } catch (Exception e) {
         Log.e(TAG, "阅读失败", e);
@@ -67,16 +67,16 @@ public class JuKanDianTest extends BaseTest {
    *
    * @return 成功
    */
-  private boolean doRead(UiObject2 toolBar) {
+  private boolean doRead() {
+    UiObject2 toolBar = findById("tv_tab1");
     // 切换到文章列表
     if (toolBar == null) {
       Log.e(TAG, "阅读失败:没有底部栏");
       return false;
     }
     // 如果当前不是文章列表 ,切换到文章列表
-    UiObject2 refresh = toolBar.getChildren().get(0).findObject(By.text("刷新"));
-    if (refresh == null) {
-      toolBar.getChildren().get(0).click();
+    if (!toolBar.getText().equals("刷新")) {
+      toolBar.click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "切换到文章列表");
@@ -88,27 +88,19 @@ public class JuKanDianTest extends BaseTest {
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     Log.e(TAG, "列表向上滑动");
 
-    // com.jifen.qukan:id/wy 评论数id
-    UiObject2 read = findById("wy");
+    // 打开文章 评论数id item_artical_three_read_num
+    UiObject2 read = findById("item_artical_three_read_num");
     if (read == null) {
       Log.e(TAG, "阅读失败,没有评论按钮");
       return false;
     }
     read.click();
+    sleep(3);
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "打开文章");
 
-    // 文章评论点赞收藏容器的id为 com.jifen.qukan:id/je
-    if (findById("je", 3) != null) {// 文章页面
-      // 发表评论
-      /*if (commentCount < 10 && commentArticle()) {
-        commentCount++;
-      }
-      // 分享
-      if (shareCount < 10 && shareArticle()) {
-        shareCount++;
-      }*/
-
+    //如果有评论按钮 com.xiangzi.jukandian:id/image_web_comment
+    if (findById("image_web_comment", 3) != null) {// 文章页面
       Log.e(TAG, "开始阅读");
       int count = 0;
       while (count++ < 10) {
@@ -123,7 +115,18 @@ public class JuKanDianTest extends BaseTest {
         sleep(3);
       }
       readCount++;
+
+      // 发表评论
+      if (commentCount < 4 && commentArticle()) {
+        commentCount++;
+      }
+      // 分享
+     /* if (shareCount < 10 && shareArticle()) {
+        shareCount++;
+      }*/
+
       mDevice.pressBack();
+      mDevice.waitForIdle(timeOut);
       Log.e(TAG, "阅读完成,返回首页");
     } else { // 页面可能未打开
       Log.e(TAG, "返回首页:可能没有打开页面");
@@ -138,16 +141,16 @@ public class JuKanDianTest extends BaseTest {
    *
    * @return 成功
    */
-  private boolean doPlay(UiObject2 toolBar) {
+  private boolean doPlay() {
+    UiObject2 tab2 = findById("tv_tab2");
     // 切换到视频列表
-    if (toolBar == null) {
-      Log.e(TAG, "播放失败");
+    if (tab2 == null) {
+      Log.e(TAG, "播放失败,没有找到视频Tab");
       return false;
     }
     // 如果当前不是视频列表 ,切换到视频列表
-    UiObject2 refresh = toolBar.getChildren().get(1).findObject(By.text("刷新"));
-    if (refresh == null) {
-      toolBar.getChildren().get(1).click();
+    if (!tab2.getText().equals("刷新")) {
+      tab2.click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "切换到视频列表");
@@ -159,8 +162,8 @@ public class JuKanDianTest extends BaseTest {
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     Log.e(TAG, "列表向上滑动");
 
-    // com.jifen.qukan:id/a0x 评论数控件ID
-    UiObject2 play = findById("a0x");
+    // 点击播放
+    UiObject2 play = findById("item_video_play_num");
     if (play == null) {
       Log.e(TAG, "播放失败:没有播放按钮");
       return false;
@@ -170,20 +173,20 @@ public class JuKanDianTest extends BaseTest {
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "打开视频");
 
-    // 视频评论点赞收藏容器的id为 com.jifen.qukan:id/lq
-    if (findById("lq", 3) != null) {// 视频页面
+    // com.xiangzi.jukandian:id/video_detail_bottom_comment_write_text
+    if (findById("video_detail_bottom_comment_write_text", 3) != null) {// 视频页面
+      Log.e(TAG, "开始播放");
+      sleep(35);
+      readCount++;
       // 发表评论
-      /*if (commentCount < 10 && commentVideo()) {
+      if (commentCount < 4 && commentVideo()) {
         commentCount++;
       }
-      // 分享
+      /*// 分享
       if (shareCount < 10 && shareVideo()) {
         shareCount++;
       }*/
 
-      Log.e(TAG, "开始播放");
-      sleep(35);
-      readCount++;
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "播放完成,返回首页");
@@ -199,7 +202,9 @@ public class JuKanDianTest extends BaseTest {
    * 关闭对话框
    */
   private boolean closeDialog() {
-    UiObject2 close = findByText("先去逛逛", 3);
+    mDevice.pressBack();
+    mDevice.waitForIdle(timeOut);
+    /*UiObject2 close = findByText("我知道了", 3);
     if (close != null) {
       close.click();
       mDevice.waitForIdle(timeOut);
@@ -213,7 +218,7 @@ public class JuKanDianTest extends BaseTest {
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "关闭对话框");
       return true;
-    }
+    }*/
     return false;
   }
 
@@ -223,16 +228,8 @@ public class JuKanDianTest extends BaseTest {
    * @return 成功
    */
   private boolean commentArticle() {
-    // 检测页面是否是阅读页面,阅读页面下面的操作按钮
-    // com.jifen.qukan:id/jk 评论
-    // com.jifen.qukan:id/ji 进入评论列表
-    // com.jifen.qukan:id/jj 进入评论列表
-    // com.jifen.qukan:id/jh 收藏
-    // com.jifen.qukan:id/jg 分享
-    // com.jifen.qukan:id/jf 调整字体
-
     // 1.弹出输入
-    UiObject2 commentBtn = findById("jk");
+    UiObject2 commentBtn = findById("tv_web_comment_hint");
     if (commentBtn == null) {
       Log.e(TAG, "没有评论文本框");
       return false;
@@ -242,8 +239,8 @@ public class JuKanDianTest extends BaseTest {
     sleep(1);
     mDevice.waitForIdle(timeOut);
 
-    // 2.输入评论 com.jifen.qukan:id/jm
-    UiObject2 contentText = findById("jm");
+    // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
+    UiObject2 contentText = findById("dialog_comment_content");
     if (contentText == null) {
       Log.e(TAG, "没有评论文本框");
       return false;
@@ -253,8 +250,8 @@ public class JuKanDianTest extends BaseTest {
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "填写评论内容");
 
-    // 3.点击发表评论 com.jifen.qukan:id/jn
-    UiObject2 sendBtn = findById("jn");
+    // 3.点击发表评论 com.xiangzi.jukandian:id/dialog_comment_send
+    UiObject2 sendBtn = findById("dialog_comment_send");
     if (sendBtn == null) {
       Log.e(TAG, "没有发表评论按钮");
       return false;
@@ -273,27 +270,19 @@ public class JuKanDianTest extends BaseTest {
    * @return 成功
    */
   private boolean commentVideo() {
-    // 检测页面是否是阅读页面,阅读页面下面的操作按钮// 容器的id为 com.jifen.qukan:id/lq
-    // com.jifen.qukan:id/lw 评论
-    // com.jifen.qukan:id/lu 进入评论列表
-    // com.jifen.qukan:id/lv 进入评论列表
-    // com.jifen.qukan:id/lt 收藏
-    // com.jifen.qukan:id/ls 分享
-    // com.jifen.qukan:id/lr 调整字体
-
     // 1.弹出输入
-    UiObject2 commentBtn = findById("lw");
+    UiObject2 commentBtn = findById("video_detail_bottom_comment_write_text");
     if (commentBtn == null) {
       Log.e(TAG, "没有评论文本框");
       return false;
     }
-    Log.e(TAG, "点击评论文本框,弹出键盘");
     commentBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击评论文本框,弹出键盘");
 
-    // 2.输入评论 com.jifen.qukan:id/ly
-    UiObject2 contentText = findById("ly");
+    // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
+    UiObject2 contentText = findById("dialog_comment_content");
     if (contentText == null) {
       Log.e(TAG, "没有评论文本框");
       return false;
@@ -303,8 +292,8 @@ public class JuKanDianTest extends BaseTest {
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "填写评论内容");
 
-    // 3.点击发表评论 com.jifen.qukan:id/lz
-    UiObject2 sendBtn = findById("lz");
+    // 3.点击发表评论 com.xiangzi.jukandian:id/dialog_comment_send
+    UiObject2 sendBtn = findById("dialog_comment_send");
     if (sendBtn == null) {
       Log.e(TAG, "没有发表评论按钮");
       return false;
@@ -455,11 +444,11 @@ public class JuKanDianTest extends BaseTest {
 
   @Override
   String getAPPName() {
-    return "趣头条";
+    return "聚看点";
   }
 
   @Override
   String getPackageName() {
-    return "com.jifen.qukan";
+    return "com.xiangzi.jukandian";
   }
 }

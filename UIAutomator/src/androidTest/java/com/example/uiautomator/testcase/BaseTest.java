@@ -162,6 +162,8 @@ public abstract class BaseTest {
     UiObject2 startIcon = mDevice.wait(condition, 1000 * 10);
     if (startIcon.isClickable()) {
       startIcon.click();
+      sleep(10);
+      mDevice.waitForIdle(timeOut);
     }
   }
 

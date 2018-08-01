@@ -95,6 +95,7 @@ public class QuTouTiaoTest extends BaseTest {
       return false;
     }
     read.click();
+    sleep(3);
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "打开文章");
 
