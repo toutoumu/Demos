@@ -79,6 +79,23 @@ public abstract class BaseTest {
     return mDevice.wait(condition, 1000 * second);
   }
 
+  public UiObject2 findByClass(Class clazz) {
+    return findByClass(clazz, 10);
+  }
+
+  /**
+   * 根据ID查找, 超时时间为10秒
+   *
+   * @param clazz clazz
+   * @param second 多少秒超时
+   * @return
+   */
+  public UiObject2 findByClass(Class clazz, int second) {
+    BySelector selector = By.clazz(clazz);
+    SearchCondition<UiObject2> condition = Until.findObject(selector);
+    return mDevice.wait(condition, 1000 * second);
+  }
+
   /**
    * 根据文本内容查找
    *

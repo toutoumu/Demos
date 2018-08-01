@@ -78,6 +78,8 @@ dependencies {
   implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
   implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
   implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
+  implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
+  implementation "com.android.support:design:$rootProject.ext.supportVersion"
   implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
   // 日志

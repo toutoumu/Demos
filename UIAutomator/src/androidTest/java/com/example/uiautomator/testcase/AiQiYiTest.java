@@ -33,6 +33,13 @@ public class AiQiYiTest extends BaseTest {
     // 启动App
     startAPP();
 
+    // 签到
+    int signCount = 0;
+    while (signCount++ < 2 && !sign()) {
+      closeAPP();
+      startAPP();
+    }
+
     // 关注
     while (followCount < 5 && follow()) {
       followCount++;
@@ -53,6 +60,7 @@ public class AiQiYiTest extends BaseTest {
         }
         // 等待视频播放完成
         sleep(35);
+        Log.e(TAG, "视频播放完成");
       }
 
       // 返回视频列表
@@ -78,36 +86,69 @@ public class AiQiYiTest extends BaseTest {
   // com.iqiyi.news:id/tabMe 我
 
   /**
+   * 签到
+   */
+  private boolean sign() {
+    // 切换到我Tab
+    UiObject2 follow = findById("tabMe");
+    if (follow == null) {
+      Log.e(TAG, "签到失败,没有[我]Tab");
+      return false;
+    }
+    if (!follow.isSelected()) {
+      follow.click();
+      sleep(5);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "切换到[我]Tab");
+    }
+
+    // 签到
+    UiObject2 obtain = findByText("领取");
+    if (obtain == null) {
+      mDevice.pressBack();
+      Log.e(TAG, "签到失败,没有[领取]按钮");
+      return false;
+    }
+    obtain.click();
+    sleep(3);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击跳转到[签到]");
+
+    // 返回首页
+    mDevice.pressBack();
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "签到成功,返回首页");
+    return true;
+  }
+
+  /**
    * 关注
    */
   private boolean follow() {
-    // 切换到关注页面
+    // 切换到关注Tab
     UiObject2 follow = findById("tabFollow");
     if (follow == null) {
-      Log.e(TAG, "没有关注Tab");
+      Log.e(TAG, "没有[关注]Tab");
       return false;
     }
-    // 如果未选中
     if (!follow.isSelected()) {
       follow.click();
-      sleep(3);
+      sleep(5);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到关注Tab");
+      Log.e(TAG, "切换到[关注]Tab");
     }
 
-    // RecyclerView 只能这样查找咯
+    // 跳转[爱奇艺号推荐]页面 RecyclerView 只能这样查找咯
     UiObject2 addFollow = findByText("关注推荐");
     if (addFollow == null) {
-      mDevice.pressBack();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "没有关注推荐按钮");
+      Log.e(TAG, "没有[关注推荐]按钮");
       return false;
     }
     addFollow.click();
-    sleep(3);
+    sleep(5);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击关注推荐,跳转关注页面");
+    Log.e(TAG, "点击[关注推荐],跳转[爱奇艺号推荐]页面");
 
     // 点击关注
     UiObject2 add = findByText("关注");
@@ -115,13 +156,13 @@ public class AiQiYiTest extends BaseTest {
       mDevice.pressBack();
       sleep(1);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "没有可以关注的");
+      Log.e(TAG, "没有[关注]按钮,返回[关注]Tab");
       return false;
     }
     add.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击关注");
+    Log.e(TAG, "点击[关注]按钮");
 
     // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
     UiObject2 confirm = findById("fsg_confirm_btn");
@@ -129,14 +170,14 @@ public class AiQiYiTest extends BaseTest {
       confirm.click();
       sleep(1);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "关闭关注对话框");
+      Log.e(TAG, "关闭[关注]对话框");
     }
 
     // 返回主页面
     mDevice.pressBack();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "返回主页面");
+    Log.e(TAG, "返回[关注]Tab");
     return true;
   }
 
