@@ -20,14 +20,6 @@ public class AppTest {
   }
 
   /**
-   * 今日头条测试
-   */
-  @Test
-  public void JinRiTouTiaoTest() {
-    new JinRiTouTiaoTest().start();
-  }
-
-  /**
    * 趣头条测试
    */
   @Test
@@ -41,6 +33,14 @@ public class AppTest {
   @Test
   public void aiQiYiTest() {
     new AiQiYiTest().start();
+  }
+
+  /**
+   * 今日头条测试
+   */
+  @Test
+  public void JinRiTouTiaoTest() {
+    new JinRiTouTiaoTest().start();
   }
 
   @Test

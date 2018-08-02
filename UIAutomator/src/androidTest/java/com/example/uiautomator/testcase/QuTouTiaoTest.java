@@ -14,6 +14,7 @@ public class QuTouTiaoTest extends BaseTest {
   private int readCount = 0; // 阅读次数
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
+  private int restartCount = 0;//重启次数
 
   public QuTouTiaoTest() {
     super();
@@ -25,16 +26,25 @@ public class QuTouTiaoTest extends BaseTest {
     startAPP();
 
     // 执行阅读,播放操作
-    while (readCount < 100) {
+    while (readCount < 50) {
       try {
+        Log.e(TAG, ":\n********************************************\n第 "
+          + readCount
+          + " 次\n********************************************\n");
+
         // 判断是否有底部导航栏来区分是否已经回到首页, com.jifen.qukan:id/iq 底部tab容器
         UiObject2 toolBar = findById("iq");
         if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
           closeDialog();
           toolBar = findById("iq");
           if (toolBar == null) {// 关闭对话框之后再次查找是否已经回到首页
-            Log.e(TAG, "应用可能已经关闭,退出阅读");
-            break;
+            if (restartCount++ < 3) {
+              Log.e(TAG, "应用可能已经关闭,重新启动");
+              startAPP();
+            } else {
+              Log.e(TAG, "退出应用");
+              break;
+            }
           }
         }
         if (random.nextInt(10) % 2 == 0) {
@@ -43,8 +53,7 @@ public class QuTouTiaoTest extends BaseTest {
           doPlay(toolBar); //播放
         }
       } catch (Exception e) {
-        Log.e(TAG, "阅读失败", e);
-        break;
+        Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
       }
     }
 
@@ -76,12 +85,12 @@ public class QuTouTiaoTest extends BaseTest {
     int startY = height / 2;
     int endY = height / 4;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
-    Log.e(TAG, "列表向上滑动");
+    Log.e(TAG, "列表向上滑动文章列表");
 
     // com.jifen.qukan:id/wy 评论数id
     UiObject2 read = findById("wy");
     if (read == null) {
-      Log.e(TAG, "阅读失败,没有评论按钮");
+      Log.e(TAG, "阅读失败,没有评论按钮,无法打开文章");
       return false;
     }
     read.click();
@@ -91,6 +100,21 @@ public class QuTouTiaoTest extends BaseTest {
 
     // 文章评论点赞收藏容器的id为 com.jifen.qukan:id/je
     if (findById("je", 3) != null) {// 文章页面
+      Log.e(TAG, "开始阅读");
+      int count = 0;
+      while (count++ < 10) {
+        if (count % 5 == 0 && count != 0) {
+          mDevice.swipe(centerX, endY, centerX, startY, 20);
+          //Log.e(TAG, "向下滑动");
+        } else {
+          mDevice.swipe(centerX, startY, centerX, endY, 20);
+          //Log.e(TAG, "向上滑动");
+        }
+        mDevice.waitForIdle(timeOut);
+        sleep(3);
+      }
+      readCount++;
+
       // 发表评论
       /*if (commentCount < 10 && commentArticle()) {
         commentCount++;
@@ -100,24 +124,11 @@ public class QuTouTiaoTest extends BaseTest {
         shareCount++;
       }*/
 
-      Log.e(TAG, "开始阅读");
-      int count = 0;
-      while (count++ < 10) {
-        if (count % 5 == 0 && count != 0) {
-          mDevice.swipe(centerX, endY, centerX, startY, 20);
-          Log.e(TAG, "向下滑动");
-        } else {
-          mDevice.swipe(centerX, startY, centerX, endY, 20);
-          Log.e(TAG, "向上滑动");
-        }
-        mDevice.waitForIdle(timeOut);
-        sleep(3);
-      }
-      readCount++;
       mDevice.pressBack();
+      mDevice.waitForIdle(timeOut);
       Log.e(TAG, "阅读完成,返回首页");
     } else { // 页面可能未打开
-      Log.e(TAG, "返回首页:可能没有打开页面");
+      Log.e(TAG, "返回首页:可能没有打开文章页面");
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
     }
@@ -163,6 +174,10 @@ public class QuTouTiaoTest extends BaseTest {
 
     // 视频评论点赞收藏容器的id为 com.jifen.qukan:id/lq
     if (findById("lq", 3) != null) {// 视频页面
+      Log.e(TAG, "开始播放");
+      sleep(35);
+      readCount++;
+
       // 发表评论
       /*if (commentCount < 10 && commentVideo()) {
         commentCount++;
@@ -172,9 +187,6 @@ public class QuTouTiaoTest extends BaseTest {
         shareCount++;
       }*/
 
-      Log.e(TAG, "开始播放");
-      sleep(35);
-      readCount++;
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "播放完成,返回首页");

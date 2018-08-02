@@ -14,6 +14,7 @@ public class JuKanDianTest extends BaseTest {
   private int readCount = 0; // 阅读次数
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
+  private int restartCount = 0;//重启次数
 
   public JuKanDianTest() {
     super();
@@ -27,24 +28,32 @@ public class JuKanDianTest extends BaseTest {
     // 执行阅读,播放操作
     while (readCount < 200) {
       try {
+        Log.e(TAG, ":\n********************************************\n第 "
+          + readCount
+          + " 次\n********************************************\n");
+
         // 判断是否有看点Tab来确定是否已经回到首页
         UiObject2 tab = findById("tv_tab1");
         if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
           closeDialog();
           tab = findById("tv_tab1");
           if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
-            Log.e(TAG, "应用可能已经关闭,退出阅读");
-            break;
+            if (restartCount++ < 3) {
+              Log.e(TAG, "应用可能已经关闭,重新启动");
+              startAPP();
+            } else {
+              Log.e(TAG, "退出应用");
+              break;
+            }
           }
         }
-        if (readCount % 3 == 0) {
+        if (random.nextInt(6) % 3 == 0) {
           doPlay(); // 播放
         } else {
           doRead();// 阅读
         }
-      } catch (Exception e) {
-        Log.e(TAG, "阅读失败", e);
-        break;
+      } catch (Throwable e) {
+        Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
       }
     }
 
@@ -96,10 +105,10 @@ public class JuKanDianTest extends BaseTest {
       while (count++ < 10) {
         if (count % 5 == 0 && count != 0) {
           mDevice.swipe(centerX, endY, centerX, startY, 20);
-          Log.e(TAG, "向下滑动");
+          // Log.e(TAG, "向下滑动");
         } else {
           mDevice.swipe(centerX, startY, centerX, endY, 20);
-          Log.e(TAG, "向上滑动");
+          // Log.e(TAG, "向上滑动");
         }
         mDevice.waitForIdle(timeOut);
         sleep(3);
@@ -150,7 +159,7 @@ public class JuKanDianTest extends BaseTest {
     int startY = height / 2;
     int endY = height / 10;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
-    Log.e(TAG, "列表向上滑动");
+    Log.e(TAG, "视频列表向上滑动");
 
     // 点击播放
     UiObject2 play = findById("item_video_play_num");
@@ -161,10 +170,10 @@ public class JuKanDianTest extends BaseTest {
     play.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击开始播放视频");
 
     // com.xiangzi.jukandian:id/video_detail_bottom_comment_write_text
     if (findById("video_detail_bottom_comment_write_text", 3) != null) {// 视频页面
-      Log.e(TAG, "开始播放视频");
       sleep(35);
       readCount++;
       // 发表评论
@@ -182,7 +191,7 @@ public class JuKanDianTest extends BaseTest {
     } else {
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "返回首页:不是视频页面");
+      Log.e(TAG, "返回首页:打开的不是视频页面");
     }
     return true;
   }
@@ -193,6 +202,7 @@ public class JuKanDianTest extends BaseTest {
   private boolean closeDialog() {
     mDevice.pressBack();
     mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "关闭对话框");
     /*UiObject2 close = findByText("我知道了", 3);
     if (close != null) {
       close.click();

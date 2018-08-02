@@ -20,6 +20,7 @@ public class JinRiTouTiaoTest extends BaseTest {
   private int readCount = 0; // 阅读次数
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
+  private int restartCount = 0;//重启次数
 
   public JinRiTouTiaoTest() {
     super();
@@ -34,20 +35,29 @@ public class JinRiTouTiaoTest extends BaseTest {
     while (readCount < 25) {
       try {
         // 判断是否有底部导航栏来区分是否已经回到首页, android:id/tabs 底部tab容器
-        UiObject2 toolBar = mDevice.wait(Until.findObject(By.clazz(TabWidget.class)), 1000 * 10);
+        UiObject2 toolBar = findByClass(TabWidget.class);
         if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
-          Log.e(TAG, "应用可能已经关闭,退出阅读");
-          break;
+          if (restartCount++ < 3) {
+            Log.e(TAG, "应用可能已经关闭,重新启动");
+            startAPP();
+          } else {
+            Log.e(TAG, "退出应用");
+            break;
+          }
         }
+        Log.e(TAG, ":\n********************************************\n"
+          + "第 "
+          + readCount
+          + " 次"
+          + "\n********************************************\n");
         /*if (random.nextInt(10) % 2 == 0) {
           doRead(toolBar);// 阅读
         } else {
           doPlay(toolBar); //播放
         }*/
         doRead(toolBar);
-      } catch (Exception e) {
-        Log.e(TAG, "阅读失败", e);
-        break;
+      } catch (Throwable e) {
+        Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
       }
     }
 
@@ -92,13 +102,12 @@ public class JinRiTouTiaoTest extends BaseTest {
     if (findByClass(RecyclerView.class, 3) != null) {// 文章页面
       Log.e(TAG, "开始阅读");
       int count = 0;
-      while (count++ < 10) {
+      while (count++ < 12) {
         sleep(3);
         mDevice.waitForIdle(timeOut);
-        startY = height / 2 * 3; // 起点距离顶部  height / 2 * 3
+        startY = height / 3 * 2; // 起点距离顶部  height / 2 * 3
         endY = height / 6; // 终点距离顶部 height / 6
         mDevice.swipe(centerX, startY, centerX, endY, 20);
-        Log.e(TAG, "向上滑动");
       }
       readCount++;
 

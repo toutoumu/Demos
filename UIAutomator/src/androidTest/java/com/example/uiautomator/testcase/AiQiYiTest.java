@@ -17,6 +17,7 @@ public class AiQiYiTest extends BaseTest {
   private int followCount = 0;
   private int commentCount = 0;
   private int shareCount = 0;
+  private int restartCount = 0;//重启次数
 
   public AiQiYiTest() {
     super();
@@ -27,24 +28,46 @@ public class AiQiYiTest extends BaseTest {
     // 启动App
     startAPP();
 
-    // 签到
-    while (signCount++ < 2 && !sign()) {
-      closeAPP();
-      startAPP();
-    }
-
-    // 关注
-    while (followCount < 5 && follow()) {
-      followCount++;
-    }
-
     // 播放视频(评论,分享)
     while (playCount <= 25) {
+      // 判断是否已经回到首页
+      UiObject2 tab = findById("tabHome");
+      if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
+        closeDialog();
+        tab = findById("tabHome");
+        if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
+          if (restartCount++ < 3) {
+            Log.e(TAG, "应用可能已经关闭,重新启动");
+            startAPP();
+          } else {
+            Log.e(TAG, "退出应用");
+            break;
+          }
+        }
+      }
+
+      // 签到
+      if (signCount++ == 0) {
+        sign();
+        // TODO: 2018/8/1 开宝箱 开启
+      }
+      // 关注
+      if (followCount++ == 0) {
+        follow();
+      }
+
+      // 播放
       doPlay();
     }
 
     // 关闭应用
     closeAPP();
+  }
+
+  private void closeDialog() {
+    mDevice.pressBack();
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
   }
 
   // com.iqiyi.news:id/tabHome 推荐
@@ -70,8 +93,8 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "切换到[我]Tab");
     }
 
-    // 签到
-    UiObject2 obtain = findByText("领取");
+    // 签到 com.iqiyi.news:id/score_task_active
+    UiObject2 obtain = findById("score_task_active");
     if (obtain == null) {
       mDevice.pressBack();
       Log.e(TAG, "签到失败,没有[领取]按钮");
@@ -87,6 +110,15 @@ public class AiQiYiTest extends BaseTest {
     sleep(1);
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "签到成功,返回首页");
+
+    // 检测是否返回首页
+    UiObject2 home = findById("tabHome");
+    if (home == null) {
+      mDevice.pressBack();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "签到成功,返回首页");
+    }
     return true;
   }
 

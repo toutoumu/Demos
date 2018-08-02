@@ -9,15 +9,16 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import java.io.IOException;
 import java.util.Random;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.uiautomator.UiDevice.getInstance;
 
 public abstract class BaseTest {
-  public final static int timeOut = 1000; // 每次等待时间
-
   public final String TAG = this.getClass().getName();
+
+  public final static int timeOut = 1000; // 每次等待时间
 
   // 获取宽度高度
   public final int height; // 屏幕高度
@@ -120,6 +121,11 @@ public abstract class BaseTest {
     return share;
   }
 
+  /**
+   * 线程等待多少秒
+   *
+   * @param second
+   */
   public void sleep(int second) {
     try {
       Thread.sleep(1000 * second);
@@ -128,65 +134,22 @@ public abstract class BaseTest {
     }
   }
 
+  /**
+   * 根据应用名称启动app,App必须放在首页
+   */
   public void startAPP() {
     // 回到桌面首页
-    // closeAPP();
-    mDevice.pressBack();
-    mDevice.waitForIdle(20);
-    mDevice.pressBack();
-    mDevice.waitForIdle(20);
-    mDevice.pressBack();
-    mDevice.waitForIdle(20);
-    mDevice.pressBack();
-    mDevice.waitForIdle(20);
-    mDevice.pressBack();
-    mDevice.waitForIdle(20);
-    mDevice.pressBack();
-    mDevice.waitForIdle(1000);
-    mDevice.pressBack();
-    mDevice.waitForIdle(1000);
-    mDevice.pressBack();
-    mDevice.waitForIdle(1000);
-    mDevice.pressBack();
-    mDevice.waitForIdle(20);
-    mDevice.pressBack();
-    mDevice.waitForIdle(20);
-    mDevice.pressHome();
-    mDevice.waitForIdle(1000);
-    mDevice.pressHome();
-    mDevice.waitForIdle(1000);
+    closeAPP();
 
     // 打开app
-    BySelector selector = By.text(getAPPName());
-    SearchCondition<UiObject2> condition = Until.findObject(selector);
-    UiObject2 startIcon = mDevice.wait(condition, 1000 * 10);
+    UiObject2 startIcon = findByText(getAPPName());
     if (startIcon.isClickable()) {
       startIcon.click();
       sleep(10);
       mDevice.waitForIdle(timeOut);
-    }
-  }
-
-  /**
-   * 启动app
-   */
-  public void startAPP(String packageName) {
-    mDevice.pressHome();
-    mDevice.pressHome();
-    mDevice.waitForIdle(1000);
-    Context mContext = getInstrumentation().getContext();
-    Intent myIntent = mContext.getPackageManager().getLaunchIntentForPackage(getPackageName());  //通过Intent启动app
-    if (myIntent != null) {
-      myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-      mContext.startActivity(myIntent);
-      try {
-        Log.e(TAG, "尝试打开app: " + getPackageName());
-        Thread.sleep(1000 * 10);
-      } catch (InterruptedException e) {
-        Log.e(TAG, "打开app出错了:" + getPackageName(), e);
-      }
+      Log.e(TAG, getAPPName() + "已经启动");
     } else {
-      Log.e(TAG, "尝试打开app失败: " + getPackageName());
+      Log.e(TAG, getAPPName() + "启动失败");
     }
   }
 
@@ -194,11 +157,85 @@ public abstract class BaseTest {
    * 关闭app
    */
   public void closeAPP() {
+    mDevice.pressBack();
+    mDevice.waitForIdle(20);
+    mDevice.pressBack();
+    mDevice.waitForIdle(20);
+    mDevice.pressBack();
+    mDevice.waitForIdle(20);
+    mDevice.pressBack();
+    mDevice.waitForIdle(20);
+    mDevice.pressBack();
+    mDevice.waitForIdle(20);
+    mDevice.pressBack();
+    mDevice.waitForIdle(1000);
+    mDevice.pressBack();
+    mDevice.waitForIdle(1000);
+    mDevice.pressBack();
+    mDevice.waitForIdle(1000);
+    mDevice.pressBack();
+    mDevice.waitForIdle(20);
+    mDevice.pressBack();
+    mDevice.waitForIdle(20);
+    mDevice.pressHome();
+    mDevice.waitForIdle(1000);
+    mDevice.pressHome();
+    mDevice.waitForIdle(1000);
+  }
+
+  /**
+   * 构建评论内容
+   *
+   * @param length 长度
+   * @return 内容
+   */
+  public String getComment(int length) {
+    //定义一个字符串（A-Z，a-z，0-9）即62位；
+    String seed = "zxcvbnmlkjhgfdsaqwertyuiopQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+    int strLen = seed.length();
+    //由Random生成随机数
+    StringBuilder sb = new StringBuilder();
+    //长度为几就循环几次
+    for (int i = 0; i < length; ++i) {
+      //产生0-61的数字
+      int number = random.nextInt(strLen);
+      //将产生的数字通过length次承载到sb中
+      sb.append(seed.charAt(number));
+    }
+    //将承载的字符转换成字符串
+    return sb.toString();
+  }
+
+  /**
+   * 根据包名启动app
+   */
+  public void startAPPWithPackageName() {
+    mDevice.pressHome();
+    mDevice.pressHome();
+    sleep(1);
+    mDevice.waitForIdle(1000);
+    Context mContext = getInstrumentation().getContext();
+    Intent myIntent = mContext.getPackageManager().getLaunchIntentForPackage(getPackageName());  //通过Intent启动app
+    if (myIntent != null) {
+      Log.e(TAG, "尝试打开app: " + getPackageName());
+      myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      mContext.startActivity(myIntent);
+      sleep(10);
+      mDevice.waitForIdle(timeOut);
+    } else {
+      Log.e(TAG, "尝试打开app失败: " + getPackageName());
+    }
+  }
+
+  /**
+   * 根据包名关闭app
+   */
+  public void closeAPPWithPackageName() {
     try {
       Log.e(TAG, "尝试关闭app: " + getPackageName());
       mDevice.executeShellCommand("am force-stop " + getPackageName());//通过命令行关闭app
       Log.e(TAG, "app已经关闭: " + getPackageName());
-    } catch (Exception e) {
+    } catch (Throwable e) {
       Log.e(TAG, "关闭app失败", e);
       mDevice.pressBack();
       mDevice.pressBack();
@@ -208,28 +245,11 @@ public abstract class BaseTest {
   /**
    * 通过命令启动App
    */
- /* private void startAPP(String sLaunchActivity) {
+  private void startAPPWithCMD(String sLaunchActivity) {
     try {
       mDevice.executeShellCommand("am start -n " + getPackageName() + "/" + sLaunchActivity);//通过命令行启动app
     } catch (IOException e) {
-      e.printStackTrace();
+      Log.e(TAG, getAPPName() + "启动出错", e);
     }
-  }*/
-  public String getComment(int length) {
-    //定义一个字符串（A-Z，a-z，0-9）即62位；
-    String str = "zxcvbnmlkjhgfdsaqwertyuiopQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
-    int strLen = str.length();
-    //由Random生成随机数
-    Random random = new Random();
-    StringBuilder sb = new StringBuilder();
-    //长度为几就循环几次
-    for (int i = 0; i < length; ++i) {
-      //产生0-61的数字
-      int number = random.nextInt(strLen);
-      //将产生的数字通过length次承载到sb中
-      sb.append(str.charAt(number));
-    }
-    //将承载的字符转换成字符串
-    return sb.toString();
   }
 }
