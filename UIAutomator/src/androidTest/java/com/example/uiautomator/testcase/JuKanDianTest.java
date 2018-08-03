@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.Random;
 
 /**
- * 趣头条测试
+ * 趣头条测试 提成较高 1000金币=1元 分享点击80金币一次 徒弟分享贡献16金币
  */
 public class JuKanDianTest extends BaseTest {
 

@@ -13,7 +13,7 @@ import android.widget.TabWidget;
 import java.util.Random;
 
 /**
- * 今日头条测试
+ * 今日头条测试 徒弟阅读一次10金币?
  */
 public class JinRiTouTiaoTest extends BaseTest {
 

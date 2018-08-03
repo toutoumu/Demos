@@ -7,13 +7,13 @@ import android.util.Log;
 import java.util.Random;
 
 /**
- * 爱奇艺测试
+ * 爱奇艺测试 1000金币=1元 提现20元起 每日最高领取400金币, 徒弟阅读一次贡献5金币 最多一百金币
  */
 public class AiQiYiTest extends BaseTest {
 
   // 次数统计
   private int signCount = 0;
-  private int playCount = 0;
+  private int readCount = 0;
   private int followCount = 0;
   private int commentCount = 0;
   private int shareCount = 0;
@@ -29,7 +29,9 @@ public class AiQiYiTest extends BaseTest {
     startAPP();
 
     // 播放视频(评论,分享)
-    while (playCount <= 25) {
+    while (readCount <= 25) {
+      Log.e(TAG,
+        ":\n********************************************\n第 " + readCount + " 次\n********************************************\n");
       // 判断是否已经回到首页
       UiObject2 tab = findById("tabHome");
       if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
@@ -223,7 +225,7 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "开始播放视频");
       // 等待视频播放完成
       sleep(35);
-      playCount++;
+      readCount++;
 
       // 发表评论
       if (commentCount < 5 && comment()) {

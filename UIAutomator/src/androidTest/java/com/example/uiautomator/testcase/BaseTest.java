@@ -142,8 +142,10 @@ public abstract class BaseTest {
     closeAPP();
 
     // 打开app
-    UiObject2 startIcon = findByText(getAPPName());
-    if (startIcon.isClickable()) {
+    BySelector selector = By.text(getAPPName());
+    SearchCondition<UiObject2> condition = Until.findObject(selector);
+    UiObject2 startIcon = mDevice.wait(condition, 1000 * 15);
+    if (startIcon != null) {
       startIcon.click();
       sleep(10);
       mDevice.waitForIdle(timeOut);
