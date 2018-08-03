@@ -57,6 +57,10 @@ public class DongFangTouTiaoTest extends BaseTest {
         }*/
         doRead();// 阅读
       } catch (Throwable e) {
+        if (e instanceof IllegalStateException) {
+          Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
+          break;
+        }
         Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
       }
     }
@@ -92,16 +96,15 @@ public class DongFangTouTiaoTest extends BaseTest {
     Log.e(TAG, "列表向上滑动");
 
     // 打开文章 com.songheng.eastnews:id/a6b  标签 (打开不是百度的)
-    UiObject2 read = findById("a6b");
-
     int repeat = 0;
+    UiObject2 read = findById("a6b");
     List<String> key = Arrays.asList("百度");
-    while (repeat++ < 3 && (read == null || key.contains(read.getText()))) {
-      Log.e(TAG, "阅读失败,没有评论按钮");
+    while (repeat++ < 4 && (read == null || key.contains(read.getText()))) {
+      Log.e(TAG, "阅读失败,没有找到文章");
       mDevice.swipe(centerX, startY, centerX, endY, 30);
       sleep(1);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "列表向上滑动");
+      Log.e(TAG, "列表向上滑动,向上滚动查找文章");
       read = findById("a6b");
     }
     read.click();
@@ -111,13 +114,14 @@ public class DongFangTouTiaoTest extends BaseTest {
 
     int count = 0;
     while (count++ < 10) {
-        /*if (count % 5 == 0 && count != 0) {
-          mDevice.swipe(centerX, endY, centerX, startY, 20);
-          // Log.e(TAG, "向下滑动");
-        } else {
-          mDevice.swipe(centerX, startY, centerX, endY, 20);
-          // Log.e(TAG, "向上滑动");
-        }*/
+      if (count == 4) {
+        UiObject2 seeAll = findByText("点击阅读全文", 3);
+        if (seeAll != null) {
+          seeAll.click();
+          mDevice.waitForIdle(timeOut);
+          Log.e(TAG, "点击阅读全文");
+        }
+      }
       mDevice.swipe(centerX, startY, centerX, endY, 20);
       mDevice.waitForIdle(timeOut);
       sleep(3);

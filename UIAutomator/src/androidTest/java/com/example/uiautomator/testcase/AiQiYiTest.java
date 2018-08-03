@@ -30,36 +30,45 @@ public class AiQiYiTest extends BaseTest {
 
     // 播放视频(评论,分享)
     while (readCount <= 25) {
-      Log.e(TAG,
-        ":\n********************************************\n第 " + readCount + " 次\n********************************************\n");
-      // 判断是否已经回到首页
-      UiObject2 tab = findById("tabHome");
-      if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
-        closeDialog();
-        tab = findById("tabHome");
-        if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
-          if (restartCount++ < 3) {
-            Log.e(TAG, "应用可能已经关闭,重新启动");
-            startAPP();
-          } else {
-            Log.e(TAG, "退出应用");
-            break;
+      try {
+        Log.e(TAG, ":\n********************************************\n第 "
+          + readCount
+          + " 次\n********************************************\n");
+        // 判断是否已经回到首页
+        UiObject2 tab = findById("tabHome");
+        if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
+          closeDialog();
+          tab = findById("tabHome");
+          if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
+            if (restartCount++ < 3) {
+              Log.e(TAG, "应用可能已经关闭,重新启动");
+              startAPP();
+            } else {
+              Log.e(TAG, "退出应用");
+              break;
+            }
           }
         }
-      }
 
-      // 签到
-      if (signCount++ == 0) {
-        sign();
-        // TODO: 2018/8/1 开宝箱 开启
-      }
-      // 关注
-      if (followCount++ == 0) {
-        follow();
-      }
+        // 签到
+        if (signCount++ == 0) {
+          sign();
+          // TODO: 2018/8/1 开宝箱 开启
+        }
+        // 关注
+        if (followCount++ <= 3) {
+          follow();
+        }
 
-      // 播放
-      doPlay();
+        // 播放
+        doPlay();
+      } catch (Throwable e) {
+        if (e instanceof IllegalStateException) {
+          Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
+          break;
+        }
+        Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
+      }
     }
 
     // 关闭应用

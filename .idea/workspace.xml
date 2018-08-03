@@ -9,17 +9,16 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="test" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
     <option name="LOGCAT_FORMAT_STRING" value="%1$s %2$s %4$c/%5$s: %6$s" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e09b4d42-5262-43db-bbc7-26cdbdc5480a" name="Default" comment="自动化测试相关">
-      <change beforePath="" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java" />
+    <list default="true" id="e09b4d42-5262-43db-bbc7-26cdbdc5480a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java" />
       <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java" />
-      <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java" />
+      <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java" />
       <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java" />
       <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java" />
       <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java" />
@@ -54,29 +53,15 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AppTest.java" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="AppTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="64" column="24" lean-forward="false" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="144" column="48" lean-forward="false" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+            <state relative-caret-position="229">
+              <caret line="20" column="3" lean-forward="false" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
               <folding>
-                <element signature="method#findById#1;class#BaseTest#0" expanded="false" />
-                <element signature="method#findByClass#1;class#BaseTest#0" expanded="false" />
-                <element signature="method#sleep#0;class#BaseTest#0" expanded="false" />
-                <element signature="method#getComment#0;class#BaseTest#0" expanded="false" />
-                <element signature="method#startAPPWithPackageName#0;class#BaseTest#0" expanded="false" />
-                <element signature="method#closeAPPWithPackageName#0;class#BaseTest#0" expanded="false" />
+                <element signature="e#569#570#0" expanded="true" />
+                <element signature="e#612#613#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -85,8 +70,8 @@
       <file leaf-file-name="JuKanDianTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="11" column="45" lean-forward="false" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+            <state relative-caret-position="556">
+              <caret line="59" column="47" lean-forward="false" selection-start-line="59" selection-start-column="47" selection-end-line="59" selection-end-column="47" />
               <folding>
                 <element signature="method#closeDialog#0;class#JuKanDianTest#0" expanded="false" />
                 <element signature="method#commentArticle#0;class#JuKanDianTest#0" expanded="false" />
@@ -100,8 +85,8 @@
       <file leaf-file-name="AiQiYiTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="68" column="2" lean-forward="false" selection-start-line="68" selection-start-column="2" selection-end-line="72" selection-end-column="3" />
+            <state relative-caret-position="-411">
+              <caret line="26" column="23" lean-forward="true" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
               <folding>
                 <element signature="method#sign#0;class#AiQiYiTest#0" expanded="false" />
                 <element signature="method#follow#0;class#AiQiYiTest#0" expanded="false" />
@@ -115,8 +100,8 @@
       <file leaf-file-name="QuTouTiaoTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="25" />
+            <state relative-caret-position="415">
+              <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
               <folding>
                 <element signature="method#closeDialog#0;class#QuTouTiaoTest#0" expanded="false" />
               </folding>
@@ -124,14 +109,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DongFangTouTiaoTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DongFangTouTiaoTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="112" column="26" lean-forward="true" selection-start-line="112" selection-start-column="26" selection-end-line="112" selection-end-column="26" />
+            <state relative-caret-position="474">
+              <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
               <folding>
                 <element signature="method#shareVideo#0;class#DongFangTouTiaoTest#0" expanded="false" />
                 <element signature="method#shareArticle#0;class#DongFangTouTiaoTest#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JinRiTouTiaoTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="63" column="47" lean-forward="false" selection-start-line="63" selection-start-column="47" selection-end-line="63" selection-end-column="47" />
+              <folding>
+                <element signature="method#doPlay#0;class#JinRiTouTiaoTest#0" expanded="false" />
+                <element signature="method#closeDialog#0;class#JinRiTouTiaoTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -7290,13 +7288,13 @@
         <option value="$PROJECT_DIR$/BlueTooth/build.gradle" />
         <option value="$PROJECT_DIR$/UIAutomator/build.gradle" />
         <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/ZhongQingKanDianTest.java" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java" />
         <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java" />
         <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java" />
         <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java" />
       </list>
     </option>
   </component>
@@ -7342,9 +7340,75 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="bluetooth" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -7416,73 +7480,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Demos" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Demos" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="BlueTooth" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="bluetooth" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -7490,7 +7488,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="device.picker.selection" value="PBV5T16704007391" />
+    <property name="device.picker.selection" value="192.168.20.95:5555" />
     <property name="DEBUGGABLE_DEVICE" value="huawei-eva_al00-PBV5T16704007391" />
     <property name="DEBUGGABLE_PROCESS" value="com.example.uiautomator.debug" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
@@ -7534,7 +7532,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Android Instrumented Tests.DongFangTouTiaoTest()">
+  <component name="RunManager" selected="Android Instrumented Tests.quTouTiaoTest()">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -8835,11 +8833,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Android Instrumented Tests.DongFangTouTiaoTest()" />
-        <item index="1" class="java.lang.String" itemvalue="Android Instrumented Tests.StartTest()" />
+        <item index="0" class="java.lang.String" itemvalue="Android Instrumented Tests.quTouTiaoTest()" />
+        <item index="1" class="java.lang.String" itemvalue="Android Instrumented Tests.DongFangTouTiaoTest()" />
         <item index="2" class="java.lang.String" itemvalue="Android Instrumented Tests.aiQiYiTest()" />
-        <item index="3" class="java.lang.String" itemvalue="Android Instrumented Tests.JinRiTouTiaoTest()" />
-        <item index="4" class="java.lang.String" itemvalue="Android Instrumented Tests.quTouTiaoTest()" />
+        <item index="3" class="java.lang.String" itemvalue="Android Instrumented Tests.StartTest()" />
+        <item index="4" class="java.lang.String" itemvalue="Android Instrumented Tests.JinRiTouTiaoTest()" />
       </list>
     </recent_temporary>
   </component>
@@ -8962,39 +8960,46 @@
       <option name="project" value="LOCAL" />
       <updated>1533206188748</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="自动化测试相关">
+      <created>1533278081991</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1533278081991</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 12h 38m 48s.xml">
+    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 15h 08m 58s.xml">
       <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 13h 43m 48s.xml">
+    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 15h 28m 42s.xml">
       <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 13h 44m 38s.xml">
+    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 15h 55m 24s.xml">
       <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 13h 46m 00s.xml">
+    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 16h 04m 17s.xml">
       <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 13h 48m 20s.xml">
+    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 16h 08m 32s.xml">
       <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 13h 49m 50s.xml">
-      <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="StartTest() - 2018.08.03 at 15h 28m 42s.xml">
+      <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 14h 03m 56s.xml">
-      <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="aiQiYiTest() - 2018.08.03 at 16h 00m 58s.xml">
+      <configuration name="aiQiYiTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 14h 06m 21s.xml">
-      <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="quTouTiaoTest() - 2018.08.03 at 16h 10m 06s.xml">
+      <configuration name="quTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 14h 26m 02s.xml">
-      <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="quTouTiaoTest() - 2018.08.03 at 16h 10m 58s.xml">
+      <configuration name="quTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.03 at 14h 32m 42s.xml">
-      <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="quTouTiaoTest() - 2018.08.03 at 16h 16m 40s.xml">
+      <configuration name="quTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -9020,19 +9025,18 @@
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5320435" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22974607" sideWeight="0.49570817" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31076178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25822604" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31076178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="FIR.im" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36033857" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35187423" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35187423" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5501814" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5949214" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2553648" sideWeight="0.48349056" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761088" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2553648" sideWeight="0.48349056" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -9045,6 +9049,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761088" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -9062,8 +9067,8 @@
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22974607" sideWeight="0.49570817" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31076178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25822604" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31076178" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="FIR.im" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36033857" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -9076,7 +9081,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5501814" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5949214" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2553648" sideWeight="0.48349056" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2553648" sideWeight="0.48349056" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761088" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -9156,13 +9161,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java</url>
-          <line>255</line>
+          <line>264</line>
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java</url>
-          <line>248</line>
+          <line>252</line>
           <properties />
           <option name="timeStamp" value="24" />
         </line-breakpoint>
@@ -9174,19 +9179,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java</url>
-          <line>237</line>
+          <line>241</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java</url>
-          <line>296</line>
+          <line>305</line>
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java</url>
-          <line>395</line>
+          <line>399</line>
           <properties />
           <option name="timeStamp" value="65" />
         </line-breakpoint>
@@ -9197,28 +9202,10 @@
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java</url>
-          <line>31</line>
-          <properties />
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java</url>
-          <line>38</line>
-          <properties />
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java</url>
           <line>144</line>
           <properties />
           <option name="timeStamp" value="83" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java</url>
-          <line>74</line>
-          <properties />
-          <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/DataBinding/src/main/java/com/example/databinding/CustomBindingAdapter.java</url>
@@ -9229,7 +9216,7 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="85" />
+      <option name="time" value="89" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -9299,13 +9286,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LiveData/src/main/res/layout/layout_livedata.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="15" column="8" lean-forward="true" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LiveData/src/main/java/com/example/livedata/LiveDataFragment.java">
@@ -9411,14 +9398,14 @@
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/main/java/com/example/uiautomator/MainActivity.kt" />
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/main/java/com/example/uiautomator/TestService.java" />
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="5" column="24" lean-forward="false" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/main/java/com/example/uiautomator/App.java">
@@ -9436,14 +9423,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/main/java/com/example/uiautomator/MainActivity.java">
@@ -9465,7 +9452,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
           <caret line="68" column="32" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9481,7 +9467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="68" column="18" lean-forward="false" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9489,7 +9474,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="507">
           <caret line="65" column="37" lean-forward="false" selection-start-line="65" selection-start-column="18" selection-end-line="65" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9497,7 +9481,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9505,7 +9488,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="5" column="22" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9513,7 +9495,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9521,7 +9502,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="40" column="21" lean-forward="true" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9540,7 +9520,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
           <caret line="35" column="3" lean-forward="true" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9548,7 +9527,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9556,7 +9534,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="7" column="40" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9564,7 +9541,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9572,9 +9548,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
           <caret line="23" column="48" lean-forward="false" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#1017#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -9582,7 +9555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="626" column="15" lean-forward="false" selection-start-line="626" selection-start-column="15" selection-end-line="626" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -9590,198 +9562,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="360" column="0" lean-forward="false" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
-          <folding>
-            <marker date="1530586549163" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1530586549163" expanded="false" signature="135:521" ph="..." />
-            <marker date="1530586549163" expanded="false" signature="705:712" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="748:752" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="794:801" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="837:841" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="864:871" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="907:911" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="936:943" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="979:983" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1038:1045" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1081:1085" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1143:1150" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1186:1190" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1232:1239" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1275:1279" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1333:1340" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1376:1380" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1430:1437" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1473:1477" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1519:1526" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1562:1566" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1606:1613" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1649:1653" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1680:1687" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1723:1727" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1758:1765" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1801:1805" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1848:1855" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1891:1895" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="1932:1939" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="1975:1979" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2013:2020" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2056:2060" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2092:2099" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2135:2139" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2171:2178" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2214:2218" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2249:2256" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2292:2296" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2343:2350" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2386:2390" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2437:2444" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2480:2484" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2517:2524" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2560:2564" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2610:2617" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2653:2657" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2709:2716" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2752:2756" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2824:2831" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2867:2871" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="2938:2945" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="2981:2985" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="3114:3160" ph="{...}" />
-            <marker date="1530586549163" expanded="true" signature="3280:3326" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="3414:3421" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="3457:3461" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="3536:3543" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="3579:3583" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="3684:3730" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="3800:3807" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="3843:3847" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="3929:3936" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="3972:3976" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="4061:4068" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="4104:4108" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="4151:4158" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="4194:4198" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="4241:4248" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="4284:4288" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="4330:4337" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="4373:4377" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="4423:4430" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="4466:4470" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="4520:4527" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="4563:4567" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="4624:4631" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="4667:4671" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="4838:4884" ph="{...}" />
-            <marker date="1530586549163" expanded="true" signature="5040:5086" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="5142:5149" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="5185:5189" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="5467:5513" ph="{...}" />
-            <marker date="1530586549163" expanded="true" signature="5672:5718" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="5788:5795" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="5831:5835" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="5941:5987" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="6043:6050" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="6086:6090" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="6187:6233" ph="{...}" />
-            <marker date="1530586549163" expanded="true" signature="6365:6411" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="6485:6492" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="6528:6532" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="6642:6688" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="6761:6768" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="6804:6808" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="6862:6869" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="6905:6909" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="6965:6972" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="7008:7012" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="7067:7074" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="7110:7114" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="7167:7174" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="7210:7214" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="7297:7304" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="7340:7344" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="7466:7512" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="7566:7573" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="7609:7613" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="7673:7680" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="7716:7720" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="7724:7742" ph="/**...*/" />
-            <marker date="1530586549163" expanded="false" signature="7791:7798" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="7834:7838" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="7842:7860" ph="/**...*/" />
-            <marker date="1530586549163" expanded="false" signature="7908:7915" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="7951:7955" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="7989:7996" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="8032:8036" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="8071:8078" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="8114:8118" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="8159:8166" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="8202:8206" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="8256:8263" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="8299:8303" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="8367:8374" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="8410:8414" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="8459:8745" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="8521:8530" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="8566:8572" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="8604:8613" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="8649:8655" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="8690:8699" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="8735:8741" ph=" }" />
-            <marker date="1530586549163" expanded="true" signature="8785:9983" ph="{...}" />
-            <marker date="1530586549163" expanded="true" signature="8888:8938" ph="{...}" />
-            <marker date="1530586549163" expanded="true" signature="9033:9083" ph="{...}" />
-            <marker date="1530586549163" expanded="false" signature="9113:9122" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9158:9164" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="9207:9216" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9252:9258" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="9319:9328" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9364:9370" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="9409:9418" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9454:9460" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="9492:9501" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9537:9543" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="9588:9597" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9633:9639" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="9684:9693" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9729:9735" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="9803:9812" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9848:9854" ph=" }" />
-            <marker date="1530586549163" expanded="false" signature="9928:9937" ph=" { " />
-            <marker date="1530586549163" expanded="false" signature="9973:9979" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-          <folding>
-            <element signature="method#doPlay#0;class#JinRiTouTiaoTest#0" expanded="false" />
-            <element signature="method#closeDialog#0;class#JinRiTouTiaoTest#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="25" />
-          <folding>
-            <element signature="method#closeDialog#0;class#QuTouTiaoTest#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="68" column="2" lean-forward="false" selection-start-line="68" selection-start-column="2" selection-end-line="72" selection-end-column="3" />
-          <folding>
-            <element signature="method#sign#0;class#AiQiYiTest#0" expanded="false" />
-            <element signature="method#follow#0;class#AiQiYiTest#0" expanded="false" />
-            <element signature="method#comment#0;class#AiQiYiTest#0" expanded="false" />
-            <element signature="method#share#0;class#AiQiYiTest#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -9789,19 +9569,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="354" column="16" lean-forward="false" selection-start-line="354" selection-start-column="16" selection-end-line="354" selection-end-column="16" />
-          <folding>
-            <element signature="e#12444#12445#0" expanded="false" />
-            <element signature="e#12530#12531#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="144" column="48" lean-forward="false" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+        <state relative-caret-position="301">
+          <caret line="73" column="24" lean-forward="true" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
           <folding>
-            <element signature="method#findById#1;class#BaseTest#0" expanded="false" />
             <element signature="method#findByClass#1;class#BaseTest#0" expanded="false" />
             <element signature="method#sleep#0;class#BaseTest#0" expanded="false" />
             <element signature="method#getComment#0;class#BaseTest#0" expanded="false" />
@@ -9811,10 +9586,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-411">
+          <caret line="26" column="23" lean-forward="true" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+          <folding>
+            <element signature="method#sign#0;class#AiQiYiTest#0" expanded="false" />
+            <element signature="method#follow#0;class#AiQiYiTest#0" expanded="false" />
+            <element signature="method#comment#0;class#AiQiYiTest#0" expanded="false" />
+            <element signature="method#share#0;class#AiQiYiTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding>
+            <element signature="method#shareVideo#0;class#DongFangTouTiaoTest#0" expanded="false" />
+            <element signature="method#shareArticle#0;class#DongFangTouTiaoTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="63" column="47" lean-forward="false" selection-start-line="63" selection-start-column="47" selection-end-line="63" selection-end-column="47" />
+          <folding>
+            <element signature="method#doPlay#0;class#JinRiTouTiaoTest#0" expanded="false" />
+            <element signature="method#closeDialog#0;class#JinRiTouTiaoTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="11" column="45" lean-forward="false" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+        <state relative-caret-position="556">
+          <caret line="59" column="47" lean-forward="false" selection-start-line="59" selection-start-column="47" selection-end-line="59" selection-end-column="47" />
           <folding>
             <element signature="method#closeDialog#0;class#JuKanDianTest#0" expanded="false" />
             <element signature="method#commentArticle#0;class#JuKanDianTest#0" expanded="false" />
@@ -9824,21 +9634,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java">
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="64" column="24" lean-forward="false" selection-start-line="64" selection-start-column="19" selection-end-line="64" selection-end-column="24" />
-          <folding />
+        <state relative-caret-position="415">
+          <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+          <folding>
+            <element signature="method#closeDialog#0;class#QuTouTiaoTest#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java">
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="112" column="26" lean-forward="true" selection-start-line="112" selection-start-column="26" selection-end-line="112" selection-end-column="26" />
+        <state relative-caret-position="229">
+          <caret line="20" column="3" lean-forward="false" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
           <folding>
-            <element signature="method#shareVideo#0;class#DongFangTouTiaoTest#0" expanded="false" />
-            <element signature="method#shareArticle#0;class#DongFangTouTiaoTest#0" expanded="false" />
+            <element signature="e#569#570#0" expanded="true" />
+            <element signature="e#612#613#0" expanded="true" />
           </folding>
         </state>
       </provider>

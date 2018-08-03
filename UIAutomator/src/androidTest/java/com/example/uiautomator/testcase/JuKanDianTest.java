@@ -53,6 +53,10 @@ public class JuKanDianTest extends BaseTest {
           doRead();// 阅读
         }
       } catch (Throwable e) {
+        if (e instanceof IllegalStateException) {
+          Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
+          break;
+        }
         Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
       }
     }
