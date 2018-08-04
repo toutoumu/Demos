@@ -126,9 +126,9 @@ public abstract class BaseTest {
    *
    * @param second
    */
-  public void sleep(int second) {
+  public void sleep(double second) {
     try {
-      Thread.sleep(1000 * second);
+      Thread.sleep((long) (1000 * second));
     } catch (InterruptedException e) {
       Log.e(TAG, "sleep出错了:" + getPackageName(), e);
     }

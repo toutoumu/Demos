@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.Random;
 
 /**
- * 趣头条测试 提成较高 1000金币=1元 分享点击80金币一次 徒弟分享贡献16金币
+ * 聚看点测试 提成较高 签到奖励高 1000金币=1元 分享点击80金币一次 徒弟分享贡献16金币
  */
 public class JuKanDianTest extends BaseTest {
 
@@ -108,14 +108,14 @@ public class JuKanDianTest extends BaseTest {
       int count = 0;
       while (count++ < 10) {
         if (count % 5 == 0 && count != 0) {
-          mDevice.swipe(centerX, endY, centerX, startY, 20);
+          mDevice.swipe(centerX, endY, centerX, startY, 200);
           // Log.e(TAG, "向下滑动");
         } else {
-          mDevice.swipe(centerX, startY, centerX, endY, 20);
+          mDevice.swipe(centerX, startY, centerX, endY, 200);
           // Log.e(TAG, "向上滑动");
         }
         mDevice.waitForIdle(timeOut);
-        sleep(3);
+        sleep(2);
       }
       readCount++;
 

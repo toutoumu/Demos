@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 东方头条测试 提成较高 1000金币=1元 分享点击80金币一次 徒弟分享贡献16金币
+ * 东方头条测试 提成较高 1000金币=1元 徒弟阅读提成是徒弟两倍
  */
 public class DongFangTouTiaoTest extends BaseTest {
 
@@ -29,7 +29,7 @@ public class DongFangTouTiaoTest extends BaseTest {
     startAPP();
 
     // 执行阅读,播放操作 com.songheng.eastnews:id/xq
-    while (readCount < 200) {
+    while (readCount < 100) {
       try {
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
@@ -57,7 +57,7 @@ public class DongFangTouTiaoTest extends BaseTest {
         }*/
         doRead();// 阅读
       } catch (Throwable e) {
-        if (e instanceof IllegalStateException) {
+        if (e instanceof IllegalStateException) {// 如果断开了连接
           Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
           break;
         }
@@ -92,7 +92,7 @@ public class DongFangTouTiaoTest extends BaseTest {
     // 向上滚动列表
     int startY = height / 2;
     int endY = height / 4;
-    mDevice.swipe(centerX, startY, centerX, endY, 30);
+    mDevice.swipe(centerX, startY, centerX, endY, 20);
     Log.e(TAG, "列表向上滑动");
 
     // 打开文章 com.songheng.eastnews:id/a6b  标签 (打开不是百度的)
@@ -101,7 +101,7 @@ public class DongFangTouTiaoTest extends BaseTest {
     List<String> key = Arrays.asList("百度");
     while (repeat++ < 4 && (read == null || key.contains(read.getText()))) {
       Log.e(TAG, "阅读失败,没有找到文章");
-      mDevice.swipe(centerX, startY, centerX, endY, 30);
+      mDevice.swipe(centerX, startY, centerX, endY, 20);
       sleep(1);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "列表向上滑动,向上滚动查找文章");
@@ -113,18 +113,23 @@ public class DongFangTouTiaoTest extends BaseTest {
     Log.e(TAG, "打开文章,开始阅读");
 
     int count = 0;
+    startY = 4 * height / 5;
+    endY = height / 5;
     while (count++ < 10) {
-      if (count == 4) {
+      mDevice.swipe(centerX, startY, centerX, endY, 200);
+      mDevice.waitForIdle(timeOut);
+
+      if (count == 2) {// 滑动三次之后出现 点击阅读全文
         UiObject2 seeAll = findByText("点击阅读全文", 3);
         if (seeAll != null) {
           seeAll.click();
           mDevice.waitForIdle(timeOut);
           Log.e(TAG, "点击阅读全文");
+          continue;
         }
       }
-      mDevice.swipe(centerX, startY, centerX, endY, 20);
-      mDevice.waitForIdle(timeOut);
-      sleep(3);
+
+      sleep(2);
     }
     readCount++;
 

@@ -8,16 +8,18 @@ import java.util.Random;
 
 /**
  * 爱奇艺测试 1000金币=1元 提现20元起 每日最高领取400金币, 徒弟阅读一次贡献5金币 最多一百金币
+ * 阅读20篇 100
+ * 徒弟阅读  100
  */
 public class AiQiYiTest extends BaseTest {
 
   // 次数统计
-  private int signCount = 0;
-  private int readCount = 0;
-  private int followCount = 0;
-  private int commentCount = 0;
-  private int shareCount = 0;
-  private int restartCount = 0;//重启次数
+  private int signCount = 0; // 签到调用次数
+  private int readCount = 0; // 阅读次数
+  private int followCount = 0; // 关注调用次数
+  private int commentCount = 0; // 评论次数
+  private int shareCount = 0; // 分享次数
+  private int restartCount = 0;// 重启次数
 
   public AiQiYiTest() {
     super();
@@ -56,7 +58,7 @@ public class AiQiYiTest extends BaseTest {
           // TODO: 2018/8/1 开宝箱 开启
         }
         // 关注
-        if (followCount++ <= 3) {
+        while (followCount++ <= 3) {
           follow();
         }
 
@@ -322,27 +324,27 @@ public class AiQiYiTest extends BaseTest {
     share.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开QQ分享");
+    Log.e(TAG, "打开QQ分享,离开当前应用");
 
     // 点击发表评论
     UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
     if (publish == null) {
-      Log.e(TAG, "分享到我的电脑失败");
+      Log.e(TAG, "分享到[我的电脑]失败");
       return false;
     }
     publish.getParent().click();
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击分享到:我的电脑");
+    Log.e(TAG, "点击[我的电脑]选项");
 
     // 分享到我的电脑确认
     UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
     if (confirm == null) {
-      Log.e(TAG, "分享到我的电脑确认失败");
+      Log.e(TAG, "分享到[我的电脑]确认失败");
       return false;
     }
     confirm.click();
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑确认");
+    Log.e(TAG, "分享到[我的电脑]确认");
 
     // 返回
     UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
@@ -352,7 +354,7 @@ public class AiQiYiTest extends BaseTest {
     }
     back.click();
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享返回");
+    Log.e(TAG, "QQ完成分享返回");
 
     sleep(3);
     return true;

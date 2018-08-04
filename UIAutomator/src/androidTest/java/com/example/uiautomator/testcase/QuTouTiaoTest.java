@@ -26,7 +26,7 @@ public class QuTouTiaoTest extends BaseTest {
     startAPP();
 
     // 执行阅读,播放操作
-    while (readCount < 50) {
+    while (readCount < 200) {
       try {
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount

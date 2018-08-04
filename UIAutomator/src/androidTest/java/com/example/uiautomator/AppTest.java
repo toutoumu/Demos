@@ -13,7 +13,7 @@ public class AppTest {
   private final String TAG = getClass().getName();
 
   /**
-   * 东方头条测试
+   * 东方头条测试 高提成 每天5000+金币 使用[徒弟账号]跑用例
    */
   @Test
   public void DongFangTouTiaoTest() {
@@ -21,7 +21,7 @@ public class AppTest {
   }
 
   /**
-   * 聚看点测试
+   * 聚看点测试 每天2000-金币 记得[签到]奖励高
    */
   @Test
   public void JuKanDianTest() {
@@ -29,15 +29,7 @@ public class AppTest {
   }
 
   /**
-   * 趣头条测试
-   */
-  @Test
-  public void quTouTiaoTest() {
-    new QuTouTiaoTest().start();
-  }
-
-  /**
-   * 爱奇艺测试
+   * 爱奇艺测试 每天500金币
    */
   @Test
   public void aiQiYiTest() {
@@ -45,11 +37,19 @@ public class AppTest {
   }
 
   /**
-   * 今日头条测试
+   * 今日头条测试 每天300金币
    */
   @Test
   public void JinRiTouTiaoTest() {
     new JinRiTouTiaoTest().start();
+  }
+
+  /**
+   * 趣头条测试 提成最低
+   */
+  @Test
+  public void quTouTiaoTest() {
+    new QuTouTiaoTest().start();
   }
 
   @Test

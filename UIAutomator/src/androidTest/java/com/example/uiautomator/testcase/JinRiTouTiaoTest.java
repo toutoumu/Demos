@@ -106,17 +106,17 @@ public class JinRiTouTiaoTest extends BaseTest {
     if (findByClass(RecyclerView.class, 3) != null) {// 文章页面
       Log.e(TAG, "开始阅读");
       int count = 0;
-      while (count++ < 12) {
-        sleep(3);
+      while (count++ < 10) {
+        sleep(2);
         mDevice.waitForIdle(timeOut);
-        startY = height / 3 * 2; // 起点距离顶部  height / 2 * 3
-        endY = height / 6; // 终点距离顶部 height / 6
-        mDevice.swipe(centerX, startY, centerX, endY, 20);
+        startY = 5 * height / 6;
+        endY = height / 6;
+        mDevice.swipe(centerX, startY, centerX, endY, 200);
       }
       readCount++;
 
       // 发表评论
-      if (commentCount < 5 && commentArticle()) {
+      if (commentCount < 2 && commentArticle()) {
         commentCount++;
       }
       // 分享
