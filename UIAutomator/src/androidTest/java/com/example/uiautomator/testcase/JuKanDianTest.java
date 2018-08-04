@@ -21,12 +21,15 @@ public class JuKanDianTest extends BaseTest {
   }
 
   @Override
-  public void start() {
+  public void start(int repCount) {
+    if (repCount == 0) {
+      return;
+    }
     // 打开app
     startAPP();
 
     // 执行阅读,播放操作
-    while (readCount < 200) {
+    while (readCount < repCount) {
       try {
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
@@ -105,17 +108,22 @@ public class JuKanDianTest extends BaseTest {
     //如果有评论按钮 com.xiangzi.jukandian:id/image_web_comment
     if (findById("image_web_comment", 3) != null) {// 文章页面
       Log.e(TAG, "开始阅读");
-      int count = 0;
-      while (count++ < 10) {
+      int count = 0;// 滚动次数
+      while (count++ < 12) {
+        long start = System.currentTimeMillis();
         if (count % 5 == 0 && count != 0) {
-          mDevice.swipe(centerX, endY, centerX, startY, 200);
+          mDevice.swipe(centerX, endY, centerX, startY, 50);
           // Log.e(TAG, "向下滑动");
         } else {
-          mDevice.swipe(centerX, startY, centerX, endY, 200);
+          mDevice.swipe(centerX, startY, centerX, endY, 50);
           // Log.e(TAG, "向上滑动");
         }
         mDevice.waitForIdle(timeOut);
-        sleep(2);
+        long spend = System.currentTimeMillis() - start; // 滚动花费时间
+        if (spend < 3000) {// 如果时间间隔小于 3 秒
+          sleep(((double) (3000 - spend) / 1000.0));
+        }
+        Log.w(TAG, "滚动花费时间:" + spend);
       }
       readCount++;
 

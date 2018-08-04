@@ -45,7 +45,7 @@ public abstract class BaseTest {
     random = new Random();
   }
 
-  abstract public void start();
+  abstract public void start(int count);
 
   /**
    * @return app名称 如: 微信

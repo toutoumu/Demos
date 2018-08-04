@@ -24,12 +24,15 @@ public class DongFangTouTiaoTest extends BaseTest {
   }
 
   @Override
-  public void start() {
+  public void start(int repCount) {
+    if (repCount == 0) {
+      return;
+    }
     // 打开app
     startAPP();
 
     // 执行阅读,播放操作 com.songheng.eastnews:id/xq
-    while (readCount < 100) {
+    while (readCount < repCount) {
       try {
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
@@ -116,20 +119,25 @@ public class DongFangTouTiaoTest extends BaseTest {
     startY = 4 * height / 5;
     endY = height / 5;
     while (count++ < 10) {
-      mDevice.swipe(centerX, startY, centerX, endY, 200);
+      long start = System.currentTimeMillis();
+      mDevice.swipe(centerX, startY, centerX, endY, 100);
       mDevice.waitForIdle(timeOut);
 
-      if (count == 2) {// 滑动三次之后出现 点击阅读全文
-        UiObject2 seeAll = findByText("点击阅读全文", 3);
+      if (count == 2) {// 滑动两次之后出现 点击阅读全文 com.songheng.eastnews:id/av_
+        UiObject2 seeAll = findById("av_");//findByText("点击阅读全文", 3);
         if (seeAll != null) {
           seeAll.click();
           mDevice.waitForIdle(timeOut);
           Log.e(TAG, "点击阅读全文");
-          continue;
         }
+        continue;
       }
 
-      sleep(2);
+      long spend = System.currentTimeMillis() - start; // 滚动花费时间
+      if (spend < 4000) {// 如果时间间隔小于 4 秒
+        sleep(((double) (4000 - spend) / 1000.0));
+      }
+      Log.w(TAG, "滚动花费时间" + spend);
     }
     readCount++;
 

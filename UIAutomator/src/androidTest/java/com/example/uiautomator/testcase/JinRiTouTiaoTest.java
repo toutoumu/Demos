@@ -27,12 +27,15 @@ public class JinRiTouTiaoTest extends BaseTest {
   }
 
   @Override
-  public void start() {
+  public void start(int repCount) {
+    if (repCount == 0) {
+      return;
+    }
     // 打开app
     startAPP();
 
     // 执行阅读,播放操作
-    while (readCount < 25) {
+    while (readCount < repCount) {
       try {
         // 判断是否有底部导航栏来区分是否已经回到首页, android:id/tabs 底部tab容器
         UiObject2 toolBar = findByClass(TabWidget.class);
@@ -106,12 +109,12 @@ public class JinRiTouTiaoTest extends BaseTest {
     if (findByClass(RecyclerView.class, 3) != null) {// 文章页面
       Log.e(TAG, "开始阅读");
       int count = 0;
-      while (count++ < 10) {
+      startY = 5 * height / 6;
+      endY = height / 6;
+      while (count++ < 12) {
         sleep(2);
         mDevice.waitForIdle(timeOut);
-        startY = 5 * height / 6;
-        endY = height / 6;
-        mDevice.swipe(centerX, startY, centerX, endY, 200);
+        mDevice.swipe(centerX, startY, centerX, endY, 50);
       }
       readCount++;
 

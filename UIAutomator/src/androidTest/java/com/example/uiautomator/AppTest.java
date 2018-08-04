@@ -12,12 +12,28 @@ import org.junit.Test;
 public class AppTest {
   private final String TAG = getClass().getName();
 
+  @Test
+  public void StartTest() {
+    while (true) {
+      try {
+        new AiQiYiTest().start(0); // 爱奇艺
+        new JinRiTouTiaoTest().start(0); //今日头条
+        new DongFangTouTiaoTest().start(200); // 东方头条
+        new JuKanDianTest().start(200);// 聚看点
+        new QuTouTiaoTest().start(200); // 趣头条(汇率低)
+      } catch (Exception e) {
+        Log.e(TAG, "出错了", e);
+        break;
+      }
+    }
+  }
+
   /**
    * 东方头条测试 高提成 每天5000+金币 使用[徒弟账号]跑用例
    */
   @Test
   public void DongFangTouTiaoTest() {
-    new DongFangTouTiaoTest().start();
+    new DongFangTouTiaoTest().start(200);
   }
 
   /**
@@ -25,7 +41,7 @@ public class AppTest {
    */
   @Test
   public void JuKanDianTest() {
-    new JuKanDianTest().start();
+    new JuKanDianTest().start(200);
   }
 
   /**
@@ -33,7 +49,7 @@ public class AppTest {
    */
   @Test
   public void aiQiYiTest() {
-    new AiQiYiTest().start();
+    new AiQiYiTest().start(25);
   }
 
   /**
@@ -41,7 +57,7 @@ public class AppTest {
    */
   @Test
   public void JinRiTouTiaoTest() {
-    new JinRiTouTiaoTest().start();
+    new JinRiTouTiaoTest().start(25);
   }
 
   /**
@@ -49,22 +65,7 @@ public class AppTest {
    */
   @Test
   public void quTouTiaoTest() {
-    new QuTouTiaoTest().start();
-  }
-
-  @Test
-  public void StartTest() {
-    while (true) {
-      try {
-        aiQiYiTest(); // 爱奇艺
-        JinRiTouTiaoTest(); //今日头条
-        DongFangTouTiaoTest(); // 东方头条
-        JuKanDianTest(); // 聚看点
-        quTouTiaoTest(); // 趣头条(汇率低)
-      } catch (Exception e) {
-        Log.e(TAG, "出错了", e);
-      }
-    }
+    new QuTouTiaoTest().start(200);
   }
 
   /**
@@ -72,6 +73,6 @@ public class AppTest {
    */
   @Test
   public void zhongQingKanDianTest() {
-    new ZhongQingKanDianTest().start();
+    new ZhongQingKanDianTest().start(100);
   }
 }

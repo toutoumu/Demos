@@ -26,12 +26,15 @@ public class AiQiYiTest extends BaseTest {
   }
 
   @Override
-  public void start() {
+  public void start(int repCount) {
+    if (repCount == 0) {
+      return;
+    }
     // 启动App
     startAPP();
 
     // 播放视频(评论,分享)
-    while (readCount <= 25) {
+    while (readCount <= repCount) {
       try {
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
@@ -77,6 +80,9 @@ public class AiQiYiTest extends BaseTest {
     closeAPP();
   }
 
+  /**
+   * 关闭对话框
+   */
   private void closeDialog() {
     mDevice.pressBack();
     sleep(1);

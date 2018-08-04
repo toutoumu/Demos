@@ -16,7 +16,11 @@ public class ZhongQingKanDianTest extends BaseTest {
 
   }
 
-  public void start() {
+  @Override
+  public void start(int repCount) {
+    if (repCount == 0) {
+      return;
+    }
     int startY = height / 2;
     int endY = height / 4;
 

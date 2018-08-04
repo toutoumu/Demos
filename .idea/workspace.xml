@@ -9,8 +9,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="test" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="warn" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
     <option name="LOGCAT_FORMAT_STRING" value="%1$s %2$s %4$c/%5$s: %6$s" />
   </component>
@@ -24,6 +23,7 @@
       <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java" />
       <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java" />
       <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java" />
+      <change beforePath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/ZhongQingKanDianTest.java" afterPath="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/ZhongQingKanDianTest.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -55,49 +55,34 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AppTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java">
+    <leaf>
+      <file leaf-file-name="DongFangTouTiaoTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="61" column="23" lean-forward="false" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
+            <state relative-caret-position="319">
+              <caret line="127" column="17" lean-forward="false" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="15" />
               <folding>
-                <element signature="e#595#596#0" expanded="true" />
-                <element signature="e#638#639#0" expanded="true" />
-                <element signature="e#828#829#0" expanded="true" />
-                <element signature="e#862#863#0" expanded="true" />
-                <element signature="e#938#939#0" expanded="true" />
-                <element signature="e#978#979#0" expanded="true" />
+                <element signature="method#doPlay#0;class#DongFangTouTiaoTest#0" expanded="false" />
+                <element signature="method#closeDialog#0;class#DongFangTouTiaoTest#0" expanded="false" />
+                <element signature="method#commentArticle#0;class#DongFangTouTiaoTest#0" expanded="false" />
+                <element signature="method#commentVideo#0;class#DongFangTouTiaoTest#0" expanded="false" />
+                <element signature="method#shareVideo#0;class#DongFangTouTiaoTest#0" expanded="false" />
+                <element signature="method#shareArticle#0;class#DongFangTouTiaoTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AiQiYiTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java">
+      <file leaf-file-name="JuKanDianTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="140" column="27" lean-forward="false" selection-start-line="140" selection-start-column="27" selection-end-line="140" selection-end-column="27" />
+            <state relative-caret-position="386">
+              <caret line="125" column="26" lean-forward="false" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
               <folding>
-                <element signature="method#sign#0;class#AiQiYiTest#0" expanded="false" />
-                <element signature="method#follow#0;class#AiQiYiTest#0" expanded="false" />
-                <element signature="method#comment#0;class#AiQiYiTest#0" expanded="false" />
-                <element signature="method#share#0;class#AiQiYiTest#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-              <folding>
-                <element signature="method#findByClass#1;class#BaseTest#0" expanded="false" />
-                <element signature="method#getComment#0;class#BaseTest#0" expanded="false" />
-                <element signature="method#startAPPWithPackageName#0;class#BaseTest#0" expanded="false" />
-                <element signature="method#closeAPPWithPackageName#0;class#BaseTest#0" expanded="false" />
+                <element signature="method#doPlay#0;class#JuKanDianTest#0" expanded="false" />
+                <element signature="method#closeDialog#0;class#JuKanDianTest#0" expanded="false" />
+                <element signature="method#shareVideo#0;class#JuKanDianTest#0" expanded="false" />
+                <element signature="method#shareArticle#0;class#JuKanDianTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -106,8 +91,8 @@
       <file leaf-file-name="JinRiTouTiaoTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="118" column="26" lean-forward="false" selection-start-line="118" selection-start-column="26" selection-end-line="118" selection-end-column="26" />
+            <state relative-caret-position="184">
+              <caret line="113" column="25" lean-forward="false" selection-start-line="113" selection-start-column="25" selection-end-line="113" selection-end-column="25" />
               <folding>
                 <element signature="method#doPlay#0;class#JinRiTouTiaoTest#0" expanded="false" />
                 <element signature="method#closeDialog#0;class#JinRiTouTiaoTest#0" expanded="false" />
@@ -118,18 +103,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DongFangTouTiaoTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java">
+      <file leaf-file-name="QuTouTiaoTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="31" column="29" lean-forward="false" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
+            <state relative-caret-position="355">
+              <caret line="121" column="42" lean-forward="true" selection-start-line="121" selection-start-column="42" selection-end-line="121" selection-end-column="42" />
               <folding>
-                <element signature="method#doPlay#0;class#DongFangTouTiaoTest#0" expanded="false" />
-                <element signature="method#closeDialog#0;class#DongFangTouTiaoTest#0" expanded="false" />
-                <element signature="method#commentArticle#0;class#DongFangTouTiaoTest#0" expanded="false" />
-                <element signature="method#commentVideo#0;class#DongFangTouTiaoTest#0" expanded="false" />
-                <element signature="method#shareVideo#0;class#DongFangTouTiaoTest#0" expanded="false" />
-                <element signature="method#shareArticle#0;class#DongFangTouTiaoTest#0" expanded="false" />
+                <element signature="method#closeDialog#0;class#QuTouTiaoTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -147,12 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>com.android.support:</find>
-      <find>&quot;打开文章&quot;</find>
-      <find>commentArticle</find>
-      <find>commentCount++</find>
-      <find>播放完成,返回首页</find>
-      <find>填写评论内容</find>
       <find>startPlay</find>
       <find>startY &gt;</find>
       <find>startY =</find>
@@ -171,12 +145,18 @@
       <find>/ 3 * 2</find>
       <find>向上滑动</find>
       <find>播放失败,没有找到视频Tab</find>
-      <find>开始阅读</find>
       <find>tabHome</find>
       <find>打开视频</find>
       <find>closeDialog</find>
       <find>开始播放</find>
       <find>getcomm</find>
+      <find>waitforwindowup</find>
+      <find>打开文章,开始阅读</find>
+      <find>列表向上滑动</find>
+      <find>&quot;列表向上滑动&quot;</find>
+      <find>阅读失败:阅读次数</find>
+      <find>开始阅读</find>
+      <find>返回首页:可能没有打开文章页面</find>
     </findStrings>
     <replaceStrings>
       <replace>\n include</replace>
@@ -7287,14 +7267,14 @@
         <option value="$PROJECT_DIR$/UIAutomator/src/main/java/com/example/uiautomator/MainActivity.java" />
         <option value="$PROJECT_DIR$/BlueTooth/build.gradle" />
         <option value="$PROJECT_DIR$/UIAutomator/build.gradle" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/ZhongQingKanDianTest.java" />
         <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/ZhongQingKanDianTest.java" />
         <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java" />
         <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java" />
-        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java" />
+        <option value="$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java" />
       </list>
     </option>
   </component>
@@ -7488,8 +7468,8 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="device.picker.selection" value="582af78e3696" />
-    <property name="DEBUGGABLE_DEVICE" value="pe_ul00-M3LDU15818000171" />
+    <property name="device.picker.selection" value="M3LDU15818000171" />
+    <property name="DEBUGGABLE_DEVICE" value="huawei-eva_al00-PBV5T16704007391" />
     <property name="DEBUGGABLE_PROCESS" value="com.example.uiautomator.debug" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="DEBUGGER_ID" value="Auto" />
@@ -7532,7 +7512,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Android Instrumented Tests.StartTest()">
+  <component name="RunManager" selected="Android Instrumented Tests.quTouTiaoTest()">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -8833,11 +8813,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Android Instrumented Tests.StartTest()" />
-        <item index="1" class="java.lang.String" itemvalue="Android Instrumented Tests.JinRiTouTiaoTest()" />
-        <item index="2" class="java.lang.String" itemvalue="Android Instrumented Tests.DongFangTouTiaoTest()" />
-        <item index="3" class="java.lang.String" itemvalue="Android Instrumented Tests.JuKanDianTest()" />
-        <item index="4" class="java.lang.String" itemvalue="Android Instrumented Tests.quTouTiaoTest()" />
+        <item index="0" class="java.lang.String" itemvalue="Android Instrumented Tests.quTouTiaoTest()" />
+        <item index="1" class="java.lang.String" itemvalue="Android Instrumented Tests.DongFangTouTiaoTest()" />
+        <item index="2" class="java.lang.String" itemvalue="Android Instrumented Tests.StartTest()" />
+        <item index="3" class="java.lang.String" itemvalue="Android Instrumented Tests.JinRiTouTiaoTest()" />
+        <item index="4" class="java.lang.String" itemvalue="Android Instrumented Tests.JuKanDianTest()" />
       </list>
     </recent_temporary>
   </component>
@@ -8974,39 +8954,46 @@
       <option name="project" value="LOCAL" />
       <updated>1533284569270</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="自动化测试相关">
+      <created>1533368318762</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1533368318762</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DongFangTouTiaoTest() - 2018.08.04 at 14h 35m 26s.xml">
+    <history-entry file="DongFangTouTiaoTest() - 2018.08.04 at 17h 48m 34s.xml">
       <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="JinRiTouTiaoTest() - 2018.08.04 at 14h 33m 21s.xml">
-      <configuration name="JinRiTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="DongFangTouTiaoTest() - 2018.08.04 at 18h 08m 53s.xml">
+      <configuration name="DongFangTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="StartTest() - 2018.08.04 at 14h 37m 55s.xml">
+    <history-entry file="StartTest() - 2018.08.04 at 17h 22m 00s.xml">
       <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="StartTest() - 2018.08.04 at 14h 45m 57s.xml">
+    <history-entry file="StartTest() - 2018.08.04 at 17h 37m 32s.xml">
       <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="StartTest() - 2018.08.04 at 14h 47m 44s.xml">
+    <history-entry file="StartTest() - 2018.08.04 at 17h 41m 29s.xml">
       <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="StartTest() - 2018.08.04 at 14h 48m 59s.xml">
-      <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="quTouTiaoTest() - 2018.08.04 at 17h 42m 14s.xml">
+      <configuration name="quTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="StartTest() - 2018.08.04 at 14h 51m 07s.xml">
-      <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="quTouTiaoTest() - 2018.08.04 at 17h 43m 40s.xml">
+      <configuration name="quTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="StartTest() - 2018.08.04 at 14h 54m 21s.xml">
-      <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="quTouTiaoTest() - 2018.08.04 at 18h 08m 53s.xml">
+      <configuration name="quTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="StartTest() - 2018.08.04 at 14h 56m 23s.xml">
-      <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="quTouTiaoTest() - 2018.08.04 at 18h 14m 04s.xml">
+      <configuration name="quTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="StartTest() - 2018.08.04 at 15h 00m 40s.xml">
-      <configuration name="StartTest()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="quTouTiaoTest() - 2018.08.04 at 18h 23m 33s.xml">
+      <configuration name="quTouTiaoTest()" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -9088,7 +9075,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5501814" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5949214" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2553648" sideWeight="0.48349056" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2553648" sideWeight="0.48349056" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761088" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -9168,13 +9155,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java</url>
-          <line>266</line>
+          <line>272</line>
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java</url>
-          <line>252</line>
+          <line>259</line>
           <properties />
           <option name="timeStamp" value="24" />
         </line-breakpoint>
@@ -9186,27 +9173,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java</url>
-          <line>241</line>
+          <line>248</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java</url>
-          <line>307</line>
+          <line>313</line>
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java</url>
-          <line>399</line>
+          <line>402</line>
           <properties />
           <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java</url>
-          <line>28</line>
-          <properties />
-          <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/DataBinding/src/main/java/com/example/databinding/CustomBindingAdapter.java</url>
@@ -9217,85 +9198,60 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="92" />
+      <option name="time" value="102" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>findByText(&quot;发布&quot;).getResourceName()</expression-string>
+        <expression-string>mDevice.swipe(centerX, startY, centerX, endY, 100)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>findByText(&quot;发布&quot;)</expression-string>
+        <expression-string>end - start</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>toolBar.get</expression-string>
+        <expression-string>seeAll.getParent().getVisibleBounds()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>toolBar.getText()</expression-string>
+        <expression-string>findById(&quot;av_&quot;)</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>toolBar.getParent().getParent().getParent().isSelected()</expression-string>
+        <expression-string>seeAll.getParent().getParent().getResourceName()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>toolBar.getParent().getParent().isSelected()</expression-string>
+        <expression-string>seeAll.getParent().getResourceName()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>toolBar.getParent().isSelected()</expression-string>
+        <expression-string>seeAll.getParent().getClassName()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>toolBar.isSelected()</expression-string>
+        <expression-string>seeAll.getClassName()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>toolBar</expression-string>
+        <expression-string>seeAll.getResourceName()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/LiveData/src/main/java/com/example/livedata/NameViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="32" column="42" lean-forward="true" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LiveData/src/main/java/com/example/livedata/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="27" column="41" lean-forward="false" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LiveData/src/main/res/layout/layout_livedata.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="8" lean-forward="true" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LiveData/src/main/java/com/example/livedata/LiveDataFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="860">
@@ -9506,17 +9462,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/ZhongQingKanDianTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#322#323#0" expanded="false" />
-            <element signature="e#339#340#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/libs/android-sdk-macosx/platforms/android-28/android.jar!/java/util/concurrent/ThreadLocalRandom.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
@@ -9570,20 +9515,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support.test.uiautomator/uiautomator-v18/2.1.3/f973c98cdccf39857ce590f8548ebb4395140db5/uiautomator-v18-2.1.3-sources.jar!/android/support/test/uiautomator/Tracer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="28" column="29" lean-forward="true" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+        <state relative-caret-position="267">
+          <caret line="209" column="23" lean-forward="false" selection-start-line="209" selection-start-column="23" selection-end-line="209" selection-end-column="23" />
           <folding>
-            <element signature="method#closeDialog#0;class#QuTouTiaoTest#0" expanded="false" />
+            <element signature="e#6734#6735#0" expanded="false" />
+            <element signature="e#6789#6790#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support.test.uiautomator/uiautomator-v18/2.1.3/f973c98cdccf39857ce590f8548ebb4395140db5/uiautomator-v18-2.1.3-sources.jar!/android/support/test/uiautomator/QueryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="532" column="56" lean-forward="false" selection-start-line="532" selection-start-column="56" selection-end-line="532" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support.test.uiautomator/uiautomator-v18/2.1.3/f973c98cdccf39857ce590f8548ebb4395140db5/uiautomator-v18-2.1.3-sources.jar!/android/support/test/uiautomator/WaitMixin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="36" column="69" lean-forward="false" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="69" />
+          <folding>
+            <element signature="e#1043#1044#0" expanded="false" />
+            <element signature="e#1113#1114#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support.test.uiautomator/uiautomator-v18/2.1.3/f973c98cdccf39857ce590f8548ebb4395140db5/uiautomator-v18-2.1.3-sources.jar!/android/support/test/uiautomator/UiDevice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-111">
+          <caret line="575" column="56" lean-forward="false" selection-start-line="575" selection-start-column="51" selection-end-line="575" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/BaseTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+        <state relative-caret-position="232">
+          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="38" />
           <folding>
             <element signature="method#findByClass#1;class#BaseTest#0" expanded="false" />
             <element signature="method#getComment#0;class#BaseTest#0" expanded="false" />
@@ -9593,23 +9566,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java">
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/ZhongQingKanDianTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="118" column="26" lean-forward="false" selection-start-line="118" selection-start-column="26" selection-end-line="118" selection-end-column="26" />
+        <state relative-caret-position="278">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
-            <element signature="method#doPlay#0;class#JinRiTouTiaoTest#0" expanded="false" />
-            <element signature="method#closeDialog#0;class#JinRiTouTiaoTest#0" expanded="false" />
-            <element signature="method#commentVideo#0;class#JinRiTouTiaoTest#0" expanded="false" />
-            <element signature="method#shareVideo#0;class#JinRiTouTiaoTest#0" expanded="false" />
+            <element signature="e#1460#1461#0" expanded="false" />
+            <element signature="e#1500#1501#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-762">
+          <caret line="36" column="14" lean-forward="false" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
+          <folding>
+            <element signature="method#sign#0;class#AiQiYiTest#0" expanded="false" />
+            <element signature="method#follow#0;class#AiQiYiTest#0" expanded="false" />
+            <element signature="method#comment#0;class#AiQiYiTest#0" expanded="false" />
+            <element signature="method#share#0;class#AiQiYiTest#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/DongFangTouTiaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="31" column="29" lean-forward="false" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
+        <state relative-caret-position="319">
+          <caret line="127" column="17" lean-forward="false" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="15" />
           <folding>
             <element signature="method#doPlay#0;class#DongFangTouTiaoTest#0" expanded="false" />
             <element signature="method#closeDialog#0;class#DongFangTouTiaoTest#0" expanded="false" />
@@ -9621,55 +9613,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/AppTest.java">
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JinRiTouTiaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="61" column="23" lean-forward="false" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
+        <state relative-caret-position="184">
+          <caret line="113" column="25" lean-forward="false" selection-start-line="113" selection-start-column="25" selection-end-line="113" selection-end-column="25" />
           <folding>
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#638#639#0" expanded="true" />
-            <element signature="e#828#829#0" expanded="true" />
-            <element signature="e#862#863#0" expanded="true" />
-            <element signature="e#938#939#0" expanded="true" />
-            <element signature="e#978#979#0" expanded="true" />
+            <element signature="method#doPlay#0;class#JinRiTouTiaoTest#0" expanded="false" />
+            <element signature="method#closeDialog#0;class#JinRiTouTiaoTest#0" expanded="false" />
+            <element signature="method#commentVideo#0;class#JinRiTouTiaoTest#0" expanded="false" />
+            <element signature="method#shareVideo#0;class#JinRiTouTiaoTest#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/JuKanDianTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2352">
-          <caret line="118" column="7" lean-forward="true" selection-start-line="118" selection-start-column="7" selection-end-line="118" selection-end-column="7" />
+        <state relative-caret-position="386">
+          <caret line="125" column="26" lean-forward="false" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
           <folding>
             <element signature="method#doPlay#0;class#JuKanDianTest#0" expanded="false" />
             <element signature="method#closeDialog#0;class#JuKanDianTest#0" expanded="false" />
-            <element signature="method#commentArticle#0;class#JuKanDianTest#0" expanded="false" />
             <element signature="method#shareVideo#0;class#JuKanDianTest#0" expanded="false" />
             <element signature="method#shareArticle#0;class#JuKanDianTest#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support.test.uiautomator/uiautomator-v18/2.1.3/f973c98cdccf39857ce590f8548ebb4395140db5/uiautomator-v18-2.1.3-sources.jar!/android/support/test/uiautomator/UiDevice.java">
+    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/QuTouTiaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="173" column="49" lean-forward="false" selection-start-line="173" selection-start-column="42" selection-end-line="173" selection-end-column="49" />
+        <state relative-caret-position="355">
+          <caret line="121" column="42" lean-forward="true" selection-start-line="121" selection-start-column="42" selection-end-line="121" selection-end-column="42" />
           <folding>
-            <element signature="e#6380#6381#0" expanded="true" />
-            <element signature="e#6438#6439#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UIAutomator/src/androidTest/java/com/example/uiautomator/testcase/AiQiYiTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="140" column="27" lean-forward="false" selection-start-line="140" selection-start-column="27" selection-end-line="140" selection-end-column="27" />
-          <folding>
-            <element signature="method#sign#0;class#AiQiYiTest#0" expanded="false" />
-            <element signature="method#follow#0;class#AiQiYiTest#0" expanded="false" />
-            <element signature="method#comment#0;class#AiQiYiTest#0" expanded="false" />
-            <element signature="method#share#0;class#AiQiYiTest#0" expanded="false" />
+            <element signature="method#closeDialog#0;class#QuTouTiaoTest#0" expanded="false" />
           </folding>
         </state>
       </provider>
