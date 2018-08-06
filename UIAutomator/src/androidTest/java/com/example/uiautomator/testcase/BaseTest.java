@@ -183,6 +183,7 @@ public abstract class BaseTest {
     mDevice.waitForIdle(1000);
     mDevice.pressHome();
     mDevice.waitForIdle(1000);
+    Log.e(TAG, "关闭" + getAPPName());
   }
 
   /**

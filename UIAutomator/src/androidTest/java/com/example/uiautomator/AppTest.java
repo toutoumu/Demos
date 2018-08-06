@@ -12,15 +12,56 @@ import org.junit.Test;
 public class AppTest {
   private final String TAG = getClass().getName();
 
+  /**
+   * 华为P9
+   */
   @Test
-  public void StartTest() {
+  public void StartP9Test() {
+    while (true) {
+      try {
+        new AiQiYiTest().start(25); // 爱奇艺
+        new JinRiTouTiaoTest().start(25); //今日头条
+        new JuKanDianTest().start(150);// 聚看点
+        new QuTouTiaoTest().start(130); // 趣头条(汇率低)
+        new DongFangTouTiaoTest().start(140); // 东方头条
+      } catch (Exception e) {
+        Log.e(TAG, "出错了", e);
+        break;
+      }
+    }
+  }
+
+  /**
+   * 荣耀6plus
+   */
+  @Test
+  public void StartR6Test() {
+    while (true) {
+      try {
+        new AiQiYiTest().start(0); // 爱奇艺
+        new JinRiTouTiaoTest().start(10); //今日头条
+        new JuKanDianTest().start(0);// 聚看点
+        new QuTouTiaoTest().start(0); // 趣头条(汇率低)
+        new DongFangTouTiaoTest().start(140); // 东方头条
+      } catch (Exception e) {
+        Log.e(TAG, "出错了", e);
+        break;
+      }
+    }
+  }
+
+  /**
+   * 老机器
+   */
+  @Test
+  public void StartOldTest() {
     while (true) {
       try {
         new AiQiYiTest().start(0); // 爱奇艺
         new JinRiTouTiaoTest().start(0); //今日头条
-        new DongFangTouTiaoTest().start(200); // 东方头条
-        new JuKanDianTest().start(200);// 聚看点
-        new QuTouTiaoTest().start(200); // 趣头条(汇率低)
+        new JuKanDianTest().start(50);// 聚看点
+        new DongFangTouTiaoTest().start(50); // 东方头条
+        new QuTouTiaoTest().start(50); // 趣头条(汇率低)
       } catch (Exception e) {
         Log.e(TAG, "出错了", e);
         break;

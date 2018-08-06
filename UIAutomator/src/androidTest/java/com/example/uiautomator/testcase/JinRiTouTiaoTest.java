@@ -49,10 +49,10 @@ public class JinRiTouTiaoTest extends BaseTest {
           }
         }
         Log.e(TAG, ":\n********************************************\n"
-          + "第 "
-          + readCount
-          + " 次"
-          + "\n********************************************\n");
+            + "第 "
+            + readCount
+            + " 次"
+            + "\n********************************************\n");
         /*if (random.nextInt(10) % 2 == 0) {
           doRead(toolBar);// 阅读
         } else {
@@ -400,7 +400,7 @@ public class JinRiTouTiaoTest extends BaseTest {
    * 分享
    */
   private boolean shareArticle() {
-    Rect recyclerView = findById("a2s", 3).getVisibleBounds();
+    Rect recyclerView = findByClass(RecyclerView.class, 3).getVisibleBounds();
     int y = (recyclerView.top + recyclerView.bottom) / 2;
     // 滑动使QQ分享显示出来
 

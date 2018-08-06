@@ -112,9 +112,9 @@ public class QuTouTiaoTest extends BaseTest {
       while (count++ < 10) {
         long start = System.currentTimeMillis();
         if (count % 5 == 0 && count != 0) {
-          mDevice.swipe(centerX, endY, centerX, startY, 50);
+          mDevice.swipe(centerX, endY, centerX, startY, 20);
         } else {
-          mDevice.swipe(centerX, startY, centerX, endY, 50);
+          mDevice.swipe(centerX, startY, centerX, endY, 20);
         }
         mDevice.waitForIdle(timeOut);
 
