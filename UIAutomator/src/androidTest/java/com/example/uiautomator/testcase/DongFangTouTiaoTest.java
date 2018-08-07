@@ -4,8 +4,9 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
-import android.widget.ListView;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -34,6 +35,10 @@ public class DongFangTouTiaoTest extends BaseTest {
     // 执行阅读,播放操作 com.songheng.eastnews:id/xq
     while (readCount < repCount) {
       try {
+        calendar.setTime(new Date());
+        if (!avliable()) {
+          break;
+        }
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");
@@ -44,7 +49,7 @@ public class DongFangTouTiaoTest extends BaseTest {
           closeDialog();
           tab = findById("l6");
           if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 3) {
+            if (restartCount++ < 10) {
               Log.e(TAG, "应用可能已经关闭,重新启动");
               startAPP();
             } else {

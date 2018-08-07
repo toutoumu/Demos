@@ -37,22 +37,29 @@ public class JinRiTouTiaoTest extends BaseTest {
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
+        if (!avliable()) {
+          break;
+        }
         // 判断是否有底部导航栏来区分是否已经回到首页, android:id/tabs 底部tab容器
         UiObject2 toolBar = findByClass(TabWidget.class);
         if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
-          if (restartCount++ < 3) {
-            Log.e(TAG, "应用可能已经关闭,重新启动");
-            startAPP();
-          } else {
-            Log.e(TAG, "退出应用");
-            break;
+          closeDialog();
+          toolBar = findByClass(TabWidget.class);
+          if (toolBar == null) { // 关闭对话框之后再次查找是否已经回到首页
+            if (restartCount++ < 3) {
+              Log.e(TAG, "应用可能已经关闭,重新启动");
+              startAPP();
+            } else {
+              Log.e(TAG, "退出应用");
+              break;
+            }
           }
         }
         Log.e(TAG, ":\n********************************************\n"
-            + "第 "
-            + readCount
-            + " 次"
-            + "\n********************************************\n");
+          + "第 "
+          + readCount
+          + " 次"
+          + "\n********************************************\n");
         /*if (random.nextInt(10) % 2 == 0) {
           doRead(toolBar);// 阅读
         } else {
@@ -103,11 +110,10 @@ public class JinRiTouTiaoTest extends BaseTest {
     mDevice.click(width / 3, height / 3);
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开文章");
 
-    // 如果底部区域判断为有  RecyclerView// 分享区域的 RecyclerView ID为 a2s//if (findById("a2s", 3) != null) {// 文章页面
+    //  底部区域包含 RecyclerView 那么是文章页面
     if (findByClass(RecyclerView.class, 3) != null) {// 文章页面
-      Log.e(TAG, "开始阅读");
+      Log.e(TAG, "打开文章,开始阅读");
       int count = 0;
       startY = 5 * height / 6;
       endY = height / 6;
@@ -119,9 +125,9 @@ public class JinRiTouTiaoTest extends BaseTest {
       readCount++;
 
       // 发表评论
-      if (commentCount < 2 && commentArticle()) {
+      /*if (commentCount < 2 && commentArticle()) {
         commentCount++;
-      }
+      }*/
       // 分享
       if (shareCount < 5 && shareArticle()) {
         shareCount++;
@@ -131,7 +137,7 @@ public class JinRiTouTiaoTest extends BaseTest {
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "阅读完成,返回首页");
     } else if (findById("kn") != null) {// todo 视频||图片?
-      Log.e(TAG, "开始播放");
+      Log.e(TAG, "打开视频,开始播放");
       sleep(35);
       readCount++;
       // 发表评论
@@ -218,22 +224,10 @@ public class JinRiTouTiaoTest extends BaseTest {
    * 关闭对话框
    */
   private boolean closeDialog() {
-    UiObject2 close = findByText("先去逛逛", 3);
-    if (close != null) {
-      close.click();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "关闭对话框");
-      return true;
-    }
-
-    close = findByText("忽略", 3);
-    if (close != null) {
-      close.click();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "关闭对话框");
-      return true;
-    }
-    return false;
+    mDevice.pressBack();
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击返回,尝试关闭对话框");
+    return true;
   }
 
   /**
@@ -242,40 +236,49 @@ public class JinRiTouTiaoTest extends BaseTest {
    * @return 成功
    */
   private boolean commentArticle() {
-    // 1.弹出输入
-    UiObject2 commentBtn = findById("kn");
-    if (commentBtn == null) {
-      Log.e(TAG, "没有评论文本框");
+    try {
+      // 1.弹出输入
+      UiObject2 commentBtn = findById("kn");
+      if (commentBtn == null) {
+        Log.e(TAG, "没有评论文本框");
+        return false;
+      }
+      Log.e(TAG, "点击评论文本框,弹出键盘");
+      commentBtn.click();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+
+      // 2.输入评论 com.ss.android.article.lite:id/ke
+      UiObject2 contentText = findById("ke");
+      if (contentText == null) {
+        Log.e(TAG, "没有评论文本框");
+        return false;
+      }
+      contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+      sleep(2); // 等待评论填写完成
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "填写评论内容");
+
+      // 3.点击发表评论 com.ss.android.article.lite:id/kh
+      UiObject2 sendBtn = findById("kh");
+      if (sendBtn == null) {
+        Log.e(TAG, "没有发表评论按钮");
+        return false;
+      }
+      sendBtn.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "******发表评论成功!******\n");
+
+      return true;
+    } catch (Exception e) {
+      if (e instanceof IllegalStateException) {// 断开连接
+        Log.e(TAG, "断开连接了??", e);
+        throw e;
+      }
+      Log.e(TAG, "评论失败", e);
       return false;
     }
-    Log.e(TAG, "点击评论文本框,弹出键盘");
-    commentBtn.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-
-    // 2.输入评论 com.ss.android.article.lite:id/ke
-    UiObject2 contentText = findById("ke");
-    if (contentText == null) {
-      Log.e(TAG, "没有评论文本框");
-      return false;
-    }
-    contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
-    sleep(2); // 等待评论填写完成
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "填写评论内容");
-
-    // 3.点击发表评论 com.ss.android.article.lite:id/kh
-    UiObject2 sendBtn = findById("kh");
-    if (sendBtn == null) {
-      Log.e(TAG, "没有发表评论按钮");
-      return false;
-    }
-    sendBtn.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******发表评论成功!******\n");
-
-    return true;
   }
 
   /**
@@ -400,56 +403,69 @@ public class JinRiTouTiaoTest extends BaseTest {
    * 分享
    */
   private boolean shareArticle() {
-    Rect recyclerView = findByClass(RecyclerView.class, 3).getVisibleBounds();
-    int y = (recyclerView.top + recyclerView.bottom) / 2;
-    // 滑动使QQ分享显示出来
+    try {
+      UiObject2 recyclerView = findByClass(RecyclerView.class, 3);
+      if (recyclerView == null) {
+        Log.e(TAG, "没有分享控件");
+        return false;
+      }
+      Rect rect = recyclerView.getVisibleBounds();
+      int y = (rect.top + rect.bottom) / 2;
 
-    mDevice.swipe(width * 4 / 5, y, width / 10, y, 20);
-    mDevice.waitForIdle(timeOut);
-    //请求分享按钮
-    UiObject2 shareBtn = findByText("QQ好友");
-    if (shareBtn == null) {
-      Log.e(TAG, "没有分享按钮");
+      // 滑动使QQ分享显示出来
+      mDevice.swipe(width * 4 / 5, y, width / 10, y, 20);
+      mDevice.waitForIdle(timeOut);
+      //请求分享按钮
+      UiObject2 shareBtn = findByText("QQ好友");
+      if (shareBtn == null) {
+        Log.e(TAG, "没有分享按钮");
+        return false;
+      }
+      shareBtn.getParent().click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "打开QQ分享,离开当前应用");
+
+      // 点击发表评论
+      UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
+      if (publish == null) {
+        Log.e(TAG, "分享到我的电脑失败");
+        return false;
+      }
+      publish.getParent().click();
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "分享到我的电脑");
+
+      // 分享到我的电脑确认
+      UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
+      if (confirm == null) {
+        Log.e(TAG, "分享到我的电脑确认失败");
+        return false;
+      }
+      confirm.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "分享到我的电脑确认");
+
+      // 返回
+      UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
+      if (back == null) {
+        Log.e(TAG, "没有返回按钮");
+        return false;
+      }
+      back.click();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "******分享成功返回******");
+
+      return true;
+    } catch (Exception e) {
+      if (e instanceof IllegalStateException) {// 断开连接
+        throw e;
+      }
+      Log.e(TAG, "评论失败", e);
       return false;
     }
-    shareBtn.getParent().click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开QQ分享,离开当前应用");
-
-    // 点击发表评论
-    UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
-    if (publish == null) {
-      Log.e(TAG, "分享到我的电脑失败");
-      return false;
-    }
-    publish.getParent().click();
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑");
-
-    // 分享到我的电脑确认
-    UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
-    if (confirm == null) {
-      Log.e(TAG, "分享到我的电脑确认失败");
-      return false;
-    }
-    confirm.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑确认");
-
-    // 返回
-    UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
-    if (back == null) {
-      Log.e(TAG, "没有返回按钮");
-      return false;
-    }
-    back.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******分享成功返回******");
-
-    return true;
   }
 
   @Override

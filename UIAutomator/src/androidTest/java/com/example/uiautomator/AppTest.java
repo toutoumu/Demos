@@ -1,5 +1,6 @@
 package com.example.uiautomator;
 
+import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 import com.example.uiautomator.testcase.AiQiYiTest;
 import com.example.uiautomator.testcase.DongFangTouTiaoTest;
@@ -8,7 +9,9 @@ import com.example.uiautomator.testcase.JuKanDianTest;
 import com.example.uiautomator.testcase.QuTouTiaoTest;
 import com.example.uiautomator.testcase.ZhongQingKanDianTest;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(AndroidJUnit4.class)
 public class AppTest {
   private final String TAG = getClass().getName();
 
@@ -17,17 +20,17 @@ public class AppTest {
    */
   @Test
   public void StartP9Test() {
-    while (true) {
-      try {
-        new AiQiYiTest().start(25); // 爱奇艺
-        new JinRiTouTiaoTest().start(25); //今日头条
-        new JuKanDianTest().start(150);// 聚看点
-        new QuTouTiaoTest().start(130); // 趣头条(汇率低)
-        new DongFangTouTiaoTest().start(140); // 东方头条
-      } catch (Exception e) {
-        Log.e(TAG, "出错了", e);
-        break;
+    try {
+      new AiQiYiTest().start(0); // 爱奇艺 (20元提现)
+      new JinRiTouTiaoTest().start(0); //今日头条 (15
+      int i = 0;
+      while (i++ < 3) {
+        new DongFangTouTiaoTest().start(50); // 东方头条(30元提现,更低金额需要累积签到次数)
+        new JuKanDianTest().start(50);// 聚看点(10元提现)
+        new QuTouTiaoTest().start(5); // 趣头条(汇率低)
       }
+    } catch (Exception e) {
+      Log.e(TAG, "出错了", e);
     }
   }
 
@@ -36,17 +39,17 @@ public class AppTest {
    */
   @Test
   public void StartR6Test() {
-    while (true) {
-      try {
-        new AiQiYiTest().start(0); // 爱奇艺
-        new JinRiTouTiaoTest().start(10); //今日头条
-        new JuKanDianTest().start(0);// 聚看点
-        new QuTouTiaoTest().start(0); // 趣头条(汇率低)
-        new DongFangTouTiaoTest().start(140); // 东方头条
-      } catch (Exception e) {
-        Log.e(TAG, "出错了", e);
-        break;
+    try {
+      new JinRiTouTiaoTest().start(3); //今日头条
+      new AiQiYiTest().start(3); // 爱奇艺
+      int i = 0;
+      while (i++ < 4) {
+        new JuKanDianTest().start(25);// 聚看点
+        new DongFangTouTiaoTest().start(0); // 东方头条
+        new QuTouTiaoTest().start(20); // 趣头条(汇率低)
       }
+    } catch (Exception e) {
+      Log.e(TAG, "出错了", e);
     }
   }
 
@@ -55,17 +58,17 @@ public class AppTest {
    */
   @Test
   public void StartOldTest() {
-    while (true) {
-      try {
-        new AiQiYiTest().start(0); // 爱奇艺
-        new JinRiTouTiaoTest().start(0); //今日头条
-        new JuKanDianTest().start(50);// 聚看点
-        new DongFangTouTiaoTest().start(50); // 东方头条
-        new QuTouTiaoTest().start(50); // 趣头条(汇率低)
-      } catch (Exception e) {
-        Log.e(TAG, "出错了", e);
-        break;
+    try {
+      int i = 0;
+      new AiQiYiTest().start(0); // 爱奇艺
+      new JinRiTouTiaoTest().start(0); //今日头条
+      while (i++ < 2) {
+        new DongFangTouTiaoTest().start(25 + i); // 东方头条
+        new JuKanDianTest().start(25 + i);// 聚看点
+        new QuTouTiaoTest().start(25 + i); // 趣头条(汇率低)
       }
+    } catch (Exception e) {
+      Log.e(TAG, "出错了", e);
     }
   }
 

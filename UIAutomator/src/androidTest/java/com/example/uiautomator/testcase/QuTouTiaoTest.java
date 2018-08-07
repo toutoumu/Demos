@@ -31,6 +31,9 @@ public class QuTouTiaoTest extends BaseTest {
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
+        if (!avliable()) {
+          break;
+        }
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");

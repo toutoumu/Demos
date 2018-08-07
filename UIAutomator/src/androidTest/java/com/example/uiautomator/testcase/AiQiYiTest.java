@@ -4,6 +4,8 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -36,6 +38,9 @@ public class AiQiYiTest extends BaseTest {
     // 播放视频(评论,分享)
     while (readCount <= repCount) {
       try {
+        if (!avliable()) {
+          break;
+        }
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");
@@ -58,7 +63,6 @@ public class AiQiYiTest extends BaseTest {
         // 签到
         if (signCount++ == 0) {
           sign();
-          // TODO: 2018/8/1 开宝箱 开启
         }
         // 关注
         while (followCount++ <= 3) {

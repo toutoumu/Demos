@@ -10,6 +10,9 @@ import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
@@ -29,6 +32,8 @@ public abstract class BaseTest {
 
   public final Random random;
 
+  public final Calendar calendar;
+
   public final UiDevice mDevice;//获取设备用例
 
   public BaseTest() {
@@ -43,6 +48,7 @@ public abstract class BaseTest {
     centerY = height / 2; // 中间位置
 
     random = new Random();
+    calendar = Calendar.getInstance(Locale.CHINA);
   }
 
   abstract public void start(int count);
@@ -56,6 +62,16 @@ public abstract class BaseTest {
    * @return 包名 如:com.iqiyi.news
    */
   abstract String getPackageName();
+
+  public boolean avliable() {
+    calendar.setTime(new Date());
+    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+    if (hour <= 6 || hour >= 22) {
+      Log.e(TAG, "这个时候了该睡觉了");
+      return false;
+    }
+    return true;
+  }
 
   /**
    * 根据ID查找, 超时时间为10秒

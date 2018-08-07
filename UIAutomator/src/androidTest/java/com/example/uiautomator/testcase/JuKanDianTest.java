@@ -31,6 +31,9 @@ public class JuKanDianTest extends BaseTest {
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
+        if (!avliable()) {
+          break;
+        }
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");
@@ -41,7 +44,7 @@ public class JuKanDianTest extends BaseTest {
           closeDialog();
           tab = findById("tv_tab1");
           if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 3) {
+            if (restartCount++ < 9) {
               Log.e(TAG, "应用可能已经关闭,重新启动");
               startAPP();
             } else {
@@ -103,11 +106,10 @@ public class JuKanDianTest extends BaseTest {
     read.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开文章");
 
     //如果有评论按钮 com.xiangzi.jukandian:id/image_web_comment
     if (findById("image_web_comment", 3) != null) {// 文章页面
-      Log.e(TAG, "开始阅读");
+      Log.e(TAG, "打开文章,开始阅读");
       int count = 0;// 滚动次数
       while (count++ < 12) {
         long start = System.currentTimeMillis();
@@ -212,10 +214,7 @@ public class JuKanDianTest extends BaseTest {
    * 关闭对话框
    */
   private boolean closeDialog() {
-    mDevice.pressBack();
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "关闭对话框");
-    /*UiObject2 close = findByText("我知道了", 3);
+    UiObject2 close = findByText("继续赚钱", 3);
     if (close != null) {
       close.click();
       mDevice.waitForIdle(timeOut);
@@ -223,13 +222,20 @@ public class JuKanDianTest extends BaseTest {
       return true;
     }
 
-    close = findByText("忽略", 3);
+    // 点击返回关闭对话框
+    mDevice.pressBack();
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击返回,关闭对话框");
+
+    // 点击返回关闭对话框 可能会弹出退出对话框,因此检测一下
+    close = findByText("继续赚钱", 3);
     if (close != null) {
       close.click();
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "关闭对话框");
       return true;
-    }*/
+    }
+
     return false;
   }
 
@@ -239,40 +245,49 @@ public class JuKanDianTest extends BaseTest {
    * @return 成功
    */
   private boolean commentArticle() {
-    // 1.弹出输入
-    UiObject2 commentBtn = findById("tv_web_comment_hint");
-    if (commentBtn == null) {
-      Log.e(TAG, "没有评论文本框");
+    try {
+      // 1.弹出输入
+      UiObject2 commentBtn = findById("tv_web_comment_hint");
+      if (commentBtn == null) {
+        Log.e(TAG, "没有评论文本框");
+        return false;
+      }
+      Log.e(TAG, "点击评论文本框,弹出键盘");
+      commentBtn.click();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+
+      // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
+      UiObject2 contentText = findById("dialog_comment_content");
+      if (contentText == null) {
+        Log.e(TAG, "没有评论文本框");
+        return false;
+      }
+      contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+      sleep(2); // 等待评论填写完成
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "填写评论内容");
+
+      // 3.点击发表评论 com.xiangzi.jukandian:id/dialog_comment_send
+      UiObject2 sendBtn = findById("dialog_comment_send");
+      if (sendBtn == null) {
+        Log.e(TAG, "没有发表评论按钮");
+        return false;
+      }
+      sendBtn.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "******发表评论成功!******\n");
+
+      return true;
+    } catch (Exception e) {
+      if (e instanceof IllegalStateException) {// 断开连接
+        Log.e(TAG, "断开连接了??", e);
+        throw e;
+      }
+      Log.e(TAG, "评论失败", e);
       return false;
     }
-    Log.e(TAG, "点击评论文本框,弹出键盘");
-    commentBtn.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-
-    // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
-    UiObject2 contentText = findById("dialog_comment_content");
-    if (contentText == null) {
-      Log.e(TAG, "没有评论文本框");
-      return false;
-    }
-    contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
-    sleep(2); // 等待评论填写完成
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "填写评论内容");
-
-    // 3.点击发表评论 com.xiangzi.jukandian:id/dialog_comment_send
-    UiObject2 sendBtn = findById("dialog_comment_send");
-    if (sendBtn == null) {
-      Log.e(TAG, "没有发表评论按钮");
-      return false;
-    }
-    sendBtn.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******发表评论成功!******\n");
-
-    return true;
   }
 
   /**
@@ -281,39 +296,48 @@ public class JuKanDianTest extends BaseTest {
    * @return 成功
    */
   private boolean commentVideo() {
-    // 1.弹出输入
-    UiObject2 commentBtn = findById("video_detail_bottom_comment_write_text");
-    if (commentBtn == null) {
-      Log.e(TAG, "没有评论文本框");
-      return false;
-    }
-    commentBtn.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击评论文本框,弹出键盘");
+    try {
+      // 1.弹出输入
+      UiObject2 commentBtn = findById("video_detail_bottom_comment_write_text");
+      if (commentBtn == null) {
+        Log.e(TAG, "没有评论文本框");
+        return false;
+      }
+      commentBtn.click();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "点击评论文本框,弹出键盘");
 
-    // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
-    UiObject2 contentText = findById("dialog_comment_content");
-    if (contentText == null) {
-      Log.e(TAG, "没有评论文本框");
-      return false;
-    }
-    contentText.setText(getComment(new Random().nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
-    sleep(2); // 等待内容填写完成
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "填写评论内容");
+      // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
+      UiObject2 contentText = findById("dialog_comment_content");
+      if (contentText == null) {
+        Log.e(TAG, "没有评论文本框");
+        return false;
+      }
+      contentText.setText(getComment(new Random().nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+      sleep(2); // 等待内容填写完成
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "填写评论内容");
 
-    // 3.点击发表评论 com.xiangzi.jukandian:id/dialog_comment_send
-    UiObject2 sendBtn = findById("dialog_comment_send");
-    if (sendBtn == null) {
-      Log.e(TAG, "没有发表评论按钮");
+      // 3.点击发表评论 com.xiangzi.jukandian:id/dialog_comment_send
+      UiObject2 sendBtn = findById("dialog_comment_send");
+      if (sendBtn == null) {
+        Log.e(TAG, "没有发表评论按钮");
+        return false;
+      }
+      sendBtn.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "******发表评论成功!******\n");
+      return true;
+    } catch (Exception e) {
+      if (e instanceof IllegalStateException) {// 断开连接
+        Log.e(TAG, "断开连接了??", e);
+        throw e;
+      }
+      Log.e(TAG, "评论失败", e);
       return false;
     }
-    sendBtn.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******发表评论成功!******\n");
-    return true;
   }
 
   /**
