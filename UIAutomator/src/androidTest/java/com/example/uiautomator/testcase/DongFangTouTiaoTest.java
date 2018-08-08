@@ -4,14 +4,15 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import android.widget.RadioButton;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 /**
  * 东方头条测试 提成较高 1000金币=1元 徒弟阅读提成是徒弟两倍
+ * 播放,阅读,
  */
 public class DongFangTouTiaoTest extends BaseTest {
 
@@ -25,14 +26,14 @@ public class DongFangTouTiaoTest extends BaseTest {
   }
 
   @Override
-  public void start(int repCount) {
+  public int start(int repCount) {
     if (repCount == 0) {
-      return;
+      return 0;
     }
     // 打开app
     startAPP();
 
-    // 执行阅读,播放操作 com.songheng.eastnews:id/xq
+    // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
         calendar.setTime(new Date());
@@ -43,12 +44,12 @@ public class DongFangTouTiaoTest extends BaseTest {
           + readCount
           + " 次\n********************************************\n");
 
-        // 判断是否为首页
-        UiObject2 tab = findById("l6");
-        if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
+        // 判断是否为首页 视频 任务 我的 都是RadioButton
+        List<UiObject2> radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
+        if (radioButtons == null || radioButtons.size() != 3) {// 如果找不到底部导航栏有可能是有对话框在上面
           closeDialog();
-          tab = findById("l6");
-          if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
+          radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
+          if (radioButtons == null || radioButtons.size() != 3) {// 关闭对话框之后再次查找是否已经回到首页
             if (restartCount++ < 10) {
               Log.e(TAG, "应用可能已经关闭,重新启动");
               startAPP();
@@ -58,12 +59,8 @@ public class DongFangTouTiaoTest extends BaseTest {
             }
           }
         }
-        /*if (random.nextInt(6) % 3 == 0) {
-          doPlay(); // 播放
-        } else {
-          doRead();// 阅读
-        }*/
-        doRead();// 阅读
+        //doRead();// 阅读
+        doPlay(); // 播放
       } catch (Throwable e) {
         if (e instanceof IllegalStateException) {// 如果断开了连接
           Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
@@ -75,6 +72,7 @@ public class DongFangTouTiaoTest extends BaseTest {
 
     // 关闭App
     closeAPP();
+    return readCount;
   }
 
   /**
@@ -114,6 +112,10 @@ public class DongFangTouTiaoTest extends BaseTest {
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "列表向上滑动,向上滚动查找文章");
       read = findById("a6b");
+    }
+    if (read == null) {
+      Log.e(TAG, "阅读失败,没有找到文章,结束本次查找");
+      return false;
     }
     read.click();
     sleep(4);
@@ -158,11 +160,6 @@ public class DongFangTouTiaoTest extends BaseTest {
     mDevice.pressBack();
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "阅读完成,返回首页");
-    // } else { // 页面可能未打开
-    //   Log.e(TAG, "返回首页:可能没有打开页面");
-    //   mDevice.pressBack();
-    //   mDevice.waitForIdle(timeOut);
-    // }
     return true;
   }
 
@@ -172,16 +169,28 @@ public class DongFangTouTiaoTest extends BaseTest {
    * @return 成功
    */
   private boolean doPlay() {
-    UiObject2 tab2 = findById("tv_tab2");
-    // 切换到视频列表
-    if (tab2 == null) {
+    List<UiObject2> radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
+    if (radioButtons == null || radioButtons.size() != 3) {
+      Log.e(TAG, "视频播放失败:没有底部栏");
+      return false;
+    }
+
+    // 找到视频tab
+    UiObject2 videoTab = null;
+    for (UiObject2 radioButton : radioButtons) {
+      if ("视频".equals(radioButton.getText())) {
+        videoTab = radioButton;
+      }
+    }
+    if (videoTab == null) {
       Log.e(TAG, "播放失败,没有找到视频Tab");
       return false;
     }
+
     // 如果当前不是视频列表 ,切换到视频列表
-    if (!tab2.getText().equals("刷新")) {
-      tab2.click();
-      sleep(3);
+    if (!videoTab.isChecked()) {
+      videoTab.click();
+      sleep(10);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "切换到视频列表");
     }
@@ -192,26 +201,27 @@ public class DongFangTouTiaoTest extends BaseTest {
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     Log.e(TAG, "视频列表向上滑动");
 
-    // 点击播放
-    UiObject2 play = findById("item_video_play_num");
+    // 点击播放 播放按钮 com.songheng.eastnews:id/afh
+    UiObject2 play = findById("afh");
     if (play == null) {
       Log.e(TAG, "播放失败:没有播放按钮");
       return false;
     }
+
     play.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "点击开始播放视频");
 
-    // com.xiangzi.jukandian:id/video_detail_bottom_comment_write_text
-    if (findById("video_detail_bottom_comment_write_text", 3) != null) {// 视频页面
-      sleep(35);
+    // 标志性的 转转转的图片 com.songheng.eastnews:id/a6l com.songheng.eastnews:id/a6k
+    if (findById("a6k", 3) != null) {// 视频页面
+      sleep(45 + random.nextInt(10));
       readCount++;
       // 发表评论
-      if (commentCount < 2 && commentVideo()) {
+      /*if (commentCount < 2 && commentVideo()) {
         commentCount++;
       }
-      /*// 分享
+      // 分享
       if (shareCount < 10 && shareVideo()) {
         shareCount++;
       }*/

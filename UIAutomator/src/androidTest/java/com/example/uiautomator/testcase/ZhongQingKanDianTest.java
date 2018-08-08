@@ -4,7 +4,6 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
-import java.util.Random;
 
 public class ZhongQingKanDianTest extends BaseTest {
 
@@ -17,9 +16,9 @@ public class ZhongQingKanDianTest extends BaseTest {
   }
 
   @Override
-  public void start(int repCount) {
+  public int start(int repCount) {
     if (repCount == 0) {
-      return;
+      return repCount;
     }
     int startY = height / 2;
     int endY = height / 4;
@@ -78,7 +77,7 @@ public class ZhongQingKanDianTest extends BaseTest {
       }
       if (times >= 5) {
         Log.e(TAG, "应用可能已经关闭,退出阅读");
-        return;
+        return repCount;
       }
 
       // 列表向上滑动

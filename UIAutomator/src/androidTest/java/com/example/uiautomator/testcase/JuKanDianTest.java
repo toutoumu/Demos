@@ -21,9 +21,9 @@ public class JuKanDianTest extends BaseTest {
   }
 
   @Override
-  public void start(int repCount) {
+  public int start(int repCount) {
     if (repCount == 0) {
-      return;
+      return 0;
     }
     // 打开app
     startAPP();
@@ -69,6 +69,7 @@ public class JuKanDianTest extends BaseTest {
 
     // 关闭App
     closeAPP();
+    return readCount;
   }
 
   /**
@@ -214,6 +215,7 @@ public class JuKanDianTest extends BaseTest {
    * 关闭对话框
    */
   private boolean closeDialog() {
+    // 退出对话框
     UiObject2 close = findByText("继续赚钱", 3);
     if (close != null) {
       close.click();
@@ -221,8 +223,16 @@ public class JuKanDianTest extends BaseTest {
       Log.e(TAG, "关闭对话框");
       return true;
     }
+    // 推送文章
+    close = findByText("查看详情", 3);
+    if (close != null) {
+      close.click();
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "关闭对话框,查看详情");
+      return true;
+    }
 
-    // 点击返回关闭对话框
+    // 可能没有回到首页,点击返回关闭对话框
     mDevice.pressBack();
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "点击返回,关闭对话框");

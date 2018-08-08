@@ -28,9 +28,9 @@ public class AiQiYiTest extends BaseTest {
   }
 
   @Override
-  public void start(int repCount) {
+  public int start(int repCount) {
     if (repCount == 0) {
-      return;
+      return 0;
     }
     // 启动App
     startAPP();
@@ -60,12 +60,12 @@ public class AiQiYiTest extends BaseTest {
           }
         }
 
-        // 签到
-        if (signCount++ == 0) {
+        // 签到 第一次进来签到, 随后每隔几次查看一下任务
+        if (signCount++ == 0 || readCount % 5 == 0) {
           sign();
         }
         // 关注
-        while (followCount++ <= 3) {
+        while (followCount++ <= 3 && repCount >= 20) {
           follow();
         }
 
@@ -82,6 +82,7 @@ public class AiQiYiTest extends BaseTest {
 
     // 关闭应用
     closeAPP();
+    return readCount;
   }
 
   /**
@@ -115,6 +116,14 @@ public class AiQiYiTest extends BaseTest {
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "切换到[我]Tab");
     }
+
+    // 向下滑动列表
+    // startY > endY 向上滚动  startY < endY 向下滚动
+    int startY = height / 2;
+    int endY = height / 10;
+    mDevice.swipe(centerX, endY, centerX, startY, 30);
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
 
     // 签到 com.iqiyi.news:id/score_task_active
     UiObject2 obtain = findById("score_task_active");

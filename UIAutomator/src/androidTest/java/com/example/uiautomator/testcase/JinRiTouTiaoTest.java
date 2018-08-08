@@ -27,9 +27,9 @@ public class JinRiTouTiaoTest extends BaseTest {
   }
 
   @Override
-  public void start(int repCount) {
+  public int start(int repCount) {
     if (repCount == 0) {
-      return;
+      return 0;
     }
     // 打开app
     startAPP();
@@ -77,6 +77,8 @@ public class JinRiTouTiaoTest extends BaseTest {
 
     // 关闭App
     closeAPP();
+
+    return readCount;
   }
 
   /**
@@ -117,10 +119,10 @@ public class JinRiTouTiaoTest extends BaseTest {
       int count = 0;
       startY = 5 * height / 6;
       endY = height / 6;
-      while (count++ < 12) {
+      while (count++ < 16) {
         sleep(2);
         mDevice.waitForIdle(timeOut);
-        mDevice.swipe(centerX, startY, centerX, endY, 50);
+        mDevice.swipe(centerX, startY, centerX, endY, 30);
       }
       readCount++;
 

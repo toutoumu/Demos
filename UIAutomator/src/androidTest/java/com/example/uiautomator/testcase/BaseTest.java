@@ -12,6 +12,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -51,7 +52,7 @@ public abstract class BaseTest {
     calendar = Calendar.getInstance(Locale.CHINA);
   }
 
-  abstract public void start(int count);
+  abstract public int start(int count);
 
   /**
    * @return app名称 如: 微信

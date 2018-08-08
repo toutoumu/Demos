@@ -21,9 +21,9 @@ public class QuTouTiaoTest extends BaseTest {
   }
 
   @Override
-  public void start(int repCount) {
+  public int start(int repCount) {
     if (repCount == 0) {
-      return;
+      return 0;
     }
     // 打开app
     startAPP();
@@ -69,6 +69,7 @@ public class QuTouTiaoTest extends BaseTest {
 
     // 关闭App
     closeAPP();
+    return readCount;
   }
 
   /**
