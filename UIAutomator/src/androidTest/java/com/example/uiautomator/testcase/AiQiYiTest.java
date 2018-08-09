@@ -51,7 +51,7 @@ public class AiQiYiTest extends BaseTest {
           closeDialog();
           tab = findById("tabHome");
           if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 3) {
+            if (restartCount++ < 9) {
               Log.e(TAG, "应用可能已经关闭,重新启动");
               startAPP();
             } else {
@@ -62,13 +62,9 @@ public class AiQiYiTest extends BaseTest {
         }
 
         // 签到 第一次进来签到, 随后每隔几次查看一下任务
-        if (signCount++ == 0 || readCount % 5 == 0) {
-          sign();
+        if ((signCount == 0 && sign()) || readCount % 5 == 0) {
+          signCount++;
         }
-        // todo 关注 已经失效
-        /*while (followCount++ <= 3 && repCount >= 20) {
-          follow();
-        }*/
 
         // 播放
         doPlay();
@@ -156,48 +152,37 @@ public class AiQiYiTest extends BaseTest {
   }
 
   /**
-   * 关注
+   * 关注 确保当前是播放页面才可以
    */
   private boolean follow() {
-    // 点击播放视频
-    UiObject2 play = findById("feeds_iv_video_play");
-    if (play == null) {
-      Log.e(TAG, "没有[播放]按钮");
+    // 跳转用户详情
+    UiObject2 icon = findById("user_icon_url");
+    if (icon == null) {
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "没有可关注的用户");
       return false;
     }
-    play.click();
+    icon.click();
     sleep(5);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[播放],跳转[播放]页面");
+    log("点击评论用户的头像,跳转用户详情页面");
 
-    // 点击关注
-    UiObject2 add = findByText("关注");
-    if (add == null) {
-      mDevice.pressBack();
-      sleep(1);
+    UiObject2 follow = findById("user_center_follow_subscribe_view");
+    if (follow == null || "已关注".equals(follow.getText())) {
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "没有[关注]按钮,返回[关注]Tab");
+      log("这个用户已经关注,不可以再关注");
       return false;
     }
-    add.click();
-    sleep(1);
+    follow.click();
+    sleep(2);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[关注]按钮");
+    log("点击关注关注用户");
 
-    // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
-    UiObject2 confirm = findById("fsg_confirm_btn");
-    if (confirm != null) {
-      confirm.click();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "关闭[关注]对话框");
-    }
-
-    // 返回主页面
+    // 返回
     mDevice.pressBack();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "返回[关注]Tab");
+    Log.e(TAG, "返回播放页面");
     return true;
   }
 
@@ -245,6 +230,10 @@ public class AiQiYiTest extends BaseTest {
       sleep(35);
       readCount++;
 
+      // 关注用户,必须在评论之前,因为评论以后会生成一条评论,所以获取的是自己
+      if (followCount < 4 && follow()) {
+        followCount++;
+      }
       // 发表评论
       if (commentCount < 5 && comment()) {
         commentCount++;
@@ -255,14 +244,15 @@ public class AiQiYiTest extends BaseTest {
       }
 
       mDevice.pressBack();
+      sleep(1);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "播放完成,返回首页");
     } else {
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "返回首页:不是视频页面");
+      return false;
     }
-
     return true;
   }
 
@@ -360,10 +350,9 @@ public class AiQiYiTest extends BaseTest {
       return false;
     }
     back.click();
+    sleep(5);
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "QQ完成分享返回");
-
-    sleep(3);
     return true;
   }
 
