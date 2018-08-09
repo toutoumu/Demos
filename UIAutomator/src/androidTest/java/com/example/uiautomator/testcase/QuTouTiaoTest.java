@@ -4,6 +4,8 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -39,7 +41,7 @@ public class QuTouTiaoTest extends BaseTest {
           + " 次\n********************************************\n");
 
         // 判断是否有底部导航栏来区分是否已经回到首页, com.jifen.qukan:id/iq 底部tab容器
-        UiObject2 toolBar = findById("iq");
+        UiObject2 toolBar = findById("ij");
         if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
           closeDialog();
           toolBar = findById("iq");
@@ -53,11 +55,11 @@ public class QuTouTiaoTest extends BaseTest {
             }
           }
         }
-        if (random.nextInt(10) % 2 == 0) {
-          doRead(toolBar);// 阅读
+        /*if (random.nextInt(10) % 2 == 0) {
         } else {
-          doPlay(toolBar); //播放
-        }
+        }*/
+        doPlay(toolBar); //播放
+        // doRead(toolBar);// 阅读
       } catch (Exception e) {
         if (e instanceof IllegalStateException) {
           Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
@@ -165,7 +167,7 @@ public class QuTouTiaoTest extends BaseTest {
     UiObject2 refresh = toolBar.getChildren().get(1).findObject(By.text("刷新"));
     if (refresh == null) {
       toolBar.getChildren().get(1).click();
-      sleep(3);
+      sleep(10);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "切换到视频列表");
     }
@@ -177,39 +179,67 @@ public class QuTouTiaoTest extends BaseTest {
     Log.e(TAG, "列表向上滑动");
 
     // com.jifen.qukan:id/a0x 评论数控件ID
-    UiObject2 play = findById("a0x");
+    // com.jifen.qukan:id/a36 播放按钮
+    int repeat = 0;
+    UiObject2 play = findById("a36");
+    while (repeat++ < 4 && play == null) {
+      Log.e(TAG, "播放失败,没有找到文章");
+      mDevice.swipe(centerX, startY, centerX, endY, 30);
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "列表向上滑动,向上滚动查找视频");
+      play = findById("a36");
+    }
     if (play == null) {
-      Log.e(TAG, "播放失败:没有播放按钮");
+      Log.e(TAG, "播放失败,没有找到视频,结束本次查找");
       return false;
     }
     play.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开视频");
+    Log.e(TAG, "打开视频,开始播放");
 
-    // 视频评论点赞收藏容器的id为 com.jifen.qukan:id/lq
-    if (findById("lq", 3) != null) {// 视频页面
-      Log.e(TAG, "开始播放");
-      sleep(35);
-      readCount++;
+    sleep(35 + random.nextInt(10));
+    mDevice.waitForIdle(timeOut);
+    readCount++;
+    Log.e(TAG, "播放完成");
 
-      // 发表评论
-      /*if (commentCount < 10 && commentVideo()) {
-        commentCount++;
-      }
-      // 分享
-      if (shareCount < 10 && shareVideo()) {
-        shareCount++;
-      }*/
+    /* *********以下代码是点击视频跳转到页面进行播放******* */
 
-      mDevice.pressBack();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "播放完成,返回首页");
-    } else {
-      mDevice.pressBack();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "返回首页:不是视频页面");
-    }
+    // // com.jifen.qukan:id/a0x 评论数控件ID
+    // UiObject2 play = findById("a0x");
+    // if (play == null) {
+    //   Log.e(TAG, "播放失败:没有播放按钮");
+    //   return false;
+    // }
+    // play.click();
+    // sleep(3);
+    // mDevice.waitForIdle(timeOut);
+    // Log.e(TAG, "打开视频");
+    //
+    // // 视频评论点赞收藏容器的id为 com.jifen.qukan:id/lq
+    // if (findById("lq", 3) != null) {// 视频页面
+    //   Log.e(TAG, ",打开视频开始播放");
+    //   sleep(35 + random.nextInt(10));
+    //   readCount++;
+    //
+    //   // 发表评论
+    //   /*if (commentCount < 10 && commentVideo()) {
+    //     commentCount++;
+    //   }
+    //   // 分享
+    //   if (shareCount < 10 && shareVideo()) {
+    //     shareCount++;
+    //   }*/
+    //
+    //   mDevice.pressBack();
+    //   mDevice.waitForIdle(timeOut);
+    //   Log.e(TAG, "播放完成,返回首页");
+    // } else {
+    //   mDevice.pressBack();
+    //   mDevice.waitForIdle(timeOut);
+    //   Log.e(TAG, "返回首页:不是视频页面");
+    // }
     return true;
   }
 

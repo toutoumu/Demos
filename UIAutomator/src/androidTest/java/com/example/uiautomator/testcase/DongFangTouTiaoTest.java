@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * 东方头条测试 提成较高 1000金币=1元 徒弟阅读提成是徒弟两倍
- * 播放,阅读,
+ * 播放,阅读,晒收入(3次),推送
  */
 public class DongFangTouTiaoTest extends BaseTest {
 
@@ -81,9 +81,9 @@ public class DongFangTouTiaoTest extends BaseTest {
    * @return 成功
    */
   private boolean doRead() {
-    // 如果当前不是文章列表 ,切换到文章列表 判断是否有发布按钮 com.songheng.eastnews:id/ne
-    if (findById("ne") == null) {
-      UiObject2 toolBar = findById("l6");
+    // 如果当前不是文章列表 ,切换到文章列表 判断是否有发布按钮
+    if (findByText("发布") == null) {// com.songheng.eastnews:id/nd
+      UiObject2 toolBar = findByText("新闻"); // com.songheng.eastnews:id/l3
       // 切换到文章列表
       if (toolBar == null) {
         Log.e(TAG, "阅读失败:没有底部栏");
@@ -101,9 +101,9 @@ public class DongFangTouTiaoTest extends BaseTest {
     mDevice.swipe(centerX, startY, centerX, endY, 20);
     Log.e(TAG, "列表向上滑动");
 
-    // 打开文章 com.songheng.eastnews:id/a6b  标签 (打开不是百度的)
+    // 打开文章 com.songheng.eastnews:id/pz  标签 (打开不是百度的)
     int repeat = 0;
-    UiObject2 read = findById("a6b");
+    UiObject2 read = findById("pz");
     List<String> key = Arrays.asList("百度");
     while (repeat++ < 4 && (read == null || key.contains(read.getText()))) {
       Log.e(TAG, "阅读失败,没有找到文章");
@@ -111,7 +111,7 @@ public class DongFangTouTiaoTest extends BaseTest {
       sleep(1);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "列表向上滑动,向上滚动查找文章");
-      read = findById("a6b");
+      read = findById("pz");
     }
     if (read == null) {
       Log.e(TAG, "阅读失败,没有找到文章,结束本次查找");
@@ -131,7 +131,7 @@ public class DongFangTouTiaoTest extends BaseTest {
       mDevice.waitForIdle(timeOut);
 
       if (count == 2) {// 滑动两次之后出现 点击阅读全文 com.songheng.eastnews:id/av_
-        UiObject2 seeAll = findById("av_");//findByText("点击阅读全文", 3);
+        UiObject2 seeAll = findByText("点击阅读全文", 3);
         if (seeAll != null) {
           seeAll.click();
           mDevice.waitForIdle(timeOut);
@@ -170,6 +170,7 @@ public class DongFangTouTiaoTest extends BaseTest {
    */
   private boolean doPlay() {
     List<UiObject2> radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
+    List<UiObject2> objects = mDevice.findObjects(By.clazz(RadioButton.class));
     if (radioButtons == null || radioButtons.size() != 3) {
       Log.e(TAG, "视频播放失败:没有底部栏");
       return false;
@@ -180,6 +181,7 @@ public class DongFangTouTiaoTest extends BaseTest {
     for (UiObject2 radioButton : radioButtons) {
       if ("视频".equals(radioButton.getText())) {
         videoTab = radioButton;
+        break;
       }
     }
     if (videoTab == null) {
@@ -201,8 +203,8 @@ public class DongFangTouTiaoTest extends BaseTest {
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     Log.e(TAG, "视频列表向上滑动");
 
-    // 点击播放 播放按钮 com.songheng.eastnews:id/afh
-    UiObject2 play = findById("afh");
+    // 点击播放 播放按钮 com.songheng.eastnews:id/aez
+    UiObject2 play = findById("aez");
     if (play == null) {
       Log.e(TAG, "播放失败:没有播放按钮");
       return false;
@@ -213,8 +215,8 @@ public class DongFangTouTiaoTest extends BaseTest {
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "点击开始播放视频");
 
-    // 标志性的 转转转的图片 com.songheng.eastnews:id/a6l com.songheng.eastnews:id/a6k
-    if (findById("a6k", 3) != null) {// 视频页面
+    // 标志性的 转转转的图片 com.songheng.eastnews:id/a5q
+    if (findById("a5q", 3) != null) {// 视频页面
       sleep(45 + random.nextInt(10));
       readCount++;
       // 发表评论

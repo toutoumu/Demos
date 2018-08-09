@@ -4,6 +4,7 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import android.widget.ImageView;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -64,10 +65,10 @@ public class AiQiYiTest extends BaseTest {
         if (signCount++ == 0 || readCount % 5 == 0) {
           sign();
         }
-        // 关注
-        while (followCount++ <= 3 && repCount >= 20) {
+        // todo 关注 已经失效
+        /*while (followCount++ <= 3 && repCount >= 20) {
           follow();
-        }
+        }*/
 
         // 播放
         doPlay();
@@ -119,9 +120,9 @@ public class AiQiYiTest extends BaseTest {
 
     // 向下滑动列表
     // startY > endY 向上滚动  startY < endY 向下滚动
-    int startY = height / 2;
-    int endY = height / 10;
-    mDevice.swipe(centerX, endY, centerX, startY, 30);
+    int startY = height / 3;
+    int endY = height * 2 / 3;
+    mDevice.swipe(centerX, startY, centerX, endY, 10);
     sleep(1);
     mDevice.waitForIdle(timeOut);
 
@@ -133,7 +134,7 @@ public class AiQiYiTest extends BaseTest {
       return false;
     }
     obtain.click();
-    sleep(3);
+    sleep(5);
     mDevice.waitForIdle(timeOut);
     Log.e(TAG, "点击跳转到[签到]");
 
@@ -158,29 +159,16 @@ public class AiQiYiTest extends BaseTest {
    * 关注
    */
   private boolean follow() {
-    // 切换到关注Tab
-    UiObject2 follow = findById("tabFollow");
-    if (follow == null) {
-      Log.e(TAG, "没有[关注]Tab");
+    // 点击播放视频
+    UiObject2 play = findById("feeds_iv_video_play");
+    if (play == null) {
+      Log.e(TAG, "没有[播放]按钮");
       return false;
     }
-    if (!follow.isSelected()) {
-      follow.click();
-      sleep(5);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到[关注]Tab");
-    }
-
-    // 跳转[爱奇艺号推荐]页面 RecyclerView 只能这样查找咯
-    UiObject2 addFollow = findByText("关注推荐");
-    if (addFollow == null) {
-      Log.e(TAG, "没有[关注推荐]按钮");
-      return false;
-    }
-    addFollow.click();
+    play.click();
     sleep(5);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[关注推荐],跳转[爱奇艺号推荐]页面");
+    Log.e(TAG, "点击[播放],跳转[播放]页面");
 
     // 点击关注
     UiObject2 add = findByText("关注");

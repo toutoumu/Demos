@@ -9,6 +9,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import android.widget.Toast;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import static android.support.test.InstrumentationRegistry.getContext;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.uiautomator.UiDevice.getInstance;
 
@@ -166,9 +168,9 @@ public abstract class BaseTest {
       startIcon.click();
       sleep(10);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, getAPPName() + "已经启动");
+      log(getAPPName() + "已经启动");
     } else {
-      Log.e(TAG, getAPPName() + "启动失败");
+      log(getAPPName() + "启动失败");
     }
   }
 
@@ -200,7 +202,7 @@ public abstract class BaseTest {
     mDevice.waitForIdle(1000);
     mDevice.pressHome();
     mDevice.waitForIdle(1000);
-    Log.e(TAG, "关闭" + getAPPName());
+    log("关闭" + getAPPName());
   }
 
   /**
@@ -227,6 +229,61 @@ public abstract class BaseTest {
   }
 
   /**
+   * 打印元素信息
+   *
+   * @param object2 子元素
+   * @return 详细信息
+   */
+  public String printObject(UiObject2 object2) {
+    StringBuilder builder = new StringBuilder();
+    if (object2 != null) {
+      builder.append("********************************************************\n");
+      builder.append("Class:   ").append(object2.getClassName()).append("  \n");
+      builder.append("ID:      ").append(object2.getResourceName()).append("  \n");
+      builder.append("Text:    ").append(object2.getText()).append("  \n");
+      builder.append("子节点数: ").append(object2.getChildCount()).append("  \n");
+      builder.append("布局边界: ").append(object2.getVisibleBounds()).append("  \n");
+      /*if (object2.getChildren() != null && object2.getChildren().size() > 0) {
+        builder.append("****************************\n");
+        printObjects(object2.getChildren());
+        builder.append("****************************\n");
+      }*/
+      builder.append("   \n********************************************************");
+    }
+    return builder.toString();
+  }
+
+  /**
+   * 打印元素列表信息
+   *
+   * @param object2s obj
+   * @return 列表信息
+   */
+  public String printObjects(List<UiObject2> object2s) {
+    StringBuilder builder = new StringBuilder();
+    if (object2s != null && object2s.size() > 0) {
+      for (UiObject2 object2 : object2s) {
+        builder.append(printObject(object2));
+      }
+    }
+    return builder.toString();
+  }
+
+  /**
+   * 打印直接子节点信息
+   *
+   * @param object2
+   * @return
+   */
+  public String printChidern(UiObject2 object2) {
+    StringBuilder builder = new StringBuilder();
+    if (object2 != null) {
+      builder.append(printObjects(object2.getChildren()));
+    }
+    return builder.toString();
+  }
+
+  /**
    * 根据包名启动app
    */
   public void startAPPWithPackageName() {
@@ -237,13 +294,13 @@ public abstract class BaseTest {
     Context mContext = getInstrumentation().getContext();
     Intent myIntent = mContext.getPackageManager().getLaunchIntentForPackage(getPackageName());  //通过Intent启动app
     if (myIntent != null) {
-      Log.e(TAG, "尝试打开app: " + getPackageName());
+      log("尝试打开app: " + getPackageName());
       myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
       mContext.startActivity(myIntent);
       sleep(10);
       mDevice.waitForIdle(timeOut);
     } else {
-      Log.e(TAG, "尝试打开app失败: " + getPackageName());
+      log("尝试打开app失败: " + getPackageName());
     }
   }
 
@@ -252,14 +309,21 @@ public abstract class BaseTest {
    */
   public void closeAPPWithPackageName() {
     try {
-      Log.e(TAG, "尝试关闭app: " + getPackageName());
+      log("尝试关闭app: " + getPackageName());
       mDevice.executeShellCommand("am force-stop " + getPackageName());//通过命令行关闭app
-      Log.e(TAG, "app已经关闭: " + getPackageName());
+      log("app已经关闭: " + getPackageName());
     } catch (Throwable e) {
       Log.e(TAG, "关闭app失败", e);
       mDevice.pressBack();
       mDevice.pressBack();
     }
+  }
+
+  /**
+   * 打印日志
+   */
+  public void log(String message) {
+    Log.e(TAG, message);
   }
 
   /**
@@ -269,7 +333,7 @@ public abstract class BaseTest {
     try {
       mDevice.executeShellCommand("am start -n " + getPackageName() + "/" + sLaunchActivity);//通过命令行启动app
     } catch (IOException e) {
-      Log.e(TAG, getAPPName() + "启动出错", e);
+      log(getAPPName() + "启动出错");
     }
   }
 }

@@ -2,6 +2,7 @@ package com.example.uiautomator;
 
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
+import android.widget.Toast;
 import com.example.uiautomator.testcase.AiQiYiTest;
 import com.example.uiautomator.testcase.DongFangTouTiaoTest;
 import com.example.uiautomator.testcase.JinRiTouTiaoTest;
@@ -26,9 +27,9 @@ public class AppTest {
       Random random = new Random();
       new JinRiTouTiaoTest().start(0); //今日头条
       new AiQiYiTest().start(0); // 爱奇艺
-      while (i++ < 1) {
-        new DongFangTouTiaoTest().start(25 + random.nextInt(5)); // 东方头条
-        new JuKanDianTest().start(25 + random.nextInt(5));// 聚看点
+      while (i++ < 3) {
+        new DongFangTouTiaoTest().start(40 + random.nextInt(5)); // 东方头条
+        new JuKanDianTest().start(40 + random.nextInt(5));// 聚看点
         //new QuTouTiaoTest().start(20 + random.nextInt(5)); // 趣头条(汇率低)
       }
     } catch (Exception e) {
@@ -46,10 +47,10 @@ public class AppTest {
       Random random = new Random();
       new JinRiTouTiaoTest().start(0); //今日头条
       new AiQiYiTest().start(0); // 爱奇艺
-      while (i++ < 4) {
-        new JuKanDianTest().start(25 + random.nextInt(5));// 聚看点
+      while (i++ < 3) {
         new DongFangTouTiaoTest().start(25 + random.nextInt(5)); // 东方头条
-        new QuTouTiaoTest().start(20 + random.nextInt(5)); // 趣头条(汇率低)
+        new JuKanDianTest().start(40 + random.nextInt(5));// 聚看点
+        //new QuTouTiaoTest().start(25 + random.nextInt(5)); // 趣头条(汇率低)
       }
     } catch (Exception e) {
       Log.e(TAG, "出错了", e);
@@ -65,12 +66,13 @@ public class AppTest {
       int i = 0;
       Random random = new Random();
       new AiQiYiTest().start(0); // 爱奇艺
-      new JinRiTouTiaoTest().start(9); //今日头条
-      while (i++ < 4) {
-        new DongFangTouTiaoTest().start(25 + random.nextInt(5)); // 东方头条
-        new QuTouTiaoTest().start(25 + random.nextInt(5)); // 趣头条(汇率低)
-        new JuKanDianTest().start(25 + random.nextInt(5));// 聚看点
+      new JinRiTouTiaoTest().start(0); //今日头条
+      while (i++ < 2) {
+        new JuKanDianTest().start(50 + random.nextInt(5));// 聚看点
+        new DongFangTouTiaoTest().start(50 + random.nextInt(5)); // 东方头条
+        // new QuTouTiaoTest().start(25 + random.nextInt(5)); // 趣头条(汇率低)
       }
+      new JuKanDianTest().start(50 + random.nextInt(5));// 聚看点
     } catch (Exception e) {
       Log.e(TAG, "出错了", e);
     }
