@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.TextView
+import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.runBtn
 import kotlinx.android.synthetic.main.activity_main.shutdown
@@ -15,8 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.times_jukandian
 import kotlinx.android.synthetic.main.activity_main.times_qutoutiao
 import java.io.File
 import java.io.FileOutputStream
-import java.util.Arrays
-import java.util.Collections
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,18 +36,27 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     // 点击选中所有文本
-    times_aiqiyi.setOnClickListener { times_aiqiyi.selectAll() }
-    times_jinritoutiao.setOnClickListener { times_jinritoutiao.selectAll() }
-    times_dongfangtoutiao.setOnClickListener { times_dongfangtoutiao.selectAll() }
-    times_qutoutiao.setOnClickListener { times_qutoutiao.selectAll() }
-    times_jukandian.setOnClickListener { times_jukandian.selectAll() }
+    val listener = View.OnFocusChangeListener { it: View?, b: Boolean ->
+      if (!b) return@OnFocusChangeListener
+      it as EditText
+      if (it.text.isNotEmpty()) {
+        it.setSelection(it.text.toString().length)
+      }
+      it.selectAll()
+    }
+    times_aiqiyi.onFocusChangeListener = listener
+    times_jinritoutiao.onFocusChangeListener = listener
+    times_dongfangtoutiao.onFocusChangeListener = listener
+    times_qutoutiao.onFocusChangeListener = listener
+    times_jukandian.onFocusChangeListener = listener
 
     // 开始执行
     runBtn.setOnClickListener {
       if (ShellUtils.checkRootPermission()) {
-        /*Toast.makeText(this, "拥有Root权限", Toast.LENGTH_SHORT)
-            .show()*/
         Log.e(TAG, "拥有Root权限")
+        Toast.makeText(this, "拥有Root权限", Toast.LENGTH_SHORT)
+            .show()
+        // 删除停止标识文件,让程序顺利运行
         val directory = Environment.getExternalStorageDirectory()
         val file = File(directory, "shutdown.txt")
         if (file.exists()) {
@@ -57,8 +65,8 @@ class MainActivity : AppCompatActivity() {
         this.runMyUiautomator()
       } else {
         Log.e(TAG, "没有有Root权限")
-        /*Toast.makeText(this, "没有有Root权限", Toast.LENGTH_LONG)
-            .show()*/
+        Toast.makeText(this, "没有有Root权限", Toast.LENGTH_LONG)
+            .show()
       }
     }
 
@@ -80,7 +88,6 @@ class MainActivity : AppCompatActivity() {
    *
    */
   private fun runMyUiautomator() {
-    Log.i(TAG, "runMyUiautomator: ")
     aiqiyi = times_aiqiyi.text.toString()
         .toInt()
     jinritoutiao = times_jinritoutiao.text.toString()

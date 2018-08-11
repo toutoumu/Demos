@@ -66,7 +66,7 @@ public class JinRiTouTiaoTest extends BaseTest {
           doPlay(toolBar); //播放
         }*/
         doRead(toolBar);
-      } catch (Throwable e) {
+      } catch (Exception e) {
         if (e instanceof IllegalStateException) {
           Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
           break;

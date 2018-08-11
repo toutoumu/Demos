@@ -328,7 +328,7 @@ public abstract class BaseTest {
       log("尝试关闭app: " + getPackageName());
       mDevice.executeShellCommand("am force-stop " + getPackageName());//通过命令行关闭app
       log("app已经关闭: " + getPackageName());
-    } catch (Throwable e) {
+    } catch (Exception e) {
       Log.e(TAG, "关闭app失败", e);
       mDevice.pressBack();
       mDevice.pressBack();

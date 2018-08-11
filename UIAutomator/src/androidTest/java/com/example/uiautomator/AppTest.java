@@ -1,12 +1,9 @@
 package com.example.uiautomator;
 
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
-import android.widget.Toast;
 import com.example.uiautomator.testcase.AiQiYiTest;
 import com.example.uiautomator.testcase.DongFangTouTiaoTest;
 import com.example.uiautomator.testcase.JinRiTouTiaoTest;
@@ -17,8 +14,6 @@ import java.util.Random;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
-
 @RunWith(AndroidJUnit4.class)
 public class AppTest {
   private final String TAG = getClass().getName();
@@ -28,48 +23,33 @@ public class AppTest {
    */
   @Test
   public void allTest() {
-    int aiqiyi = 0;
-    int jinritoutiao = 0;
-    int dongfangtoutiao = 0;
-    int jukandian = 0;
-    int qutoutiao = 0;
-    Random random = new Random();
     Bundle a = InstrumentationRegistry.getArguments();
-    Looper.prepare();
-    Toast.makeText(getInstrumentation().getContext(), "开始执行了", Toast.LENGTH_SHORT).show();
     try {
-      aiqiyi = Integer.parseInt(a.getString("aiqiyi"));
-      jinritoutiao = Integer.parseInt(a.getString("jinritoutiao"));
-      dongfangtoutiao = Integer.parseInt(a.getString("dongfangtoutiao"));
-      jukandian = Integer.parseInt(a.getString("jukandian"));
-      qutoutiao = Integer.parseInt(a.getString("qutoutiao"));
-    } catch (NumberFormatException e) {
-      Log.e(TAG, "参数传递出错了", e);
-      return;
-    }
-
-    try {
-      new AiQiYiTest().start(aiqiyi); // 爱奇艺
+      int aiqiyi = Integer.parseInt(a.getString("aiqiyi"));
+      aiqiyi = new AiQiYiTest().start(aiqiyi); // 爱奇艺
     } catch (Exception e) {
       Log.e(TAG, "爱奇艺出错了", e);
     }
     try {
-      new JinRiTouTiaoTest().start(jinritoutiao); //今日头条
+      int jinritoutiao = Integer.parseInt(a.getString("jinritoutiao"));
+      jinritoutiao = new JinRiTouTiaoTest().start(jinritoutiao); //今日头条
     } catch (Exception e) {
       Log.e(TAG, "今日头条出错了", e);
     }
     try {
-      new DongFangTouTiaoTest().start(dongfangtoutiao + random.nextInt(5)); // 东方头条
+      int dongfangtoutiao = Integer.parseInt(a.getString("dongfangtoutiao"));
+      dongfangtoutiao= new DongFangTouTiaoTest().start(dongfangtoutiao); // 东方头条
     } catch (Exception e) {
       Log.e(TAG, "东方头条出错了", e);
-    }
-    try {
-      new JuKanDianTest().start(jukandian + random.nextInt(5));// 聚看点
+    } try {
+      int jukandian = Integer.parseInt(a.getString("jukandian"));
+      jukandian = new JuKanDianTest().start(jukandian);// 聚看点
     } catch (Exception e) {
       Log.e(TAG, "聚看点出错了", e);
     }
     try {
-      new QuTouTiaoTest().start(qutoutiao + random.nextInt(5)); // 趣头条(汇率低)
+      int qutoutiao = Integer.parseInt(a.getString("qutoutiao"));
+      qutoutiao = new QuTouTiaoTest().start(qutoutiao); // 趣头条(汇率低)
     } catch (Exception e) {
       Log.e(TAG, "趣头条出错了", e);
     }

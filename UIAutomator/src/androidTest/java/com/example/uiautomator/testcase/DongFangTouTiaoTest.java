@@ -61,7 +61,7 @@ public class DongFangTouTiaoTest extends BaseTest {
         }
         //doRead();// 阅读
         doPlay(); // 播放
-      } catch (Throwable e) {
+      } catch (Exception e) {
         if (e instanceof IllegalStateException) {// 如果断开了连接
           Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
           break;

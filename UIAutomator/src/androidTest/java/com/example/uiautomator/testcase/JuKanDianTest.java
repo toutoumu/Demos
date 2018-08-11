@@ -58,7 +58,7 @@ public class JuKanDianTest extends BaseTest {
         } else {
           doRead();// 阅读
         }
-      } catch (Throwable e) {
+      } catch (Exception e) {
         if (e instanceof IllegalStateException) {
           Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
           break;
@@ -105,14 +105,14 @@ public class JuKanDianTest extends BaseTest {
       return false;
     }
     read.click();
-    sleep(3);
+    sleep(5);
     mDevice.waitForIdle(timeOut);
 
     //如果有评论按钮 com.xiangzi.jukandian:id/image_web_comment
     if (findById("image_web_comment", 3) != null) {// 文章页面
       Log.e(TAG, "打开文章,开始阅读");
       int count = 0;// 滚动次数
-      while (count++ < 12) {
+      while (count++ < 13) {
         long start = System.currentTimeMillis();
         if (count % 5 == 0 && count != 0) {
           mDevice.swipe(centerX, endY, centerX, startY, 50);
