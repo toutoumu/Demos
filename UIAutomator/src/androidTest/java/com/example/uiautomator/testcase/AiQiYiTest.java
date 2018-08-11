@@ -66,8 +66,15 @@ public class AiQiYiTest extends BaseTest {
           signCount++;
         }
 
+        // 关注
+        while (followCount <= 3 && follow2_7_30()) {
+          followCount++;
+        }
+
         // 播放
-        doPlay();
+        if (doPlay()) {
+          readCount++;
+        }
       } catch (Throwable e) {
         if (e instanceof IllegalStateException) {
           Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
@@ -146,8 +153,67 @@ public class AiQiYiTest extends BaseTest {
       mDevice.pressBack();
       sleep(1);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "签到成功,返回首页");
+      Log.e(TAG, "签到成功,关闭对话框,返回首页");
     }
+    return true;
+  }
+
+  /**
+   * 关注 2.7.30 签到
+   */
+  private boolean follow2_7_30() {
+    // 切换到关注Tab
+    UiObject2 follow = findById("tabFollow");
+    if (follow == null) {
+      Log.e(TAG, "没有[关注]Tab");
+      return false;
+    }
+    if (!follow.isSelected()) {
+      follow.click();
+      sleep(5);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "切换到[关注]Tab");
+    }
+
+    // 跳转[爱奇艺号推荐]页面 RecyclerView 只能这样查找咯
+    UiObject2 addFollow = findByText("关注推荐");
+    if (addFollow == null) {
+      Log.e(TAG, "没有[关注推荐]按钮");
+      return false;
+    }
+    addFollow.click();
+    sleep(5);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击[关注推荐],跳转[爱奇艺号推荐]页面");
+
+    // 点击关注
+    UiObject2 add = findByText("关注");
+    if (add == null) {
+      mDevice.pressBack();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "没有[关注]按钮,返回[关注]Tab");
+      return false;
+    }
+    add.click();
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击[关注]按钮");
+
+    // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
+    UiObject2 confirm = findById("fsg_confirm_btn");
+    if (confirm != null) {
+      confirm.click();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "关闭[关注]对话框");
+    }
+
+    // 返回主页面
+    mDevice.pressBack();
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "返回[关注]Tab");
     return true;
   }
 
@@ -228,18 +294,17 @@ public class AiQiYiTest extends BaseTest {
       Log.e(TAG, "开始播放视频");
       // 等待视频播放完成
       sleep(35);
-      readCount++;
 
       // 关注用户,必须在评论之前,因为评论以后会生成一条评论,所以获取的是自己
-      if (followCount < 4 && follow()) {
+      if (followCount <= 3 && follow()) {
         followCount++;
       }
       // 发表评论
-      if (commentCount < 5 && comment()) {
+      if (commentCount <= 3 && comment()) {
         commentCount++;
       }
       // 分享
-      if (shareCount < 5 && share()) {
+      if (shareCount <= 3 && share()) {
         shareCount++;
       }
 

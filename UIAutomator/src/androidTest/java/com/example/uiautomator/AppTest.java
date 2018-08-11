@@ -2,6 +2,7 @@ package com.example.uiautomator;
 
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
@@ -16,10 +17,15 @@ import java.util.Random;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+
 @RunWith(AndroidJUnit4.class)
 public class AppTest {
   private final String TAG = getClass().getName();
 
+  /**
+   * 提供给已经root的设备使用
+   */
   @Test
   public void allTest() {
     int aiqiyi = 0;
@@ -29,14 +35,17 @@ public class AppTest {
     int qutoutiao = 0;
     Random random = new Random();
     Bundle a = InstrumentationRegistry.getArguments();
+    Looper.prepare();
+    Toast.makeText(getInstrumentation().getContext(), "开始执行了", Toast.LENGTH_SHORT).show();
     try {
       aiqiyi = Integer.parseInt(a.getString("aiqiyi"));
       jinritoutiao = Integer.parseInt(a.getString("jinritoutiao"));
       dongfangtoutiao = Integer.parseInt(a.getString("dongfangtoutiao"));
-      jinritoutiao = Integer.parseInt(a.getString("jukandian"));
+      jukandian = Integer.parseInt(a.getString("jukandian"));
       qutoutiao = Integer.parseInt(a.getString("qutoutiao"));
     } catch (NumberFormatException e) {
       Log.e(TAG, "参数传递出错了", e);
+      return;
     }
 
     try {

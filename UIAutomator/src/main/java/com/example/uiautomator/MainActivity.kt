@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_main.times_jukandian
 import kotlinx.android.synthetic.main.activity_main.times_qutoutiao
 import java.io.File
 import java.io.FileOutputStream
+import java.util.Arrays
+import java.util.Collections
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +36,14 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
+    // 点击选中所有文本
+    times_aiqiyi.setOnClickListener { times_aiqiyi.selectAll() }
+    times_jinritoutiao.setOnClickListener { times_jinritoutiao.selectAll() }
+    times_dongfangtoutiao.setOnClickListener { times_dongfangtoutiao.selectAll() }
+    times_qutoutiao.setOnClickListener { times_qutoutiao.selectAll() }
+    times_jukandian.setOnClickListener { times_jukandian.selectAll() }
+
+    // 开始执行
     runBtn.setOnClickListener {
       if (ShellUtils.checkRootPermission()) {
         /*Toast.makeText(this, "拥有Root权限", Toast.LENGTH_SHORT)
@@ -115,8 +125,9 @@ class MainActivity : AppCompatActivity() {
     private fun generateCommand(pkgName: String, clsName: String, mtdName: String, param: Map<String, Int>): String {
       val p = generateParameter(param)
       val command =
-        "am instrument --user 0 -w -r -e debug false $p -e class $pkgName.$clsName#$mtdName $pkgName.debug.test/android.support.test.runner.AndroidJUnitRunner"
-      Log.e("test1: ", command)
+        "am instrument -w -r -e debug false $p -e class $pkgName.$clsName#$mtdName $pkgName.debug.test/android.support.test.runner.AndroidJUnitRunner"
+      //"am instrument --user 0 -w -r -e debug false $p -e class $pkgName.$clsName#$mtdName $pkgName.debug.test/android.support.test.runner.AndroidJUnitRunner"
+      Log.e("生成的命令: ", command)
       return command
     }
 

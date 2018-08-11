@@ -46,7 +46,7 @@ public class QuTouTiaoTest extends BaseTest {
           closeDialog();
           toolBar = findById("iq");
           if (toolBar == null) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 3) {
+            if (restartCount++ < 9) {
               Log.e(TAG, "应用可能已经关闭,重新启动");
               startAPP();
             } else {

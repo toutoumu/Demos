@@ -169,6 +169,10 @@ public abstract class BaseTest {
    * 根据应用名称启动app,App必须放在首页
    */
   public void startAPP() {
+    log("\n");
+    log("\n");
+    log("\n");
+    log("启动" + getAPPName() + "前,如果已经打开那么先关闭");
     // 回到桌面首页
     closeAPP();
 
