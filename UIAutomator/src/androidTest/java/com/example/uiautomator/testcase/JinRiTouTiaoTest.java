@@ -28,7 +28,7 @@ public class JinRiTouTiaoTest extends BaseTest {
 
   @Override
   public int start(int repCount) {
-    if (repCount == 0) {
+    if (repCount == 0 || !avliable()) {
       return 0;
     }
     // 打开app

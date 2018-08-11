@@ -11,14 +11,14 @@ public class ZhongQingKanDianTest extends BaseTest {
     super();
   }
 
-  private void read() {
+  private void doRead() {
 
   }
 
   @Override
   public int start(int repCount) {
-    if (repCount == 0) {
-      return repCount;
+    if (repCount == 0 || !avliable()) {
+      return 0;
     }
     int startY = height / 2;
     int endY = height / 4;

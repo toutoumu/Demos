@@ -2,6 +2,7 @@ package com.example.uiautomator.testcase;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.SearchCondition;
@@ -9,7 +10,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
-import android.widget.Toast;
+import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,7 +18,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import static android.support.test.InstrumentationRegistry.getContext;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.uiautomator.UiDevice.getInstance;
 
@@ -33,6 +33,7 @@ public abstract class BaseTest {
   public final int centerX; // 中间位置
   public final int centerY; // 中间位置
 
+  // 该方法的作用是生成一个随机的int值，该值介于[0,n)的区间，也就是0到n之间的随机int值，包含0而不包含n。
   public final Random random;
 
   public final Calendar calendar;
@@ -66,11 +67,22 @@ public abstract class BaseTest {
    */
   abstract String getPackageName();
 
+  /**
+   * @return 是否允许执行
+   */
   public boolean avliable() {
+    // 文件存在退出应用
+    File directory = Environment.getExternalStorageDirectory();
+    File file = new File(directory, "shutdown.txt");
+    if (file.exists()) {
+      log("shutdown文件存在,准备结束运行");
+      return false;
+    }
+
     calendar.setTime(new Date());
     int hour = calendar.get(Calendar.HOUR_OF_DAY);
     if (hour <= 6 || hour >= 22) {
-      Log.e(TAG, "这个时候了该睡觉了");
+      log("这个时候了该睡觉了");
       return false;
     }
     return true;

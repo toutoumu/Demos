@@ -22,7 +22,7 @@ public class JuKanDianTest extends BaseTest {
 
   @Override
   public int start(int repCount) {
-    if (repCount == 0) {
+    if (repCount == 0 || !avliable()) {
       return 0;
     }
     // 打开app
@@ -53,7 +53,7 @@ public class JuKanDianTest extends BaseTest {
             }
           }
         }
-        if (random.nextInt(6) % 3 == 0) {
+        if (random.nextInt(4) % 4 == 0) {// 1/4
           doPlay(); // 播放
         } else {
           doRead();// 阅读
