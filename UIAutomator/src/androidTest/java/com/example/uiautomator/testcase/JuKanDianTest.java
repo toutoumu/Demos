@@ -1,10 +1,12 @@
 package com.example.uiautomator.testcase;
 
+import android.graphics.Rect;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
 import java.util.Random;
+import org.junit.Test;
 
 /**
  * 聚看点测试 提成较高 签到奖励高 1000金币=1元 分享点击80金币一次 徒弟分享贡献16金币
@@ -262,10 +264,10 @@ public class JuKanDianTest extends BaseTest {
         Log.e(TAG, "没有评论文本框");
         return false;
       }
-      Log.e(TAG, "点击评论文本框,弹出键盘");
       commentBtn.click();
       sleep(1);
       mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "点击评论文本框,弹出键盘");
 
       // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
       UiObject2 contentText = findById("dialog_comment_content");
@@ -346,6 +348,37 @@ public class JuKanDianTest extends BaseTest {
         throw e;
       }
       Log.e(TAG, "评论失败", e);
+      return false;
+    }
+  }
+
+  private boolean sign() {
+    try {
+      UiObject2 tab3 = findById("tv_tab3");
+      if (tab3 == null) {
+        Log.e(TAG, "没有任务中心");
+        return false;
+      }
+      tab3.click();
+      sleep(5);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "点击评论文本框,弹出键盘");
+
+      // 文本  signH1
+      UiObject2 sign = findById("签到领金币");
+      if (sign == null) {
+        Log.e(TAG, "没有签到按钮");
+        return false;
+      }
+      sign.click();
+      //Rect rect = sign.getVisibleBounds();
+      //mDevice.click((rect.left + rect.right) / 2, (rect.top + rect.bottom) / 2);
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "点击签到");
+      return true;
+    } catch (Exception e) {
+      Log.e(TAG, "签到出错了", e);
       return false;
     }
   }

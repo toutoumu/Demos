@@ -60,11 +60,7 @@ public class JinRiTouTiaoTest extends BaseTest {
           + readCount
           + " 次"
           + "\n********************************************\n");
-        /*if (random.nextInt(10) % 2 == 0) {
-          doRead(toolBar);// 阅读
-        } else {
-          doPlay(toolBar); //播放
-        }*/
+        // follow(toolBar);
         doRead(toolBar);
       } catch (Exception e) {
         if (e instanceof IllegalStateException) {
@@ -79,6 +75,26 @@ public class JinRiTouTiaoTest extends BaseTest {
     closeAPP();
 
     return readCount;
+  }
+
+  private boolean follow(UiObject2 toolBar) {
+    // 切换到文章列表
+    if (toolBar == null || toolBar.getChildren().size() == 0) {
+      Log.e(TAG, "阅读失败:没有底部栏");
+      return false;
+    }
+    // 如果当前不是文章列表 ,切换到文章列表
+    UiObject2 mainTab = toolBar.getChildren().get(3);
+    if (mainTab != null && !mainTab.isSelected()) {
+      mainTab.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "切换到文章列表");
+    }
+
+    findByText("签到").click();
+    findByText("开宝箱得金币").click();
+    return true;
   }
 
   /**

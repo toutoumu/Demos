@@ -7,23 +7,35 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.delete_aiqiyi
+import kotlinx.android.synthetic.main.activity_main.delete_dongfangtoutiao
+import kotlinx.android.synthetic.main.activity_main.delete_haokan
+import kotlinx.android.synthetic.main.activity_main.delete_jinritoutiao
+import kotlinx.android.synthetic.main.activity_main.delete_jukandian
+import kotlinx.android.synthetic.main.activity_main.delete_qutoutiao
+import kotlinx.android.synthetic.main.activity_main.delete_repeat
 import kotlinx.android.synthetic.main.activity_main.runBtn
 import kotlinx.android.synthetic.main.activity_main.shutdown
 import kotlinx.android.synthetic.main.activity_main.times_aiqiyi
 import kotlinx.android.synthetic.main.activity_main.times_dongfangtoutiao
+import kotlinx.android.synthetic.main.activity_main.times_haokan
 import kotlinx.android.synthetic.main.activity_main.times_jinritoutiao
 import kotlinx.android.synthetic.main.activity_main.times_jukandian
 import kotlinx.android.synthetic.main.activity_main.times_qutoutiao
+import kotlinx.android.synthetic.main.activity_main.times_repeat
 import java.io.File
 import java.io.FileOutputStream
 
 class MainActivity : AppCompatActivity() {
 
   var aiqiyi = 0
+  var haokan = 0
   var jinritoutiao = 0
   var dongfangtoutiao = 0
   var jukandian = 0
   var qutoutiao = 0
+
+  var repeat = 0
 
   companion object {
     private val TAG = MainActivity::class.java.name!!
@@ -45,10 +57,20 @@ class MainActivity : AppCompatActivity() {
       it.selectAll()
     }
     times_aiqiyi.onFocusChangeListener = listener
+    times_haokan.onFocusChangeListener = listener
     times_jinritoutiao.onFocusChangeListener = listener
     times_dongfangtoutiao.onFocusChangeListener = listener
     times_qutoutiao.onFocusChangeListener = listener
     times_jukandian.onFocusChangeListener = listener
+    times_repeat.onFocusChangeListener = listener
+
+    delete_aiqiyi.setOnClickListener { times_aiqiyi.setText("0") }
+    delete_haokan.setOnClickListener { times_haokan.setText("0") }
+    delete_jinritoutiao.setOnClickListener { times_jinritoutiao.setText("0") }
+    delete_dongfangtoutiao.setOnClickListener { times_dongfangtoutiao.setText("0") }
+    delete_qutoutiao.setOnClickListener { times_qutoutiao.setText("0") }
+    delete_repeat.setOnClickListener { times_repeat.setText("1") }
+    delete_jukandian.setOnClickListener { times_jukandian.setText("0") }
 
     // 开始执行
     runBtn.setOnClickListener {
@@ -90,6 +112,8 @@ class MainActivity : AppCompatActivity() {
   private fun runMyUiautomator() {
     aiqiyi = times_aiqiyi.text.toString()
         .toInt()
+    haokan = times_haokan.text.toString()
+        .toInt()
     jinritoutiao = times_jinritoutiao.text.toString()
         .toInt()
     dongfangtoutiao = times_dongfangtoutiao.text.toString()
@@ -97,6 +121,8 @@ class MainActivity : AppCompatActivity() {
     jukandian = times_jukandian.text.toString()
         .toInt()
     qutoutiao = times_qutoutiao.text.toString()
+        .toInt()
+    repeat = times_repeat.text.toString()
         .toInt()
     UiautomatorThread().start()
   }
@@ -109,10 +135,12 @@ class MainActivity : AppCompatActivity() {
       // 传递的参数
       val param = mutableMapOf<String, Int>()
       param["aiqiyi"] = aiqiyi
+      param["haokan"] = haokan
       param["jinritoutiao"] = jinritoutiao
       param["dongfangtoutiao"] = dongfangtoutiao
       param["jukandian"] = jukandian
       param["qutoutiao"] = qutoutiao
+      param["repeat"] = repeat
 
       // 组装成命令
       val command = generateCommand(PACKAGE, CLAZS_NAME, METHOD, param)

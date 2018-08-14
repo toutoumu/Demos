@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import org.junit.Test;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.uiautomator.UiDevice.getInstance;
@@ -55,6 +56,67 @@ public abstract class BaseTest {
     calendar = Calendar.getInstance(Locale.CHINA);
   }
 
+  /**
+   * qq分享
+   *
+   * @param share 掉起QQ分享的按钮
+   * @return 是否分享成功
+   */
+  public boolean qqShare(UiObject2 share) {
+    if (share == null) {
+      Log.e(TAG, "没有打开QQ分享,的按钮");
+      return false;
+    }
+    share.click();
+    sleep(4);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "打开QQ分享,离开当前应用");
+
+    // 点击发表评论
+    UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
+    if (publish == null) {
+      Log.e(TAG, "分享到[我的电脑]失败");
+      return false;
+    }
+    publish.getParent().click();
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "点击[我的电脑]选项");
+
+    // 分享到我的电脑确认
+    UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
+    if (confirm == null) {
+      Log.e(TAG, "分享到[我的电脑]确认失败");
+      return false;
+    }
+    confirm.click();
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "分享到[我的电脑]确认");
+
+    // 返回
+    UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
+    if (back == null) {
+      Log.e(TAG, "没有返回按钮");
+      return false;
+    }
+    back.click();
+    sleep(5);
+    mDevice.waitForIdle(timeOut);
+    Log.e(TAG, "QQ完成分享返回");
+    return true;
+  }
+
+  /**
+   * 执行返回操作,打印日志,暂停1秒
+   *
+   * @param message
+   */
+  public void pressBack(String message) {
+    mDevice.pressBack();
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
+    log(message);
+  }
+
   abstract public int start(int count);
 
   /**
@@ -79,9 +141,10 @@ public abstract class BaseTest {
       return false;
     }
 
+    // 晚上12点到早上6点不允许使用
     calendar.setTime(new Date());
     int hour = calendar.get(Calendar.HOUR_OF_DAY);
-    if (hour <= 6 || hour >= 22) {
+    if (hour <= 5 || hour == 24) {
       log("这个时候了该睡觉了");
       return false;
     }
@@ -111,8 +174,35 @@ public abstract class BaseTest {
     return mDevice.wait(condition, 1000 * second);
   }
 
+  /**
+   * 根据ID查找, 超时时间为10秒
+   *
+   * @param id id
+   * @return ui
+   */
+  public List<UiObject2> findListById(String id) {
+    return findListById(id, 10);
+  }
+
+  /**
+   * 根据ID查找, 超时时间为10秒
+   *
+   * @param id id
+   * @param second 多少秒超时
+   * @return
+   */
+  public List<UiObject2> findListById(String id, int second) {
+    BySelector selector = By.res(getPackageName(), id);
+    SearchCondition<List<UiObject2>> condition = Until.findObjects(selector);
+    return mDevice.wait(condition, 1000 * second);
+  }
+
   public UiObject2 findByClass(Class clazz) {
     return findByClass(clazz, 10);
+  }
+
+  public List<UiObject2> findListByClass(Class clazz) {
+    return findListByClass(clazz, 10);
   }
 
   /**
@@ -129,6 +219,19 @@ public abstract class BaseTest {
   }
 
   /**
+   * 根据ID查找, 超时时间为10秒
+   *
+   * @param clazz clazz
+   * @param second 多少秒超时
+   * @return
+   */
+  public List<UiObject2> findListByClass(Class clazz, int second) {
+    BySelector selector = By.clazz(clazz);
+    SearchCondition<List<UiObject2>> condition = Until.findObjects(selector);
+    return mDevice.wait(condition, 1000 * second);
+  }
+
+  /**
    * 根据文本内容查找
    *
    * @param text
@@ -136,6 +239,30 @@ public abstract class BaseTest {
    */
   public UiObject2 findByText(String text) {
     return findByText(text, 10);
+  }
+
+  /**
+   * 根据文本内容查找
+   *
+   * @param text
+   * @return
+   */
+  public List<UiObject2> findListByText(String text) {
+    return findListByText(text, 10);
+  }
+
+  /**
+   * 根据文本内容查找
+   *
+   * @param text
+   * @param second 多少秒超时
+   * @return
+   */
+  public List<UiObject2> findListByText(String text, int second) {
+    BySelector selector = By.text(text);
+    SearchCondition<List<UiObject2>> condition = Until.findObjects(selector);
+    List<UiObject2> share = mDevice.wait(condition, 1000 * second);
+    return share;
   }
 
   /**
