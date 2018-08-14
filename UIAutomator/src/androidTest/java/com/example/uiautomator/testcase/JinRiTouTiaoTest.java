@@ -132,9 +132,9 @@ public class JinRiTouTiaoTest extends BaseTest {
     //  底部区域包含 RecyclerView 那么是文章页面
     if (findByClass(RecyclerView.class, 3) != null) {// 文章页面
       Log.e(TAG, "打开文章,开始阅读");
-      int count = 0;
-      startY = 5 * height / 6;
+      startY = height * 5 / 6;
       endY = height / 6;
+      int count = 0;
       while (count++ < 16) {
         sleep(2);
         mDevice.waitForIdle(timeOut);
@@ -147,7 +147,7 @@ public class JinRiTouTiaoTest extends BaseTest {
         commentCount++;
       }*/
       // 分享
-      if (shareCount < 5 && shareArticle()) {
+      if (shareCount <= 3 && shareArticle()) {
         shareCount++;
       }
 
@@ -242,9 +242,7 @@ public class JinRiTouTiaoTest extends BaseTest {
    * 关闭对话框
    */
   private boolean closeDialog() {
-    mDevice.pressBack();
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击返回,尝试关闭对话框");
+    pressBack("点击返回,尝试关闭对话框");
     return true;
   }
 
@@ -372,118 +370,27 @@ public class JinRiTouTiaoTest extends BaseTest {
     Log.e(TAG, "点击分享按钮,弹出分享对话框");
 
     // 2.调取分享到QQ ,此处只能用文本搜索
-    UiObject2 share = findByText("QQ好友");
-    if (share == null) {
-      Log.e(TAG, "没有打开QQ分享");
-      return false;
-    }
-    share.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开QQ分享");
-
-    // 3.点击发表评论
-    UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
-    if (publish == null) {
-      Log.e(TAG, "分享到我的电脑失败");
-      return false;
-    }
-    publish.getParent().click();
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑");
-
-    // 分享到我的电脑确认
-    UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
-    if (confirm == null) {
-      Log.e(TAG, "分享到我的电脑确认失败");
-      return false;
-    }
-    confirm.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑确认");
-
-    // 返回
-    UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
-    if (back == null) {
-      Log.e(TAG, "没有返回按钮");
-      return false;
-    }
-    back.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******分享成功返回******");
-
-    return true;
+    return qqShare(findByText("QQ好友"));
   }
 
   /**
    * 分享
    */
   private boolean shareArticle() {
-    try {
-      UiObject2 recyclerView = findByClass(RecyclerView.class, 3);
-      if (recyclerView == null) {
-        Log.e(TAG, "没有分享控件");
-        return false;
-      }
-      Rect rect = recyclerView.getVisibleBounds();
-      int y = (rect.top + rect.bottom) / 2;
-
-      // 滑动使QQ分享显示出来
-      mDevice.swipe(width * 4 / 5, y, width / 10, y, 20);
-      mDevice.waitForIdle(timeOut);
-      //请求分享按钮
-      UiObject2 shareBtn = findByText("QQ好友");
-      if (shareBtn == null) {
-        Log.e(TAG, "没有分享按钮");
-        return false;
-      }
-      shareBtn.getParent().click();
-      sleep(3);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "打开QQ分享,离开当前应用");
-
-      // 点击发表评论
-      UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
-      if (publish == null) {
-        Log.e(TAG, "分享到我的电脑失败");
-        return false;
-      }
-      publish.getParent().click();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "分享到我的电脑");
-
-      // 分享到我的电脑确认
-      UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
-      if (confirm == null) {
-        Log.e(TAG, "分享到我的电脑确认失败");
-        return false;
-      }
-      confirm.click();
-      sleep(3);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "分享到我的电脑确认");
-
-      // 返回
-      UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
-      if (back == null) {
-        Log.e(TAG, "没有返回按钮");
-        return false;
-      }
-      back.click();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "******分享成功返回******");
-
-      return true;
-    } catch (Exception e) {
-      if (e instanceof IllegalStateException) {// 断开连接
-        throw e;
-      }
-      Log.e(TAG, "评论失败", e);
+    UiObject2 recyclerView = findByClass(RecyclerView.class, 3);
+    if (recyclerView == null) {
+      Log.e(TAG, "没有分享控件");
       return false;
     }
+    Rect rect = recyclerView.getVisibleBounds();
+    int y = (rect.top + rect.bottom) / 2;
+
+    // 滑动使QQ分享显示出来
+    mDevice.swipe(width * 4 / 5, y, width / 10, y, 20);
+    mDevice.waitForIdle(timeOut);
+
+    //请求分享按钮
+    return qqShare(findByText("QQ好友"));
   }
 
   @Override

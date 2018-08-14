@@ -26,6 +26,7 @@ public class AppTest {
   public void allTest() {
     Bundle a = InstrumentationRegistry.getArguments();
 
+    int aiqiyi = 0;
     int repeat = 1;
     try {
       repeat = Integer.parseInt(a.getString("repeat"));
@@ -33,10 +34,10 @@ public class AppTest {
       Log.e(TAG, "循环次数错了", e);
     }
     try {
-      int aiqiyi = Integer.parseInt(a.getString("aiqiyi"));
+      aiqiyi = Integer.parseInt(a.getString("aiqiyi"));
       aiqiyi = new AiQiYiTest().start(aiqiyi); // 爱奇艺
     } catch (Exception e) {
-      Log.e(TAG, "爱奇艺出错了", e);
+      Log.e(TAG, "爱奇艺出错了:" + aiqiyi, e);
     }
     try {
       int jinritoutiao = Integer.parseInt(a.getString("jinritoutiao"));
@@ -70,26 +71,6 @@ public class AppTest {
       } catch (Exception e) {
         Log.e(TAG, "趣头条出错了", e);
       }
-    }
-  }
-
-  /**
-   * 华为P9
-   */
-  @Test
-  public void P9Test() {
-    try {
-      int i = 0;
-      Random random = new Random();
-      new AiQiYiTest().start(25); // 爱奇艺
-      new JinRiTouTiaoTest().start(25); //今日头条
-      while (i++ < 3) {
-        new DongFangTouTiaoTest().start(40 + random.nextInt(5)); // 东方头条
-        new JuKanDianTest().start(40 + random.nextInt(5));// 聚看点
-        //new QuTouTiaoTest().start(20 + random.nextInt(5)); // 趣头条(汇率低)
-      }
-    } catch (Exception e) {
-      Log.e(TAG, "出错了", e);
     }
   }
 

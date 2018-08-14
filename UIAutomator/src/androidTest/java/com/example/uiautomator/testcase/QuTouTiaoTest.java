@@ -24,42 +24,37 @@ public class QuTouTiaoTest extends BaseTest {
 
   @Override
   public int start(int repCount) {
-    if (repCount == 0 || !avliable()) {
-      return 0;
-    }
+    if (repCount == 0 || !avliable()) return 0;
+
     // 打开app
     startAPP();
 
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
-        if (!avliable()) {
-          break;
-        }
-        Log.e(TAG, ":\n********************************************\n第 "
+        if (!avliable()) break;
+
+        log(":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");
 
-        // 判断是否有底部导航栏来区分是否已经回到首页, com.jifen.qukan:id/iq 底部tab容器
+        // 判断是否有底部导航栏来区分是否已经回到首页, com.jifen.qukan:id/ij 底部tab容器
         UiObject2 toolBar = findById("ij");
         if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
           closeDialog();
-          toolBar = findById("iq");
+          toolBar = findById("ij");
           if (toolBar == null) {// 关闭对话框之后再次查找是否已经回到首页
             if (restartCount++ < 9) {
               Log.e(TAG, "应用可能已经关闭,重新启动");
               startAPP();
+              continue;
             } else {
               Log.e(TAG, "退出应用");
               break;
             }
           }
         }
-        /*if (random.nextInt(10) % 2 == 0) {
-        } else {
-        }*/
         doPlay(toolBar); //播放
-        // doRead(toolBar);// 阅读
       } catch (Exception e) {
         if (e instanceof IllegalStateException) {
           Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);

@@ -406,7 +406,9 @@ public abstract class BaseTest {
     StringBuilder builder = new StringBuilder();
     if (object2s != null && object2s.size() > 0) {
       for (UiObject2 object2 : object2s) {
-        builder.append(printObject(object2));
+        if (object2.getResourceName() != null && !object2.getResourceName().contains("com.android.systemui:id")) {
+          builder.append(printObject(object2));
+        }
       }
     }
     return builder.toString();

@@ -1,10 +1,7 @@
 package com.example.uiautomator.testcase;
 
-import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
-import android.support.test.uiautomator.Until;
 import android.util.Log;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -28,18 +25,16 @@ public class AiQiYiTest extends BaseTest {
 
   @Override
   public int start(int repCount) {
-    if (repCount == 0 || !avliable()) {
-      return 0;
-    }
+    if (repCount == 0 || !avliable()) return 0;
+
     // 启动App
     startAPP();
 
     // 播放视频(评论,分享)
     while (readCount <= repCount) {
       try {
-        if (!avliable()) {
-          break;
-        }
+        if (!avliable()) break;
+
         Log.e(TAG, ":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");
@@ -59,7 +54,7 @@ public class AiQiYiTest extends BaseTest {
           }
         }
 
-        // 签到 第一次进来签到, 随后每隔几次查看一下任务
+        // 签到 第一次进来签到, 随后每隔几次查看一下任务 ,顺便开宝箱
         if ((signCount == 0) || readCount % 5 == 0) {
           if (sign()) {
             signCount++;
@@ -67,7 +62,7 @@ public class AiQiYiTest extends BaseTest {
         }
 
         // 关注
-        if (followCount <= 3 && follow2_7_30()) {
+        if (followCount <= 3 && follow()) {
           followCount++;
         }
 
@@ -138,7 +133,6 @@ public class AiQiYiTest extends BaseTest {
     // 签到 com.iqiyi.news:id/score_task_active
     UiObject2 obtain = findById("score_task_active");
     if (obtain == null) {
-      mDevice.pressBack();
       Log.e(TAG, "签到失败,没有[领取]按钮");
       return false;
     }
@@ -167,143 +161,13 @@ public class AiQiYiTest extends BaseTest {
     }
 
     // 返回首页
-    mDevice.pressBack();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    log("签到成功,返回首页");
+    pressBack("签到成功,返回首页");
 
     // 检测是否返回首页
-    UiObject2 home = findById("tabHome");
-    if (home == null) {
-      mDevice.pressBack();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "签到成功,关闭对话框,返回首页");
-    }
-    return true;
-  }
-
-  /**
-   * 关注 2.7.30 签到
-   */
-  private boolean follow2_7_30() {
-    // 切换到关注Tab
-    UiObject2 follow = findById("tabFollow");
-    if (follow == null) {
-      Log.e(TAG, "没有[关注]Tab");
-      return false;
-    }
-    if (!follow.isSelected()) {
-      follow.click();
-      sleep(5);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到[关注]Tab");
+    if (findById("tabHome") == null) {
+      pressBack("签到成功,关闭对话框,返回首页");
     }
 
-    // 跳转[爱奇艺号推荐]页面 RecyclerView 只能这样查找咯
-    List<UiObject2> addFollows = findListById("follow_subscribed_list_user_name");
-    if (addFollows == null || addFollows.size() == 0) {
-      Log.e(TAG, "没有[关注推荐]按钮列表");
-      return false;
-    }
-    boolean isOldVersion = false;
-    UiObject2 addFollow = null;
-    for (UiObject2 uiObject2 : addFollows) {
-      if ("关注推荐".equals(uiObject2.getText())) { // 老版本才有 关注推荐 关键字
-        addFollow = uiObject2;
-        isOldVersion = true;
-        break;
-      }
-    }
-
-    if (isOldVersion) { // 老版本
-      if (addFollow == null) {
-        Log.e(TAG, "没有[关注推荐]按钮");
-        return false;
-      }
-      addFollow.click();
-      sleep(5);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "点击[关注推荐],跳转[爱奇艺号推荐]页面");
-
-      // 点击关注
-      UiObject2 add = findByText("关注");
-      if (add == null) {
-        mDevice.pressBack();
-        sleep(1);
-        mDevice.waitForIdle(timeOut);
-        Log.e(TAG, "没有[关注]按钮,返回[关注]Tab");
-        return false;
-      }
-      add.click();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "点击[关注]按钮");
-
-      // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
-      UiObject2 confirm = findById("fsg_confirm_btn");
-      if (confirm != null) {
-        confirm.click();
-        sleep(1);
-        mDevice.waitForIdle(timeOut);
-        Log.e(TAG, "关闭[关注]对话框");
-      }
-
-      // 返回主页面
-      mDevice.pressBack();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "返回[关注]Tab");
-    } else { // 新版本
-      addFollow = addFollows.get(0);
-      addFollow.click();
-      sleep(5);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "点击[用户名称],跳转[用户详情]页面");
-
-      // 展开更多
-      UiObject2 dropDown = findById("media_info_related_icon");
-      if (dropDown == null) {
-        mDevice.pressBack();
-        sleep(1);
-        mDevice.waitForIdle(timeOut);
-        Log.e(TAG, "没有[展开更多]按钮,返回[关注]Tab");
-        return false;
-      }
-      dropDown.click();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "点击[展开更多]按钮");
-
-      // 点击关注 那个+号
-      UiObject2 add = findById("fguli_follow_btn");
-      if (add == null) {
-        mDevice.pressBack();
-        sleep(1);
-        mDevice.waitForIdle(timeOut);
-        Log.e(TAG, "没有[关注]按钮,返回[关注]Tab");
-        return false;
-      }
-      add.click();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "点击[关注]按钮");
-
-      // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
-      UiObject2 confirm = findById("fsg_confirm_btn");
-      if (confirm != null) {
-        confirm.click();
-        sleep(1);
-        mDevice.waitForIdle(timeOut);
-        Log.e(TAG, "关闭[关注]对话框");
-      }
-
-      // 返回主页面
-      mDevice.pressBack();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "返回[关注]Tab");
-    }
     return true;
   }
 
@@ -344,10 +208,7 @@ public class AiQiYiTest extends BaseTest {
     // 展开更多
     UiObject2 dropDown = findById("media_info_related_icon");
     if (dropDown == null) {
-      mDevice.pressBack();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "没有[展开更多]按钮,返回[关注]Tab");
+      pressBack("没有[展开更多]按钮,返回[关注]Tab");
       return false;
     }
     dropDown.click();
@@ -358,10 +219,7 @@ public class AiQiYiTest extends BaseTest {
     // 点击关注 那个+号
     UiObject2 add = findById("fguli_follow_btn");
     if (add == null) {
-      mDevice.pressBack();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "没有[关注]按钮,返回[关注]Tab");
+      pressBack("没有[关注]按钮,返回[关注]Tab");
       return false;
     }
     add.click();
@@ -379,10 +237,7 @@ public class AiQiYiTest extends BaseTest {
     }
 
     // 返回主页面
-    mDevice.pressBack();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "返回[关注]Tab");
+    pressBack("返回[关注]Tab");
     return true;
   }
 
@@ -433,19 +288,14 @@ public class AiQiYiTest extends BaseTest {
       if (commentCount <= 3 && comment()) {
         commentCount++;
       }
+
       // 分享
       if (shareCount <= 3 && share()) {
         shareCount++;
       }
-
-      mDevice.pressBack();
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "播放完成,返回首页");
+      pressBack("播放完成,返回首页");
     } else {
-      mDevice.pressBack();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "返回首页:不是视频页面");
+      pressBack("返回首页:不是视频页面");
       return false;
     }
     return true;
@@ -508,47 +358,7 @@ public class AiQiYiTest extends BaseTest {
     Log.e(TAG, "点击分享按钮,调用分享对话框");
 
     // 分享到QQ ID com.iqiyi.news:id/rl_share_qq
-    UiObject2 share = findById("rl_share_qq");
-    if (share == null) {
-      Log.e(TAG, "没有打开QQ分享");
-      return false;
-    }
-    share.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开QQ分享,离开当前应用");
-
-    // 点击发表评论
-    UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
-    if (publish == null) {
-      Log.e(TAG, "分享到[我的电脑]失败");
-      return false;
-    }
-    publish.getParent().click();
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[我的电脑]选项");
-
-    // 分享到我的电脑确认
-    UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
-    if (confirm == null) {
-      Log.e(TAG, "分享到[我的电脑]确认失败");
-      return false;
-    }
-    confirm.click();
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到[我的电脑]确认");
-
-    // 返回
-    UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
-    if (back == null) {
-      Log.e(TAG, "没有返回按钮");
-      return false;
-    }
-    back.click();
-    sleep(5);
-    mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "QQ完成分享返回");
-    return true;
+    return qqShare(findById("rl_share_qq"));
   }
 
   @Override

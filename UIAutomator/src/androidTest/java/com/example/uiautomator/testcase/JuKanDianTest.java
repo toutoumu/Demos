@@ -1,19 +1,22 @@
 package com.example.uiautomator.testcase;
 
-import android.graphics.Rect;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
 import java.util.Random;
-import org.junit.Test;
 
 /**
- * 聚看点测试 提成较高 签到奖励高 1000金币=1元 分享点击80金币一次 徒弟分享贡献16金币
+ * 聚看点测试 提成较高 签到奖励高1000金币=1元 分享点击80金币一次 徒弟分享贡献16金币
+ * 文章100篇
+ * 视频50篇
+ * 签到
+ * 宝箱(宝箱分享)
+ * 晒收入
  */
 public class JuKanDianTest extends BaseTest {
-
   private int readCount = 0; // 阅读次数
+  private int signCount = 0; // 阅读次数
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
   private int restartCount = 0;//重启次数
@@ -24,19 +27,17 @@ public class JuKanDianTest extends BaseTest {
 
   @Override
   public int start(int repCount) {
-    if (repCount == 0 || !avliable()) {
-      return 0;
-    }
+    if (repCount == 0 || !avliable()) return 0;
+
     // 打开app
     startAPP();
 
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
-        if (!avliable()) {
-          break;
-        }
-        Log.e(TAG, ":\n********************************************\n第 "
+        if (!avliable()) break;
+
+        log(":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");
 
@@ -46,15 +47,28 @@ public class JuKanDianTest extends BaseTest {
           closeDialog();
           tab = findById("tv_tab1");
           if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 9) {
+            if (restartCount++ < 10) {
               Log.e(TAG, "应用可能已经关闭,重新启动");
               startAPP();
+              continue;
             } else {
               Log.e(TAG, "退出应用");
               break;
             }
           }
         }
+
+        // 领取金币
+        if (readCount % 8 == 0) {
+          obtainJinBi();
+        }
+
+        // 签到
+        if (signCount++ == 0) {
+          sign();
+        }
+
+        // 阅读播放
         if (random.nextInt(4) % 4 == 0) {// 1/4
           doPlay(); // 播放
         } else {
@@ -145,9 +159,7 @@ public class JuKanDianTest extends BaseTest {
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "阅读完成,返回首页");
     } else { // 页面可能未打开
-      Log.e(TAG, "返回首页:可能没有打开页面");
-      mDevice.pressBack();
-      mDevice.waitForIdle(timeOut);
+      pressBack("返回首页:可能没有打开页面");
     }
     return true;
   }
@@ -218,7 +230,14 @@ public class JuKanDianTest extends BaseTest {
    */
   private boolean closeDialog() {
     // 退出对话框
-    UiObject2 close = findByText("继续赚钱", 3);
+    UiObject2 close = findById("image_user_task_pop_close");
+    if (close != null) {
+      close.click();
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "关闭对话框");
+      return true;
+    }
+    close = findByText("继续赚钱", 3);
     if (close != null) {
       close.click();
       mDevice.waitForIdle(timeOut);
@@ -352,6 +371,96 @@ public class JuKanDianTest extends BaseTest {
     }
   }
 
+  /**
+   * 任务中心领取金币
+   *
+   * @return
+   */
+  private boolean obtainJinBi() {
+    // 切换到文章列表(看点)才有金币
+    UiObject2 toolBar = findById("tv_tab1");
+    // 切换到文章列表
+    if (toolBar == null) {
+      Log.e(TAG, "阅读失败:没有底部栏");
+      return false;
+    }
+    // 如果当前不是文章列表 ,切换到文章列表
+    if (!toolBar.getText().equals("刷新")) {
+      toolBar.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      Log.e(TAG, "切换到文章列表");
+    }
+
+    // 领取金币
+    UiObject2 obtain = findById("rl_lingqu_par", 5);
+    if (obtain == null) {
+      log("没到领取金币的时候");
+      return false;
+    }
+    obtain.click();
+    sleep(3);
+    mDevice.waitForIdle(timeOut);
+    log("点击领取金币");
+
+    // 分享朋友圈赚更多金币 com.xiangzi.jukandian:id/dialog_btn
+    UiObject2 share = findById("dialog_btn", 5);
+    if (share == null) {
+      pressBack("第一次没有分享按钮");
+      return false;
+    }
+    share.click();
+    sleep(3);
+    mDevice.waitForIdle(timeOut);
+
+    // 第一次关闭微信分享
+    UiObject2 closeWeiXin = mDevice.findObject(By.res("com.tencent.mm:id/ht"));
+    if (closeWeiXin == null) {
+      pressBack("第一次没有关闭微信分享按钮");
+      return false;
+    }
+    closeWeiXin.click();
+    sleep(3);
+    mDevice.waitForIdle(timeOut);
+
+    // 分享到不同的xxx,
+    share = findById("dialog_btn");
+    if (share == null) {
+      pressBack("第二次没有分享按钮");
+      return false;
+    }
+    share.click();
+    sleep(3);
+    mDevice.waitForIdle(timeOut);
+
+    closeWeiXin = mDevice.findObject(By.res("com.tencent.mm:id/ht"));
+    if (closeWeiXin == null) {
+      pressBack("第二次没有关闭微信分享按钮");
+      return false;
+    }
+    closeWeiXin.click();
+    sleep(3);
+    mDevice.waitForIdle(timeOut);
+
+    // 打开任务页面
+    share = findById("dialog_btn");
+    if (share == null) {
+      pressBack("没有打开任务页面");
+      return false;
+    }
+    share.click();
+    sleep(3);
+    mDevice.waitForIdle(timeOut);
+
+    pressBack("关闭任务页面");
+    return true;
+  }
+
+  /**
+   * 签到
+   *
+   * @return
+   */
   private boolean sign() {
     try {
       UiObject2 tab3 = findById("tv_tab3");
@@ -365,17 +474,17 @@ public class JuKanDianTest extends BaseTest {
       Log.e(TAG, "点击评论文本框,弹出键盘");
 
       // 文本  signH1
-      UiObject2 sign = findById("签到领金币");
+      UiObject2 sign = findByText("签到领金币");
       if (sign == null) {
-        Log.e(TAG, "没有签到按钮");
+        pressBack("没有签到按钮");
         return false;
       }
       sign.click();
-      //Rect rect = sign.getVisibleBounds();
-      //mDevice.click((rect.left + rect.right) / 2, (rect.top + rect.bottom) / 2);
       sleep(3);
       mDevice.waitForIdle(timeOut);
       Log.e(TAG, "点击签到");
+
+      pressBack("签到结束,返回首页");
       return true;
     } catch (Exception e) {
       Log.e(TAG, "签到出错了", e);

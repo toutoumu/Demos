@@ -55,7 +55,7 @@ public class HaoKanShiPinTest extends BaseTest {
           if (tab == null || tab.size() == 0) {// 关闭对话框之后再次查找是否已经回到首页
             if (restartCount++ < 9) {
               Log.e(TAG, "应用可能已经关闭,重新启动");
-              startAPP();
+              startAPP();continue;
             } else {
               Log.e(TAG, "退出应用");
               break;
@@ -63,10 +63,6 @@ public class HaoKanShiPinTest extends BaseTest {
           }
         }
 
-        // android7.0才可以访问到网页内容
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
-        }
         // 晒收入,最多只执行两次
         if (shareMomey++ <= 1 && shareMomey()) {
           shareMomey++;
@@ -167,8 +163,15 @@ public class HaoKanShiPinTest extends BaseTest {
     mDevice.waitForIdle(timeOut);
     log("跳转到签到页面");
 
+    // 检测是否已经签到
+    UiObject2 obtain = mDevice.wait(Until.findObject(By.textContains("明日可领")), 1000 * 10);
+    if (obtain != null) {
+      pressBack("已经签到了");
+      return true;
+    }
+
     // 签到 签到领xxx金币
-    UiObject2 obtain = mDevice.wait(Until.findObject(By.textContains("签到领")), 1000 * 10);
+    obtain = mDevice.wait(Until.findObject(By.textContains("签到领")), 1000 * 10);
     if (obtain == null) {
       pressBack("签到失败,没有[签到]按钮");
       return false;
@@ -366,7 +369,7 @@ public class HaoKanShiPinTest extends BaseTest {
     mDevice.click(centerX, (rect.top + rect.bottom) / 2);
     sleep(5);
     mDevice.waitForIdle(timeOut);
-    log("跳转到签到页面,准备打开百度");
+    log("跳转到签到页面,准备晒收入");
 
     // 向上滑动列表
     // startY > endY 向上滚动  startY < endY 向下滚动
@@ -380,14 +383,14 @@ public class HaoKanShiPinTest extends BaseTest {
     // 检测是否已经做过了
     UiObject2 byText = findByText("晒收入+30金币1/1");
     if (byText != null) {
-      log("已经晒过了");
+      pressBack("已经晒过了");
       return true;
     }
 
     // 分享按钮ID share_img
     UiObject2 shareBtn = findByText("去晒");
     if (shareBtn == null) {
-      Log.e(TAG, "没有分享按钮");
+      pressBack("没有分享按钮");
       return false;
     }
     shareBtn.click();
@@ -432,7 +435,7 @@ public class HaoKanShiPinTest extends BaseTest {
     // 检测是否已经做过了
     UiObject2 byText = findByText("去百度+100金币1/1");
     if (byText != null) {
-      log("已经晒过了");
+      pressBack("已经打开过百度了");
       return true;
     }
 
@@ -445,7 +448,7 @@ public class HaoKanShiPinTest extends BaseTest {
     open.click();
     sleep(5);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[关注]按钮");
+    Log.e(TAG, "点击[去打开]按钮");
 
     // 检测是否跳转页面
     UiObject2 title = findById("titlebar_title");
