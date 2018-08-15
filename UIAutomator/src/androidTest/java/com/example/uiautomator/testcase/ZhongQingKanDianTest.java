@@ -26,7 +26,8 @@ public class ZhongQingKanDianTest extends BaseTest {
     mDevice.pressHome();
     mDevice.waitForIdle(1000);
 
-    startAPP();
+    // startAPP();
+    startAPPWithPackageName();
 
     while (true) {
       // 点击跳转到详情页
@@ -88,12 +89,12 @@ public class ZhongQingKanDianTest extends BaseTest {
   }
 
   @Override
-  String getAPPName() {
+  public String getAPPName() {
     return "中青阅读";
   }
 
   @Override
-  String getPackageName() {
+  public String getPackageName() {
     return "cn.youth.news";
   }
 }

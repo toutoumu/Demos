@@ -2,13 +2,12 @@ package com.example.uiautomator.testcase;
 
 import android.graphics.Rect;
 import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.BySelector;
+import android.support.test.uiautomator.SearchCondition;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.webkit.WebView;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TabWidget;
 import java.util.Random;
 
@@ -32,7 +31,8 @@ public class JinRiTouTiaoTest extends BaseTest {
       return 0;
     }
     // 打开app
-    startAPP();
+    // startAPP();
+    startAPPWithPackageName();
 
     // 执行阅读,播放操作
     while (readCount < repCount) {
@@ -47,32 +47,33 @@ public class JinRiTouTiaoTest extends BaseTest {
           toolBar = findByClass(TabWidget.class);
           if (toolBar == null) { // 关闭对话框之后再次查找是否已经回到首页
             if (restartCount++ < 9) {
-              Log.e(TAG, "应用可能已经关闭,重新启动");
-              startAPP();
+              logE("应用可能已经关闭,重新启动");
+              // startAPP();
+              startAPPWithPackageName();
+              continue;
             } else {
-              Log.e(TAG, "退出应用");
+              logE("退出应用");
               break;
             }
           }
         }
-        Log.e(TAG, ":\n********************************************\n"
+        logD(":\n********************************************\n"
           + "第 "
           + readCount
           + " 次"
           + "\n********************************************\n");
-        // follow(toolBar);
         doRead(toolBar);
       } catch (Exception e) {
         if (e instanceof IllegalStateException) {
-          Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
+          logE("阅读失败,结束运行:阅读次数" + readCount, e);
           break;
         }
-        Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
+        logE("阅读失败:阅读次数" + readCount, e);
       }
     }
 
     // 关闭App
-    closeAPP();
+    closeAPPWithPackageName();
 
     return readCount;
   }
@@ -80,7 +81,7 @@ public class JinRiTouTiaoTest extends BaseTest {
   private boolean follow(UiObject2 toolBar) {
     // 切换到文章列表
     if (toolBar == null || toolBar.getChildren().size() == 0) {
-      Log.e(TAG, "阅读失败:没有底部栏");
+      logD("阅读失败:没有底部栏");
       return false;
     }
     // 如果当前不是文章列表 ,切换到文章列表
@@ -89,7 +90,7 @@ public class JinRiTouTiaoTest extends BaseTest {
       mainTab.click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到文章列表");
+      logD("切换到文章列表");
     }
 
     findByText("签到").click();
@@ -105,7 +106,7 @@ public class JinRiTouTiaoTest extends BaseTest {
   private boolean doRead(UiObject2 toolBar) {
     // 切换到文章列表
     if (toolBar == null || toolBar.getChildren().size() == 0) {
-      Log.e(TAG, "阅读失败:没有底部栏");
+      logE("阅读失败:没有底部栏");
       return false;
     }
     // 如果当前不是文章列表 ,切换到文章列表
@@ -114,7 +115,7 @@ public class JinRiTouTiaoTest extends BaseTest {
       mainTab.click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到文章列表");
+      logD("切换到文章列表");
     }
 
     // 向上滚动列表 滚动距离 height / 3
@@ -123,19 +124,27 @@ public class JinRiTouTiaoTest extends BaseTest {
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "列表向上滑动");
+    logD("列表向上滑动");
 
+    // 打开文章
     mDevice.click(width / 3, height / 3);
     sleep(3);
     mDevice.waitForIdle(timeOut);
 
+    // 内容页面都有关注按钮
+    UiObject2 follow = mDevice.wait(Until.findObject(By.textEndsWith("关注")), 1000 * 3);
+    if (follow == null) {
+      pressBack("该页面不是文章页面或者视频页面", true);
+      return false;
+    }
+
     //  底部区域包含 RecyclerView 那么是文章页面
     if (findByClass(RecyclerView.class, 3) != null) {// 文章页面
-      Log.e(TAG, "打开文章,开始阅读");
+      logD("打开文章,开始阅读");
       startY = height * 5 / 6;
       endY = height / 6;
-      int count = 0;
-      while (count++ < 16) {
+      int scrollCount = 0;
+      while (scrollCount++ < 16) {
         sleep(2);
         mDevice.waitForIdle(timeOut);
         mDevice.swipe(centerX, startY, centerX, endY, 30);
@@ -151,29 +160,30 @@ public class JinRiTouTiaoTest extends BaseTest {
         shareCount++;
       }
 
-      mDevice.pressBack();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "阅读完成,返回首页");
-    } else if (findById("kn") != null) {// todo 视频||图片?
-      Log.e(TAG, "打开视频,开始播放");
-      sleep(35);
-      readCount++;
-      // 发表评论
-      /*if (commentCount < 10 && commentVideo()) {
-        commentCount++;
-      }
-      // 分享
-      if (shareCount < 10 && shareVideo()) {
-        shareCount++;
-      }*/
-      mDevice.pressBack();
-      mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "播放完成,返回首页");
+      pressBack("阅读完成,返回首页", false);
     } else { // 页面可能未打开
-      Log.e(TAG, "返回首页:可能没有打开页面");
-      mDevice.pressBack();
-      mDevice.waitForIdle(timeOut);
+      pressBack("返回首页:打开的不是文章页面", true);
+      return false;
     }
+    return true;
+  }
+
+  private boolean sign(UiObject2 toolBar) {
+    // 切换到任务Tab
+    if (toolBar == null || toolBar.getChildren().size() == 0) {
+      logE("任务Tab:没有底部栏");
+      return false;
+    }
+    // 如果当前不是任务Tab ,切换到任务Tab
+    UiObject2 mainTab = toolBar.getChildren().get(3);
+    if (mainTab != null && !mainTab.isSelected()) {
+      mainTab.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      logD("切换到任务Tab,签到或检测任务是否完成");
+    }
+    UiObject2 sign = findByText("签到");
+
     return true;
   }
 
@@ -185,7 +195,7 @@ public class JinRiTouTiaoTest extends BaseTest {
   private boolean doPlay(UiObject2 toolBar) {
     // 切换到视频列表
     if (toolBar == null) {
-      Log.e(TAG, "播放失败");
+      logE("播放失败");
       return false;
     }
     // 如果当前不是视频列表 ,切换到视频列表
@@ -194,29 +204,29 @@ public class JinRiTouTiaoTest extends BaseTest {
       toolBar.getChildren().get(1).click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到视频列表");
+      logD("切换到视频列表");
     }
 
     // 需要向上滚动列表
     int startY = height / 2;
     int endY = height / 10;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
-    Log.e(TAG, "列表向上滑动");
+    logD("列表向上滑动");
 
     // com.jifen.qukan:id/a0x 评论数控件ID
     UiObject2 play = findById("a0x");
     if (play == null) {
-      Log.e(TAG, "播放失败:没有播放按钮");
+      logE("播放失败:没有播放按钮");
       return false;
     }
     play.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开视频");
+    logD("打开视频");
 
     // 视频评论点赞收藏容器的id为 com.jifen.qukan:id/lq
     if (findById("lq", 3) != null) {// 视频页面
-      Log.e(TAG, "开始播放");
+      logD("开始播放");
       sleep(35);
       readCount++;
       // 发表评论
@@ -229,11 +239,11 @@ public class JinRiTouTiaoTest extends BaseTest {
       }*/
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "播放完成,返回首页");
+      logD("播放完成,返回首页");
     } else {
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "返回首页:不是视频页面");
+      logD("返回首页:不是视频页面");
     }
     return true;
   }
@@ -242,7 +252,7 @@ public class JinRiTouTiaoTest extends BaseTest {
    * 关闭对话框
    */
   private boolean closeDialog() {
-    pressBack("点击返回,尝试关闭对话框");
+    pressBack("点击返回,尝试关闭对话框", true);
     return true;
   }
 
@@ -256,10 +266,10 @@ public class JinRiTouTiaoTest extends BaseTest {
       // 1.弹出输入
       UiObject2 commentBtn = findById("kn");
       if (commentBtn == null) {
-        Log.e(TAG, "没有评论文本框");
+        logE("没有评论文本框");
         return false;
       }
-      Log.e(TAG, "点击评论文本框,弹出键盘");
+      logD("点击评论文本框,弹出键盘");
       commentBtn.click();
       sleep(1);
       mDevice.waitForIdle(timeOut);
@@ -267,32 +277,32 @@ public class JinRiTouTiaoTest extends BaseTest {
       // 2.输入评论 com.ss.android.article.lite:id/ke
       UiObject2 contentText = findById("ke");
       if (contentText == null) {
-        Log.e(TAG, "没有评论文本框");
+        logE("没有评论文本框");
         return false;
       }
       contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
       sleep(2); // 等待评论填写完成
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "填写评论内容");
+      logD("填写评论内容");
 
       // 3.点击发表评论 com.ss.android.article.lite:id/kh
       UiObject2 sendBtn = findById("kh");
       if (sendBtn == null) {
-        Log.e(TAG, "没有发表评论按钮");
+        logE("没有发表评论按钮");
         return false;
       }
       sendBtn.click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "******发表评论成功!******\n");
+      logD("******发表评论成功!******\n");
 
       return true;
     } catch (Exception e) {
       if (e instanceof IllegalStateException) {// 断开连接
-        Log.e(TAG, "断开连接了??", e);
+        logE("断开连接了??", e);
         throw e;
       }
-      Log.e(TAG, "评论失败", e);
+      logE("评论失败", e);
       return false;
     }
   }
@@ -314,10 +324,10 @@ public class JinRiTouTiaoTest extends BaseTest {
     // 1.弹出输入
     UiObject2 commentBtn = findById("lw");
     if (commentBtn == null) {
-      Log.e(TAG, "没有评论文本框");
+      logD("没有评论文本框");
       return false;
     }
-    Log.e(TAG, "点击评论文本框,弹出键盘");
+    logD("点击评论文本框,弹出键盘");
     commentBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
@@ -325,24 +335,24 @@ public class JinRiTouTiaoTest extends BaseTest {
     // 2.输入评论 com.jifen.qukan:id/ly
     UiObject2 contentText = findById("ly");
     if (contentText == null) {
-      Log.e(TAG, "没有评论文本框");
+      logD("没有评论文本框");
       return false;
     }
     contentText.setText(getComment(new Random().nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
     sleep(2); // 等待内容填写完成
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "填写评论内容");
+    logD("填写评论内容");
 
     // 3.点击发表评论 com.jifen.qukan:id/lz
     UiObject2 sendBtn = findById("lz");
     if (sendBtn == null) {
-      Log.e(TAG, "没有发表评论按钮");
+      logD("没有发表评论按钮");
       return false;
     }
     sendBtn.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******发表评论成功!******\n");
+    logD("******发表评论成功!******\n");
     return true;
   }
 
@@ -361,13 +371,13 @@ public class JinRiTouTiaoTest extends BaseTest {
     // 1.弹出分享对话框
     UiObject2 shareBtn = findById("ls");
     if (shareBtn == null) {
-      Log.e(TAG, "没有分享按钮");
+      logD("没有分享按钮");
       return false;
     }
     shareBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击分享按钮,弹出分享对话框");
+    logD("点击分享按钮,弹出分享对话框");
 
     // 2.调取分享到QQ ,此处只能用文本搜索
     return qqShare(findByText("QQ好友"));
@@ -379,7 +389,7 @@ public class JinRiTouTiaoTest extends BaseTest {
   private boolean shareArticle() {
     UiObject2 recyclerView = findByClass(RecyclerView.class, 3);
     if (recyclerView == null) {
-      Log.e(TAG, "没有分享控件");
+      logE("没有分享控件");
       return false;
     }
     Rect rect = recyclerView.getVisibleBounds();
@@ -390,16 +400,21 @@ public class JinRiTouTiaoTest extends BaseTest {
     mDevice.waitForIdle(timeOut);
 
     //请求分享按钮
-    return qqShare(findByText("QQ好友"));
+    UiObject2 share = findByText("QQ好友");
+    if (share == null) {
+      logE("分享失败");
+      return false;
+    }
+    return qqShare(share.getParent());
   }
 
   @Override
-  String getAPPName() {
+  public String getAPPName() {
     return "今日头条极速版";
   }
 
   @Override
-  String getPackageName() {
+  public String getPackageName() {
     return "com.ss.android.article.lite";
   }
 }

@@ -4,8 +4,6 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -27,14 +25,14 @@ public class QuTouTiaoTest extends BaseTest {
     if (repCount == 0 || !avliable()) return 0;
 
     // 打开app
-    startAPP();
-
+    // startAPP();
+    startAPPWithPackageName();
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
         if (!avliable()) break;
 
-        log(":\n********************************************\n第 "
+        logD(":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");
 
@@ -45,11 +43,12 @@ public class QuTouTiaoTest extends BaseTest {
           toolBar = findById("ij");
           if (toolBar == null) {// 关闭对话框之后再次查找是否已经回到首页
             if (restartCount++ < 9) {
-              Log.e(TAG, "应用可能已经关闭,重新启动");
-              startAPP();
+              logE("应用可能已经关闭,重新启动");
+              // startAPP();
+              startAPPWithPackageName();
               continue;
             } else {
-              Log.e(TAG, "退出应用");
+              logE("退出应用");
               break;
             }
           }
@@ -57,15 +56,16 @@ public class QuTouTiaoTest extends BaseTest {
         doPlay(toolBar); //播放
       } catch (Exception e) {
         if (e instanceof IllegalStateException) {
-          Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
+          logE("阅读失败,结束运行:阅读次数" + readCount, e);
           break;
         }
-        Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
+        logE("阅读失败:阅读次数" + readCount, e);
       }
     }
 
     // 关闭App
-    closeAPP();
+    // closeAPP();
+    closeAPPWithPackageName();
     return readCount;
   }
 
@@ -77,7 +77,7 @@ public class QuTouTiaoTest extends BaseTest {
   private boolean doRead(UiObject2 toolBar) {
     // 切换到文章列表
     if (toolBar == null) {
-      Log.e(TAG, "阅读失败:没有底部栏");
+      logE("阅读失败:没有底部栏");
       return false;
     }
     // 如果当前不是文章列表 ,切换到文章列表
@@ -86,29 +86,29 @@ public class QuTouTiaoTest extends BaseTest {
       toolBar.getChildren().get(0).click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到文章列表");
+      logD("切换到文章列表");
     }
 
     // 向上滚动列表
     int startY = height / 2;
     int endY = height / 4;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
-    Log.e(TAG, "列表向上滑动文章列表");
+    logD("列表向上滑动文章列表");
 
     // com.jifen.qukan:id/wy 评论数id
     UiObject2 read = findById("wy");
     if (read == null) {
-      Log.e(TAG, "阅读失败,没有评论按钮,无法打开文章");
+      logE("阅读失败,没有评论按钮,无法打开文章");
       return false;
     }
     read.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开文章");
+    logD("打开文章");
 
     // 文章评论点赞收藏容器的id为 com.jifen.qukan:id/je
     if (findById("je", 3) != null) {// 文章页面
-      Log.e(TAG, "开始阅读");
+      logD("开始阅读");
       int count = 0;
       while (count++ < 10) {
         long start = System.currentTimeMillis();
@@ -138,9 +138,9 @@ public class QuTouTiaoTest extends BaseTest {
 
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "阅读完成,返回首页");
+      logD("阅读完成,返回首页");
     } else { // 页面可能未打开
-      Log.e(TAG, "返回首页:可能没有打开文章页面");
+      logE("返回首页:可能没有打开文章页面");
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
     }
@@ -155,7 +155,7 @@ public class QuTouTiaoTest extends BaseTest {
   private boolean doPlay(UiObject2 toolBar) {
     // 切换到视频列表
     if (toolBar == null) {
-      Log.e(TAG, "播放失败");
+      logE("播放失败");
       return false;
     }
     // 如果当前不是视频列表 ,切换到视频列表
@@ -164,57 +164,57 @@ public class QuTouTiaoTest extends BaseTest {
       toolBar.getChildren().get(1).click();
       sleep(10);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到视频列表");
+      logD("切换到视频列表");
     }
 
     // 需要向上滚动列表
     int startY = height / 2;
     int endY = height / 10;
     mDevice.swipe(centerX, startY, centerX, endY, 30);
-    Log.e(TAG, "列表向上滑动");
+    logD("列表向上滑动");
 
     // com.jifen.qukan:id/a0x 评论数控件ID
     // com.jifen.qukan:id/a36 播放按钮
     int repeat = 0;
     UiObject2 play = findById("a36");
     while (repeat++ < 4 && play == null) {
-      Log.e(TAG, "播放失败,没有找到文章");
+      logE("播放失败,没有找到文章");
       mDevice.swipe(centerX, startY, centerX, endY, 30);
       sleep(1);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "列表向上滑动,向上滚动查找视频");
+      logD("列表向上滑动,向上滚动查找视频");
       play = findById("a36");
     }
     if (play == null) {
-      Log.e(TAG, "播放失败,没有找到视频,结束本次查找");
+      logE("播放失败,没有找到视频,结束本次查找");
       return false;
     }
     play.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开视频,开始播放");
+    logD("打开视频,开始播放");
 
     sleep(35 + random.nextInt(10));
     mDevice.waitForIdle(timeOut);
     readCount++;
-    Log.e(TAG, "播放完成");
+    logD("播放完成");
 
     /* *********以下代码是点击视频跳转到页面进行播放******* */
 
     // // com.jifen.qukan:id/a0x 评论数控件ID
     // UiObject2 play = findById("a0x");
     // if (play == null) {
-    //   Log.e(TAG, "播放失败:没有播放按钮");
+    //   logD( "播放失败:没有播放按钮");
     //   return false;
     // }
     // play.click();
     // sleep(3);
     // mDevice.waitForIdle(timeOut);
-    // Log.e(TAG, "打开视频");
+    // logD( "打开视频");
     //
     // // 视频评论点赞收藏容器的id为 com.jifen.qukan:id/lq
     // if (findById("lq", 3) != null) {// 视频页面
-    //   Log.e(TAG, ",打开视频开始播放");
+    //   logD( ",打开视频开始播放");
     //   sleep(35 + random.nextInt(10));
     //   readCount++;
     //
@@ -229,11 +229,11 @@ public class QuTouTiaoTest extends BaseTest {
     //
     //   mDevice.pressBack();
     //   mDevice.waitForIdle(timeOut);
-    //   Log.e(TAG, "播放完成,返回首页");
+    //   logD( "播放完成,返回首页");
     // } else {
     //   mDevice.pressBack();
     //   mDevice.waitForIdle(timeOut);
-    //   Log.e(TAG, "返回首页:不是视频页面");
+    //   logD( "返回首页:不是视频页面");
     // }
     return true;
   }
@@ -246,7 +246,7 @@ public class QuTouTiaoTest extends BaseTest {
     if (close != null) {
       close.click();
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "关闭对话框");
+      logD("关闭对话框");
       return true;
     }
 
@@ -254,7 +254,7 @@ public class QuTouTiaoTest extends BaseTest {
     if (close != null) {
       close.click();
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "关闭对话框");
+      logD("关闭对话框");
       return true;
     }
     return false;
@@ -277,10 +277,10 @@ public class QuTouTiaoTest extends BaseTest {
     // 1.弹出输入
     UiObject2 commentBtn = findById("jk");
     if (commentBtn == null) {
-      Log.e(TAG, "没有评论文本框");
+      logE("没有评论文本框");
       return false;
     }
-    Log.e(TAG, "点击评论文本框,弹出键盘");
+    logD("点击评论文本框,弹出键盘");
     commentBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
@@ -288,24 +288,24 @@ public class QuTouTiaoTest extends BaseTest {
     // 2.输入评论 com.jifen.qukan:id/jm
     UiObject2 contentText = findById("jm");
     if (contentText == null) {
-      Log.e(TAG, "没有评论文本框");
+      logE("没有评论文本框");
       return false;
     }
     contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
     sleep(2); // 等待评论填写完成
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "填写评论内容");
+    logD("填写评论内容");
 
     // 3.点击发表评论 com.jifen.qukan:id/jn
     UiObject2 sendBtn = findById("jn");
     if (sendBtn == null) {
-      Log.e(TAG, "没有发表评论按钮");
+      logE("没有发表评论按钮");
       return false;
     }
     sendBtn.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******发表评论成功!******\n");
+    logD("******发表评论成功!******\n");
 
     return true;
   }
@@ -327,10 +327,10 @@ public class QuTouTiaoTest extends BaseTest {
     // 1.弹出输入
     UiObject2 commentBtn = findById("lw");
     if (commentBtn == null) {
-      Log.e(TAG, "没有评论文本框");
+      logE("没有评论文本框");
       return false;
     }
-    Log.e(TAG, "点击评论文本框,弹出键盘");
+    logD("点击评论文本框,弹出键盘");
     commentBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
@@ -338,24 +338,24 @@ public class QuTouTiaoTest extends BaseTest {
     // 2.输入评论 com.jifen.qukan:id/ly
     UiObject2 contentText = findById("ly");
     if (contentText == null) {
-      Log.e(TAG, "没有评论文本框");
+      logE("没有评论文本框");
       return false;
     }
     contentText.setText(getComment(new Random().nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
     sleep(2); // 等待内容填写完成
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "填写评论内容");
+    logD("填写评论内容");
 
     // 3.点击发表评论 com.jifen.qukan:id/lz
     UiObject2 sendBtn = findById("lz");
     if (sendBtn == null) {
-      Log.e(TAG, "没有发表评论按钮");
+      logE("没有发表评论按钮");
       return false;
     }
     sendBtn.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******发表评论成功!******\n");
+    logD("******发表评论成功!******\n");
     return true;
   }
 
@@ -374,56 +374,56 @@ public class QuTouTiaoTest extends BaseTest {
     // 1.弹出分享对话框
     UiObject2 shareBtn = findById("ls");
     if (shareBtn == null) {
-      Log.e(TAG, "没有分享按钮");
+      logE("没有分享按钮");
       return false;
     }
     shareBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击分享按钮,弹出分享对话框");
+    logD("点击分享按钮,弹出分享对话框");
 
     // 2.调取分享到QQ ,此处只能用文本搜索
     UiObject2 share = findByText("QQ好友");
     if (share == null) {
-      Log.e(TAG, "没有打开QQ分享");
+      logE("没有打开QQ分享");
       return false;
     }
     share.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开QQ分享");
+    logD("打开QQ分享");
 
     // 3.点击发表评论
     UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
     if (publish == null) {
-      Log.e(TAG, "分享到我的电脑失败");
+      logE("分享到我的电脑失败");
       return false;
     }
     publish.getParent().click();
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑");
+    logD("分享到我的电脑");
 
     // 分享到我的电脑确认
     UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
     if (confirm == null) {
-      Log.e(TAG, "分享到我的电脑确认失败");
+      logE("分享到我的电脑确认失败");
       return false;
     }
     confirm.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑确认");
+    logD("分享到我的电脑确认");
 
     // 返回
     UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
     if (back == null) {
-      Log.e(TAG, "没有返回按钮");
+      logE("没有返回按钮");
       return false;
     }
     back.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******分享成功返回******");
+    logD("******分享成功返回******");
 
     return true;
   }
@@ -442,67 +442,67 @@ public class QuTouTiaoTest extends BaseTest {
 
     UiObject2 shareBtn = findById("jg");
     if (shareBtn == null) {
-      Log.e(TAG, "没有分享按钮");
+      logE("没有分享按钮");
       return false;
     }
     shareBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击分享按钮,弹出分享对话框");
+    logD("点击分享按钮,弹出分享对话框");
 
     // 2.调取分享到QQ ,此处只能用文本搜索
     UiObject2 share = findByText("QQ好友");
     if (share == null) {
-      Log.e(TAG, "没有打开QQ分享");
+      logE("没有打开QQ分享");
       return false;
     }
     share.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开QQ分享");
+    logD("打开QQ分享");
 
     // 点击发表评论
     UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
     if (publish == null) {
-      Log.e(TAG, "分享到我的电脑失败");
+      logE("分享到我的电脑失败");
       return false;
     }
     publish.getParent().click();
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑");
+    logD("分享到我的电脑");
 
     // 分享到我的电脑确认
     UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
     if (confirm == null) {
-      Log.e(TAG, "分享到我的电脑确认失败");
+      logE("分享到我的电脑确认失败");
       return false;
     }
     confirm.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到我的电脑确认");
+    logD("分享到我的电脑确认");
 
     // 返回
     UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
     if (back == null) {
-      Log.e(TAG, "没有返回按钮");
+      logE("没有返回按钮");
       return false;
     }
     back.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "******分享成功返回******");
+    logD("******分享成功返回******");
 
     return true;
   }
 
   @Override
-  String getAPPName() {
+  public String getAPPName() {
     return "趣头条";
   }
 
   @Override
-  String getPackageName() {
+  public String getPackageName() {
     return "com.jifen.qukan";
   }
 }

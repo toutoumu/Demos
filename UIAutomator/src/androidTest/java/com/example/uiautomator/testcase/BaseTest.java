@@ -10,6 +10,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import com.example.uiautomator.testcase.log.LogUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -17,13 +18,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import org.junit.Test;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.uiautomator.UiDevice.getInstance;
 
 public abstract class BaseTest {
-  public final String TAG = this.getClass().getName();
+  public LogUtil log;
+  public final String TAG = this.getClass().getSimpleName();
 
   public final static int timeOut = 1000; // 每次等待时间
 
@@ -42,6 +43,7 @@ public abstract class BaseTest {
   public final UiDevice mDevice;//获取设备用例
 
   public BaseTest() {
+    log = new LogUtil(TAG);
     mDevice = getInstance(getInstrumentation());//获取设备用例
 
     // 获取宽度高度
@@ -64,44 +66,44 @@ public abstract class BaseTest {
    */
   public boolean qqShare(UiObject2 share) {
     if (share == null) {
-      Log.e(TAG, "没有打开QQ分享,的按钮");
+      logE("没有打开QQ分享,的按钮");
       return false;
     }
     share.click();
     sleep(4);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "打开QQ分享,离开当前应用");
+    logD("打开QQ分享,离开当前应用");
 
     // 点击发表评论
     UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
     if (publish == null) {
-      Log.e(TAG, "分享到[我的电脑]失败");
+      logE("分享到[我的电脑]失败");
       return false;
     }
     publish.getParent().click();
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[我的电脑]选项");
+    logD("点击[我的电脑]选项");
 
     // 分享到我的电脑确认
     UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
     if (confirm == null) {
-      Log.e(TAG, "分享到[我的电脑]确认失败");
+      logE("分享到[我的电脑]确认失败");
       return false;
     }
     confirm.click();
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "分享到[我的电脑]确认");
+    logD("分享到[我的电脑]确认");
 
     // 返回
     UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
     if (back == null) {
-      Log.e(TAG, "没有返回按钮");
+      logE("没有返回按钮");
       return false;
     }
     back.click();
     sleep(5);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "QQ完成分享返回");
+    logD("QQ完成分享返回");
     return true;
   }
 
@@ -110,11 +112,15 @@ public abstract class BaseTest {
    *
    * @param message
    */
-  public void pressBack(String message) {
+  public void pressBack(String message, boolean error) {
     mDevice.pressBack();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    log(message);
+    if (error) {
+      logE(message);
+    } else {
+      logD(message);
+    }
   }
 
   abstract public int start(int count);
@@ -122,12 +128,12 @@ public abstract class BaseTest {
   /**
    * @return app名称 如: 微信
    */
-  abstract String getAPPName();
+  public abstract String getAPPName();
 
   /**
    * @return 包名 如:com.iqiyi.news
    */
-  abstract String getPackageName();
+  public abstract String getPackageName();
 
   /**
    * @return 是否允许执行
@@ -137,7 +143,7 @@ public abstract class BaseTest {
     File directory = Environment.getExternalStorageDirectory();
     File file = new File(directory, "shutdown.txt");
     if (file.exists()) {
-      log("shutdown文件存在,准备结束运行");
+      logD("shutdown文件存在,准备结束运行");
       return false;
     }
 
@@ -145,7 +151,7 @@ public abstract class BaseTest {
     calendar.setTime(new Date());
     int hour = calendar.get(Calendar.HOUR_OF_DAY);
     if (hour <= 5 || hour == 24) {
-      log("这个时候了该睡觉了");
+      logD("这个时候了该睡觉了" + hour);
       return false;
     }
     return true;
@@ -288,7 +294,7 @@ public abstract class BaseTest {
     try {
       Thread.sleep((long) (1000 * second));
     } catch (InterruptedException e) {
-      Log.e(TAG, "sleep出错了:" + getPackageName(), e);
+      logE("sleep出错了:" + getPackageName(), e);
     }
   }
 
@@ -296,10 +302,10 @@ public abstract class BaseTest {
    * 根据应用名称启动app,App必须放在首页
    */
   public void startAPP() {
-    log("\n");
-    log("\n");
-    log("\n");
-    log("启动" + getAPPName() + "前,如果已经打开那么先关闭");
+    logD("\n");
+    logD("\n");
+    logD("\n");
+    logD("启动" + getAPPName() + "前,如果已经打开那么先关闭");
     // 回到桌面首页
     closeAPP();
 
@@ -311,9 +317,9 @@ public abstract class BaseTest {
       startIcon.click();
       sleep(10);
       mDevice.waitForIdle(timeOut);
-      log(getAPPName() + "已经启动");
+      logD(getAPPName() + "已经启动");
     } else {
-      log(getAPPName() + "启动失败");
+      logD(getAPPName() + "启动失败");
     }
   }
 
@@ -345,7 +351,7 @@ public abstract class BaseTest {
     mDevice.waitForIdle(1000);
     mDevice.pressHome();
     mDevice.waitForIdle(1000);
-    log("关闭" + getAPPName());
+    logD("关闭" + getAPPName());
   }
 
   /**
@@ -435,17 +441,17 @@ public abstract class BaseTest {
     mDevice.pressHome();
     mDevice.pressHome();
     sleep(1);
-    mDevice.waitForIdle(1000);
+    mDevice.waitForIdle(timeOut);
     Context mContext = getInstrumentation().getContext();
     Intent myIntent = mContext.getPackageManager().getLaunchIntentForPackage(getPackageName());  //通过Intent启动app
     if (myIntent != null) {
-      log("尝试打开app: " + getPackageName());
+      logD("尝试打开: " + getAPPName());
       myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
       mContext.startActivity(myIntent);
       sleep(10);
       mDevice.waitForIdle(timeOut);
     } else {
-      log("尝试打开app失败: " + getPackageName());
+      logD("尝试打开: " + getPackageName() + "失败");
     }
   }
 
@@ -454,21 +460,30 @@ public abstract class BaseTest {
    */
   public void closeAPPWithPackageName() {
     try {
-      log("尝试关闭app: " + getPackageName());
+      logD("尝试关闭app: " + getPackageName());
       mDevice.executeShellCommand("am force-stop " + getPackageName());//通过命令行关闭app
-      log("app已经关闭: " + getPackageName());
+      logD(getAPPName() + "已经关闭: " + getPackageName());
     } catch (Exception e) {
-      Log.e(TAG, "关闭app失败", e);
-      mDevice.pressBack();
-      mDevice.pressBack();
+      logE("关闭:" + getAPPName() + "失败", e);
+      // mDevice.pressBack();
+      // mDevice.pressBack();
+      closeAPP();
     }
   }
 
   /**
    * 打印日志
    */
-  public void log(String message) {
-    Log.e(TAG, message);
+  public void logD(String message) {
+    log.d(message);
+  }
+
+  public void logE(Object message) {
+    log.e(message);
+  }
+
+  public void logE(String message, Exception e) {
+    log.e(message, e);
   }
 
   /**
@@ -478,7 +493,7 @@ public abstract class BaseTest {
     try {
       mDevice.executeShellCommand("am start -n " + getPackageName() + "/" + sLaunchActivity);//通过命令行启动app
     } catch (IOException e) {
-      log(getAPPName() + "启动出错");
+      logE(getAPPName() + "启动出错", e);
     }
   }
 }

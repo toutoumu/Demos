@@ -1,7 +1,6 @@
 package com.example.uiautomator.testcase;
 
 import android.support.test.uiautomator.UiObject2;
-import android.util.Log;
 import java.util.Random;
 
 /**
@@ -28,14 +27,15 @@ public class AiQiYiTest extends BaseTest {
     if (repCount == 0 || !avliable()) return 0;
 
     // 启动App
-    startAPP();
+    // startAPP();
+    startAPPWithPackageName();
 
     // 播放视频(评论,分享)
     while (readCount <= repCount) {
       try {
         if (!avliable()) break;
 
-        Log.e(TAG, ":\n********************************************\n第 "
+        logD(":\n********************************************\n第 "
           + readCount
           + " 次\n********************************************\n");
         // 判断是否已经回到首页
@@ -44,11 +44,12 @@ public class AiQiYiTest extends BaseTest {
           closeDialog();
           tab = findById("tabHome");
           if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 9) {
-              Log.e(TAG, "应用可能已经关闭,重新启动");
-              startAPP();
+            if (restartCount++ < 10) {
+              logE("应用可能已经关闭,重新启动");
+              // startAPP();
+              startAPPWithPackageName();
             } else {
-              Log.e(TAG, "退出应用");
+              logE("重启次数到了,退出应用");
               break;
             }
           }
@@ -66,26 +67,22 @@ public class AiQiYiTest extends BaseTest {
           followCount++;
         }
 
-        // 关注
-        /*if (followCount <= 3 && follow()) {
-          followCount++;
-        }*/
-
         // 播放
         if (doPlay()) {
           readCount++;
         }
       } catch (Exception e) {
         if (e instanceof IllegalStateException) {
-          Log.e(TAG, "阅读失败,结束运行:阅读次数" + readCount, e);
+          logE("阅读失败,结束运行:阅读次数" + readCount, e);
           break;
         }
-        Log.e(TAG, "阅读失败:阅读次数" + readCount, e);
+        logE("阅读失败:阅读次数" + readCount, e);
       }
     }
 
     // 关闭应用
-    closeAPP();
+    // closeAPP();
+    closeAPPWithPackageName();
     return readCount;
   }
 
@@ -93,9 +90,7 @@ public class AiQiYiTest extends BaseTest {
    * 关闭对话框
    */
   private void closeDialog() {
-    mDevice.pressBack();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
+    pressBack("点击返回,尝试关闭对话框", true);
   }
 
   // com.iqiyi.news:id/tabHome 推荐
@@ -112,14 +107,14 @@ public class AiQiYiTest extends BaseTest {
     // 切换到我Tab
     UiObject2 follow = findById("tabMe");
     if (follow == null) {
-      Log.e(TAG, "签到失败,没有[我]Tab");
+      logE("签到失败,没有[我]Tab");
       return false;
     }
     if (!follow.isSelected()) {
       follow.click();
       sleep(5);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到[我]Tab");
+      logD("切换到[我]Tab");
     }
 
     // 向下滑动列表
@@ -133,13 +128,13 @@ public class AiQiYiTest extends BaseTest {
     // 签到 com.iqiyi.news:id/score_task_active
     UiObject2 obtain = findById("score_task_active");
     if (obtain == null) {
-      Log.e(TAG, "签到失败,没有[领取]按钮");
+      logE("签到失败,没有[领取]按钮");
       return false;
     }
     obtain.click();
     sleep(5);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击跳转到[签到]");
+    logD("点击跳转到[签到]");
 
     // 开启宝箱
     UiObject2 open = findByText("开启");
@@ -147,7 +142,7 @@ public class AiQiYiTest extends BaseTest {
       open.click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
-      log("开启宝箱,成功");
+      logD("开启宝箱,成功");
 
       // 关闭对话框 com.iqiyi.news:id/tv_brower_continue
       UiObject2 continueBtn = findByText("去浏览");
@@ -155,17 +150,17 @@ public class AiQiYiTest extends BaseTest {
         continueBtn.click();
         sleep(1);
         mDevice.waitForIdle(timeOut);
-        log("回到首页继续浏览");
+        logD("回到首页继续浏览");
         return true;
       }
     }
 
     // 返回首页
-    pressBack("签到成功,返回首页");
+    pressBack("签到成功,返回首页", false);
 
     // 检测是否返回首页
     if (findById("tabHome") == null) {
-      pressBack("签到成功,关闭对话框,返回首页");
+      pressBack("签到成功,关闭对话框,返回首页", false);
     }
 
     return true;
@@ -184,48 +179,48 @@ public class AiQiYiTest extends BaseTest {
     // 切换到关注Tab
     UiObject2 follow = findById("tabFollow");
     if (follow == null) {
-      Log.e(TAG, "没有[关注]Tab");
+      logE("没有[关注]Tab");
       return false;
     }
     if (!follow.isSelected()) {
       follow.click();
       sleep(5);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到[关注]Tab");
+      logD("切换到[关注]Tab");
     }
 
     // 跳转[用户详情]页面 RecyclerView 只能这样查找咯
     UiObject2 userName = findById("follow_subscribed_list_user_name");
     if (userName == null) {
-      Log.e(TAG, "没有[用户详情]按钮");
+      logE("没有[用户详情]按钮");
       return false;
     }
     userName.click();
     sleep(5);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[用户名称],跳转[用户详情]页面");
+    logD("点击[用户名称],跳转[用户详情]页面");
 
     // 展开更多
     UiObject2 dropDown = findById("media_info_related_icon");
     if (dropDown == null) {
-      pressBack("没有[展开更多]按钮,返回[关注]Tab");
+      pressBack("没有[展开更多]按钮,返回[关注]Tab", true);
       return false;
     }
     dropDown.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[展开更多]按钮");
+    logD("点击[展开更多]按钮");
 
     // 点击关注 那个+号
     UiObject2 add = findById("fguli_follow_btn");
     if (add == null) {
-      pressBack("没有[关注]按钮,返回[关注]Tab");
+      pressBack("没有[关注]按钮,返回[关注]Tab", true);
       return false;
     }
     add.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击[关注]按钮");
+    logD("点击[关注]按钮");
 
     // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
     UiObject2 confirm = findById("fsg_confirm_btn");
@@ -233,11 +228,11 @@ public class AiQiYiTest extends BaseTest {
       confirm.click();
       sleep(1);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "关闭[关注]对话框");
+      logD("关闭[关注]对话框");
     }
 
     // 返回主页面
-    pressBack("返回[关注]Tab");
+    pressBack("返回[关注]Tab", false);
     return true;
   }
 
@@ -248,7 +243,7 @@ public class AiQiYiTest extends BaseTest {
     // 切换到主页面
     UiObject2 home = findById("tabHome");
     if (home == null) {
-      Log.e(TAG, "播放失败,没有找到视频Tab");
+      logE("播放失败,没有找到视频Tab");
       return false;
     }
     // 如果当前不是视频列表 ,切换到视频列表
@@ -256,7 +251,7 @@ public class AiQiYiTest extends BaseTest {
       home.click();
       sleep(3);
       mDevice.waitForIdle(timeOut);
-      Log.e(TAG, "切换到[推荐]Tab");
+      logD("切换到[推荐]Tab");
     }
 
     // 向上滑动列表
@@ -266,12 +261,12 @@ public class AiQiYiTest extends BaseTest {
     mDevice.swipe(centerX, startY, centerX, endY, 30);
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "向上滑动列表");
+    logD("向上滑动列表");
 
     // 点击播放
     UiObject2 playBtn = findById("comment_btn");
     if (playBtn == null) {
-      Log.e(TAG, "播放失败:没有播放按钮");
+      logE("播放失败:没有播放按钮");
       return false;
     }
     // 开始播放视频
@@ -280,7 +275,7 @@ public class AiQiYiTest extends BaseTest {
     mDevice.waitForIdle(timeOut);
 
     if (findById("input_click", 3) != null) {
-      Log.e(TAG, "开始播放视频");
+      logD("开始播放视频");
       // 等待视频播放完成
       sleep(35);
 
@@ -293,9 +288,9 @@ public class AiQiYiTest extends BaseTest {
       if (shareCount <= 3 && share()) {
         shareCount++;
       }
-      pressBack("播放完成,返回首页");
+      pressBack("播放完成,返回首页", false);
     } else {
-      pressBack("返回首页:不是视频页面");
+      pressBack("返回首页:不是视频页面", true);
       return false;
     }
     return true;
@@ -308,36 +303,36 @@ public class AiQiYiTest extends BaseTest {
     // 点击输入评论文本框 com.iqiyi.news:id/input_click
     UiObject2 commentBtn = findById("input_click");
     if (commentBtn == null) {
-      Log.e(TAG, "没有评论按钮");
+      logE("没有评论按钮");
       return false;
     }
     commentBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击评论按钮");
+    logD("点击评论按钮");
 
     // 输入评论 com.iqiyi.news:id/input_edit_text
     UiObject2 contentText = findById("input_edit_text");
     if (contentText == null) {
-      Log.e(TAG, "没有评论文本框");
+      logE("没有评论文本框");
       return false;
     }
     /*"爱奇艺的视频还是不错的,内容很好."*/
     contentText.setText(getComment(new Random().nextInt(10) + 5));
     sleep(2); // 等待文本填写完成
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "填写评论内容");
+    logD("填写评论内容");
 
     // 点击发表评论
     UiObject2 sendBtn = findById("send_btn");
     if (sendBtn == null) {
-      Log.e(TAG, "没有发表评论按钮");
+      logE("没有发表评论按钮");
       return false;
     }
     sendBtn.click();
     sleep(3);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击发送,发表评论");
+    logD("点击发送,发表评论");
 
     return true;
   }
@@ -349,25 +344,25 @@ public class AiQiYiTest extends BaseTest {
     // 分享按钮ID  com.iqiyi.news:id/news_article_footer_shareContainer
     UiObject2 shareBtn = findById("news_article_footer_shareContainer");
     if (shareBtn == null) {
-      Log.e(TAG, "没有分享按钮");
+      logE("没有分享按钮");
       return false;
     }
     shareBtn.click();
     sleep(1);
     mDevice.waitForIdle(timeOut);
-    Log.e(TAG, "点击分享按钮,调用分享对话框");
+    logD("点击分享按钮,调用分享对话框");
 
     // 分享到QQ ID com.iqiyi.news:id/rl_share_qq
     return qqShare(findById("rl_share_qq"));
   }
 
   @Override
-  String getAPPName() {
+  public String getAPPName() {
     return "爱奇艺纳逗";
   }
 
   @Override
-  String getPackageName() {
+  public String getPackageName() {
     return "com.iqiyi.news";
   }
 }

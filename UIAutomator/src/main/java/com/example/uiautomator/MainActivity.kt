@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.name!!
     const val PACKAGE = "com.example.uiautomator"
     const val CLAZS_NAME = "AppTest"
-    const val METHOD = "allTest"
+    const val METHOD = "testAllDevice"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
