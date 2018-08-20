@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "拥有Root权限", Toast.LENGTH_SHORT)
             .show()
         // 删除停止标识文件,让程序顺利运行
-        val directory = Environment.getExternalStorageDirectory()
+        val directory = File(Environment.getExternalStorageDirectory(), File.separator + "aaaaaa" + File.separator)
         val file = File(directory, "shutdown.txt")
         if (file.exists()) {
           file.delete()
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     // 生成一个文件用于停止操作
     shutdown.setOnClickListener {
-      val directory = Environment.getExternalStorageDirectory()
+      val directory = File(Environment.getExternalStorageDirectory(), File.separator + "aaaaaa" + File.separator)
       val file = File(directory, "shutdown.txt")
       if (!file.exists()) {
         val outputStream = FileOutputStream(file)

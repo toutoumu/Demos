@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class AppTest {
-  private final String TAG = getClass().getName();
+  private final String TAG = getClass().getSimpleName();
 
   /**
    * 提供给已经root的设备使用
@@ -34,31 +34,31 @@ public class AppTest {
 
     try {
       repeat = Integer.parseInt(a.getString("repeat"));
-      log.d("循环次数" + repeat);
+      log.d("************************整体循环次数" + repeat + "************************");
     } catch (Exception e) {
-      log.e("循环次数错了", e);
+      log.e("整体循环次数", e);
     }
     try {
       int aiqiyi = Integer.parseInt(a.getString("aiqiyi"));
-      log.d("爱奇艺循环次数" + aiqiyi);
+      log.d("************************爱奇艺循环次数:" + aiqiyi + "************************");
       aiqiyi = new AiQiYiTest().start(aiqiyi); // 爱奇艺
-      log.d("爱奇艺实际循环次数" + aiqiyi);
+      log.d("************************爱奇艺实际循环次数:" + aiqiyi + "************************");
     } catch (Exception e) {
       log.e("爱奇艺出错了:", e);
     }
     try {
       int jinritoutiao = Integer.parseInt(a.getString("jinritoutiao"));
-      log.d("今日头条循环次数" + jinritoutiao);
+      log.d("************************今日头条循环次数:" + jinritoutiao + "************************");
       jinritoutiao = new JinRiTouTiaoTest().start(jinritoutiao); //今日头条
-      log.d("今日头条实际循环次数" + jinritoutiao);
+      log.d("************************今日头条实际循环次数:" + jinritoutiao + "************************");
     } catch (Exception e) {
       log.e("今日头条出错了", e);
     }
     try {
       int haokan = Integer.parseInt(a.getString("haokan"));
-      log.d("好看视频循环次数" + haokan);
+      log.d("************************好看视频循环次数:" + haokan + "************************");
       haokan = new HaoKanShiPinTest().start(haokan);
-      log.d("好看视频实际循环次数" + haokan);
+      log.d("************************好看视频实际循环次数:" + haokan + "************************");
     } catch (Exception e) {
       log.e("好看视频出错了", e);
     }
@@ -66,36 +66,36 @@ public class AppTest {
     while (repeat-- > 0) {
       try {
         int dongfangtoutiao = Integer.parseInt(a.getString("dongfangtoutiao"));
-        log.d("东方头条循环次数" + dongfangtoutiao);
+        log.d("************************东方头条循环次数:" + dongfangtoutiao + "************************");
         dongfangtoutiao = new DongFangTouTiaoTest().start(dongfangtoutiao); // 东方头条
-        log.d("东方头条实际循环次数" + dongfangtoutiao);
+        log.d("************************东方头条实际循环次数:" + dongfangtoutiao + "************************");
       } catch (Exception e) {
         log.e("东方头条出错了", e);
       }
       try {
         int jukandian = Integer.parseInt(a.getString("jukandian"));
-        log.d("聚看点循环次数" + jukandian);
+        log.d("************************聚看点循环次数:" + jukandian + "************************");
         jukandian = new JuKanDianTest().start(jukandian);// 聚看点
-        log.d("聚看点实际循环次数" + jukandian);
+        log.d("************************聚看点实际循环次数" + jukandian + "************************");
       } catch (Exception e) {
         log.e("聚看点出错了", e);
       }
       try {
         int qutoutiao = Integer.parseInt(a.getString("qutoutiao"));
-        log.d("趣头条循环次数" + qutoutiao);
+        log.d("************************趣头条循环次数:" + qutoutiao + "************************");
         qutoutiao = new QuTouTiaoTest().start(qutoutiao); // 趣头条(汇率低)
-        log.d("趣头条实际循环次数" + qutoutiao);
+        log.d("************************趣头条实际循环次数:" + qutoutiao + "************************");
       } catch (Exception e) {
         log.e("趣头条出错了", e);
       }
     }
 
     // 运行结束,删除文件
-    File directory = Environment.getExternalStorageDirectory();
+    File directory = new File(Environment.getExternalStorageDirectory(), File.separator + "aaaaaa" + File.separator);
     File file = new File(directory, "shutdown.txt");
     if (file.exists()) {
       file.delete();
-      log.d("运行结束,删除文件");
+      log.d("************************运行结束,删除文件************************");
     }
   }
 
@@ -109,12 +109,12 @@ public class AppTest {
       Random random = new Random();
       new JinRiTouTiaoTest().start(0); //今日头条
       new AiQiYiTest().start(0); // 爱奇艺
-      new HaoKanShiPinTest().start(15);
       while (i++ < 4) {
-        new DongFangTouTiaoTest().start(50 + random.nextInt(10)); // 东方头条
-        new JuKanDianTest().start(50 + random.nextInt(10));// 聚看点
-        new QuTouTiaoTest().start(20 + random.nextInt(10)); // 趣头条(汇率低)
+        new JuKanDianTest().start(30 + random.nextInt(10));// 聚看点
+        // new DongFangTouTiaoTest().start(30 + random.nextInt(10)); // 东方头条
+        new QuTouTiaoTest().start(30 + random.nextInt(10)); // 趣头条(汇率低)
       }
+      new HaoKanShiPinTest().start(33);
     } catch (Exception e) {
       Log.e(TAG, "出错了", e);
     }

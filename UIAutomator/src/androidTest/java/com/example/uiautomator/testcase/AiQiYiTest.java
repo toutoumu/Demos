@@ -1,7 +1,13 @@
 package com.example.uiautomator.testcase;
 
+import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.Until;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 爱奇艺测试 1000金币=1元 提现20元起 每日最高领取400金币, 徒弟阅读一次贡献5金币 最多一百金币
@@ -16,7 +22,7 @@ public class AiQiYiTest extends BaseTest {
   private int followCount = 0; // 关注调用次数
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
-  private int restartCount = 0;// 重启次数
+  private int checkCount = 0;
 
   public AiQiYiTest() {
     super();
@@ -26,33 +32,23 @@ public class AiQiYiTest extends BaseTest {
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
 
-    // 启动App
-    // startAPP();
     startAPPWithPackageName();
+
+    // 执行之前的检查操作
+    while (!doCheck()) {
+      if (checkCount == 10) return 0;
+    }
 
     // 播放视频(评论,分享)
     while (readCount <= repCount) {
       try {
         if (!avliable()) break;
 
-        logD(":\n********************************************\n第 "
-          + readCount
-          + " 次\n********************************************\n");
-        // 判断是否已经回到首页
-        UiObject2 tab = findById("tabHome");
-        if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
-          closeDialog();
-          tab = findById("tabHome");
-          if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 10) {
-              logE("应用可能已经关闭,重新启动");
-              // startAPP();
-              startAPPWithPackageName();
-            } else {
-              logE("重启次数到了,退出应用");
-              break;
-            }
-          }
+        logD("********************* 第 " + readCount + " 次 *********************");
+
+        // 执行之前的检查操作
+        if (checkInMainPage("tabHome") == null) {
+          return 0;
         }
 
         // 签到 第一次进来签到, 随后每隔几次查看一下任务 ,顺便开宝箱
@@ -63,7 +59,7 @@ public class AiQiYiTest extends BaseTest {
         }
 
         // 关注
-        if (followCount <= 3 && follow()) {
+        if (followCount < 3 && follow()) {
           followCount++;
         }
 
@@ -81,9 +77,133 @@ public class AiQiYiTest extends BaseTest {
     }
 
     // 关闭应用
-    // closeAPP();
     closeAPPWithPackageName();
     return readCount;
+  }
+
+  /**
+   * 检查是否有指定Tab
+   *
+   * @param tabID tabID
+   * @return {@link UiObject2}
+   */
+  private UiObject2 checkInMainPage(String tabID) {
+    // 判断是否已经回到首页
+    int restartCount = 0;
+    while (restartCount < 10) {
+      UiObject2 tab = findById(tabID);
+      if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
+        logE("检查失败,没有[" + tabID + "]" + restartCount);
+        closeDialog();
+        tab = findById(tabID);
+        if (tab == null) {// 关闭对话框之后再次查找是否已经回到首页
+          restartCount++;
+          logE("应用可能已经关闭,重新启动");
+          startAPPWithPackageName();
+          continue;
+        }
+      }
+      return tab;
+    }
+    logE("重启次数" + restartCount + "退出应用");
+    return null;
+  }
+
+  /**
+   * 使用正则表达式提取小括号中的内容
+   *
+   * @param msg 史蒂夫(33)
+   * @return 33
+   */
+  public static List<String> extractMessageByRegular(String msg) {
+    List<String> list = new ArrayList<String>();
+    Pattern p = Pattern.compile("(?<=\\()(.+?)(?=\\))");
+    Matcher m = p.matcher(msg);
+    while (m.find()) {
+      list.add(m.group().substring(0, m.group().length()));
+    }
+    return list;
+  }
+
+  /**
+   * 例如 传入 观看视频 那么找到他的上级容器, 然后查找和 观看视频 同一级的控件,查看控件的值是否包含 类似 1/2
+   *
+   * @param key 观看视频,分享视频,晒收入
+   * @return 次数
+   */
+  private int getCount(String key) {
+    int count = 0;
+    UiObject2 keyText = mDevice.wait(Until.findObject(By.textContains(key)), 1000 * 5);
+    if (keyText.getText() != null && keyText.getText().contains("/")) {
+      List<String> list = extractMessageByRegular(keyText.getText());
+      count = Integer.parseInt(list.get(0).split("/")[0]);
+    }
+    return count;
+  }
+
+  /**
+   * 检查各项的执行情况并赋值
+   */
+  private boolean doCheck() {
+    try {
+      // 检查是否在首页,并切换到 [我}tab
+      UiObject2 tab = checkInMainPage("tabMe");
+      if (tab == null) return false;
+      if (!tab.isSelected()) {
+        tab.click();
+        sleep(5);
+        mDevice.waitForIdle(timeOut);
+        logD("切换到[我]Tab,准备检查");
+      }
+
+      // 向下滑动页面使得,签到那里显示出来
+      int startY = height / 3;
+      int endY = height * 2 / 3;
+      mDevice.swipe(centerX, startY, centerX, endY, 10);
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      logD("向下滑动页面使得,签到那里显示出来");
+
+      // 签到 com.iqiyi.news:id/score_task_active
+      UiObject2 obtain = findById("score_task_active");
+      if (obtain == null) {
+        logE("检测失败,没有[打开任务]按钮[领取]");
+        return false;
+      }
+      obtain.click();
+      sleep(5);
+      mDevice.waitForIdle(timeOut);
+      logD("点击跳转到[任务界面]");
+
+      // 向上滑动页面使得,任务明细那里显示出来
+      startY = height * 2 / 3;
+      endY = height / 3;
+      mDevice.swipe(centerX, startY, centerX, endY, 10);
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+
+      mDevice.swipe(centerX, startY, centerX, endY, 10);
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      logD("向上滑动页面使得,任务明细那里显示出来");
+
+      readCount = getCount("浏览内容30s及以上得");
+      logD("已经[阅读]次数:" + readCount);
+      commentCount = getCount("发布一条评论可得");
+      logD("已经[评论]次数:" + commentCount);
+      shareCount = getCount("分享一条内容可得");
+      logD("已经[分享]次数:" + shareCount);
+      followCount = getCount("成功关注一个爱奇艺号得");
+      logD("已经[关注]次数:" + followCount);
+
+      // 返回首页
+      pressBack("检查成功,返回首页", false);
+
+      return true;
+    } catch (Exception e) {
+      logE("检查出错了", e);
+      return false;
+    }
   }
 
   /**
@@ -223,7 +343,7 @@ public class AiQiYiTest extends BaseTest {
     logD("点击[关注]按钮");
 
     // 如果弹出了对话框 com.iqiyi.news:id/fsg_confirm_btn
-    UiObject2 confirm = findById("fsg_confirm_btn");
+    UiObject2 confirm = findById("fsg_confirm_btn", 5);
     if (confirm != null) {
       confirm.click();
       sleep(1);
@@ -274,23 +394,28 @@ public class AiQiYiTest extends BaseTest {
     sleep(3);
     mDevice.waitForIdle(timeOut);
 
+    // 有可能点击进来,评论区域已经出来了
+    if (findById("send_btn", 5) != null) {
+      pressBack("播放视频时候,评论区域已经出来了,关闭输入评论那里的对话框", false);
+    }
+
     if (findById("input_click", 3) != null) {
       logD("开始播放视频");
       // 等待视频播放完成
-      sleep(35);
+      sleep(35 + random.nextInt(10));
 
       // 发表评论
-      if (commentCount <= 3 && comment()) {
+      if (commentCount < 3 && comment()) {
         commentCount++;
       }
 
       // 分享
-      if (shareCount <= 3 && share()) {
+      if (shareCount < 3 && share()) {
         shareCount++;
       }
-      pressBack("播放完成,返回首页", false);
+      pressBack("播放完成,返回首页\n:", false);
     } else {
-      pressBack("返回首页:不是视频页面", true);
+      pressBack("返回首页:不是视频页面\n:", true);
       return false;
     }
     return true;

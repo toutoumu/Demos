@@ -28,7 +28,7 @@ public class Log4jConfigure {
       logConfigurator.setUseFileAppender(true);
       logConfigurator.setImmediateFlush(true);
       logConfigurator.setRootLevel(Level.DEBUG);
-      logConfigurator.setFilePattern("%d/t%p/%c:/t%m%n");
+      logConfigurator.setFilePattern("%d\t%p\t%c:\t%m%n");
       logConfigurator.configure();
       android.util.Log.i(TAG, "Log4j config finished");
     } catch (Throwable throwable) {

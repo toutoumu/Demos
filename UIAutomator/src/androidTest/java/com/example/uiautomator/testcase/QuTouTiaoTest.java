@@ -32,9 +32,7 @@ public class QuTouTiaoTest extends BaseTest {
       try {
         if (!avliable()) break;
 
-        logD(":\n********************************************\n第 "
-          + readCount
-          + " 次\n********************************************\n");
+        logD("********************* 第 " + readCount + " 次 *********************");
 
         // 判断是否有底部导航栏来区分是否已经回到首页, com.jifen.qukan:id/ij 底部tab容器
         UiObject2 toolBar = findById("ij");
@@ -123,7 +121,7 @@ public class QuTouTiaoTest extends BaseTest {
         if (spend < 3000) {// 如果时间间隔小于 3 秒
           sleep(((double) (3000 - spend) / 1000.0));
         }
-        Log.w(TAG, "滚动花费时间:" + spend);
+        Log.v(TAG, "滚动花费时间:" + spend);
       }
       readCount++;
 
@@ -138,9 +136,9 @@ public class QuTouTiaoTest extends BaseTest {
 
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
-      logD("阅读完成,返回首页");
+      logD("阅读完成,返回首页\n:");
     } else { // 页面可能未打开
-      logE("返回首页:可能没有打开文章页面");
+      logE("返回首页:可能没有打开文章页面\n:");
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
     }
@@ -197,7 +195,7 @@ public class QuTouTiaoTest extends BaseTest {
     sleep(35 + random.nextInt(10));
     mDevice.waitForIdle(timeOut);
     readCount++;
-    logD("播放完成");
+    logD("播放完成\n");
 
     /* *********以下代码是点击视频跳转到页面进行播放******* */
 
@@ -242,15 +240,14 @@ public class QuTouTiaoTest extends BaseTest {
    * 关闭对话框
    */
   private boolean closeDialog() {
-    UiObject2 close = findByText("先去逛逛", 3);
+    UiObject2 close = findByText("忽略", 3);
     if (close != null) {
       close.click();
       mDevice.waitForIdle(timeOut);
       logD("关闭对话框");
       return true;
     }
-
-    close = findByText("忽略", 3);
+    close = findByText("先去逛逛", 3);
     if (close != null) {
       close.click();
       mDevice.waitForIdle(timeOut);

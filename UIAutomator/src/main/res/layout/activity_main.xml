@@ -189,7 +189,7 @@
           android:gravity="center_vertical"
           android:inputType="numberDecimal"
           android:padding="10dp"
-          android:text="50"
+          android:text="30"
           />
       <ImageView
           android:id="@+id/delete_dongfangtoutiao"
@@ -228,7 +228,7 @@
           android:gravity="center_vertical"
           android:inputType="numberDecimal"
           android:padding="10dp"
-          android:text="50"
+          android:text="87"
           />
       <ImageView
           android:id="@+id/delete_jukandian"
@@ -267,7 +267,7 @@
           android:gravity="center_vertical"
           android:inputType="numberDecimal"
           android:padding="10dp"
-          android:text="50"
+          android:text="30"
           />
       <ImageView
           android:id="@+id/delete_qutoutiao"
@@ -306,7 +306,7 @@
           android:gravity="center_vertical"
           android:inputType="numberDecimal"
           android:padding="10dp"
-          android:text="3"
+          android:text="1"
           />
       <ImageView
           android:id="@+id/delete_repeat"

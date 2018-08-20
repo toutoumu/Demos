@@ -10,6 +10,8 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.example.uiautomator.testcase.log.LogUtil;
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +58,35 @@ public abstract class BaseTest {
 
     random = new Random();
     calendar = Calendar.getInstance(Locale.CHINA);
+  }
+
+  /**
+   * 分享到QQ空间
+   *
+   * @param share
+   * @return
+   */
+  public boolean qqZoneShare(UiObject2 share) {
+    if (share == null) {
+      logE("没有打开QQ空间分享,的按钮");
+      return false;
+    }
+    share.click();
+    sleep(5);
+    mDevice.waitForIdle(timeOut);
+    logD("打开[QQ空间]分享,离开当前应用");
+
+    // 点击发表 QQ空间
+    UiObject2 publish = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq:id/ivTitleBtnRightText")), 1000 * 10);
+    if (publish == null) {
+      logE("分享到[QQ空间]失败");
+      return false;
+    }
+    publish.click();
+    sleep(5);
+    mDevice.waitForIdle(timeOut);
+    logD("点击[发表]选项");
+    return true;
   }
 
   /**
@@ -140,7 +171,7 @@ public abstract class BaseTest {
    */
   public boolean avliable() {
     // 文件存在退出应用
-    File directory = Environment.getExternalStorageDirectory();
+    File directory = new File(Environment.getExternalStorageDirectory(), File.separator + "aaaaaa" + File.separator);
     File file = new File(directory, "shutdown.txt");
     if (file.exists()) {
       logD("shutdown文件存在,准备结束运行");
@@ -445,30 +476,55 @@ public abstract class BaseTest {
     Context mContext = getInstrumentation().getContext();
     Intent myIntent = mContext.getPackageManager().getLaunchIntentForPackage(getPackageName());  //通过Intent启动app
     if (myIntent != null) {
-      logD("尝试打开: " + getAPPName());
+      logD("***************************************" + "尝试打开: " + getAPPName() + "***************************************");
       myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
       mContext.startActivity(myIntent);
       sleep(10);
       mDevice.waitForIdle(timeOut);
     } else {
-      logD("尝试打开: " + getPackageName() + "失败");
+      logE("尝试打开: " + getPackageName() + "失败");
+    }
+  }
+
+  /**
+   * 根据包名关闭app
+   * 通过命令行关闭app
+   */
+  public void closeAPPWithPackageName() {
+    try {
+      logD(" *********************" + "尝试关闭: " + getAPPName() + " *********************");
+      mDevice.executeShellCommand("am force-stop " + getPackageName());
+      logD(" *********************" + "已经关闭: " + getAPPName() + " *********************\n*\n");
+    } catch (Exception e) {
+      logE("关闭失败:" + getAPPName(), e);
+      closeAPP();
     }
   }
 
   /**
    * 根据包名关闭app
    */
-  public void closeAPPWithPackageName() {
+  public void closeAPPWithPackageName(String packageName) {
     try {
-      logD("尝试关闭app: " + getPackageName());
-      mDevice.executeShellCommand("am force-stop " + getPackageName());//通过命令行关闭app
-      logD(getAPPName() + "已经关闭: " + getPackageName());
+      logD("尝试关闭app: " + packageName);
+      mDevice.executeShellCommand("am force-stop " + packageName);//通过命令行关闭app
+      sleep(2);
+      mDevice.waitForIdle(timeOut);
+      logD(packageName + "已经关闭");
     } catch (Exception e) {
-      logE("关闭:" + getAPPName() + "失败", e);
+      logE("关闭:" + packageName + "失败", e);
       // mDevice.pressBack();
       // mDevice.pressBack();
-      closeAPP();
+      // closeAPP();
     }
+  }
+
+  public String printImage() {
+    return printObjects(findListByClass(ImageView.class));
+  }
+
+  public String printTextView() {
+    return printObjects(findListByClass(TextView.class));
   }
 
   /**

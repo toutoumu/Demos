@@ -57,11 +57,8 @@ public class JinRiTouTiaoTest extends BaseTest {
             }
           }
         }
-        logD(":\n********************************************\n"
-          + "第 "
-          + readCount
-          + " 次"
-          + "\n********************************************\n");
+        logD("********************* 第 " + readCount + " 次 *********************");
+
         doRead(toolBar);
       } catch (Exception e) {
         if (e instanceof IllegalStateException) {
@@ -160,9 +157,9 @@ public class JinRiTouTiaoTest extends BaseTest {
         shareCount++;
       }
 
-      pressBack("阅读完成,返回首页", false);
+      pressBack("阅读完成,返回首页\n:", false);
     } else { // 页面可能未打开
-      pressBack("返回首页:打开的不是文章页面", true);
+      pressBack("返回首页:打开的不是文章页面\n:", true);
       return false;
     }
     return true;

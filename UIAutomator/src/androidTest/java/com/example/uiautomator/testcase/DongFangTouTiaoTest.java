@@ -36,9 +36,7 @@ public class DongFangTouTiaoTest extends BaseTest {
       try {
         if (!avliable()) break;
 
-        logD(":\n********************************************\n第 "
-          + readCount
-          + " 次\n********************************************\n");
+        logD("********************* 第 " + readCount + " 次 *********************");
 
         // 判断是否为首页 视频 任务 我的 都是RadioButton
         List<UiObject2> radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
@@ -138,11 +136,11 @@ public class DongFangTouTiaoTest extends BaseTest {
 
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
-      logD("播放完成,返回首页");
+      logD("播放完成,返回首页\n:");
     } else {
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
-      logD("返回首页:打开的不是视频页面");
+      logD("返回首页:打开的不是视频页面\n:");
     }
     return true;
   }
@@ -239,7 +237,16 @@ public class DongFangTouTiaoTest extends BaseTest {
    * 关闭对话框
    */
   private void closeDialog() {
-    pressBack("点击返回,尝试关闭对话框", true);
+    UiObject2 cancel = findByText("取  消", 5);
+    if (cancel == null) {
+      pressBack("点击返回,尝试关闭对话框", true);
+    } else {
+      while (cancel != null) {
+        cancel.click();
+        logD("点击[取  消]关闭推送对话框");
+        cancel = findByText("取  消", 5);
+      }
+    }
   }
 
   /**
