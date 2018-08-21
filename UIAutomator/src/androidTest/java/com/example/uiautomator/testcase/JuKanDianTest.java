@@ -42,6 +42,12 @@ public class JuKanDianTest extends BaseTest {
       if (checkCount++ == 10) return 0;
     }
 
+    // 如果已经阅读完成,那么随机阅读几篇
+    if (readCount >= 80) {
+      repCount = readCount + random.nextInt(10);
+      logD("阅读已完成,随机阅读几篇" + (repCount - readCount));
+    }
+
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
@@ -349,7 +355,7 @@ public class JuKanDianTest extends BaseTest {
     // 第一次关闭微信分享
     UiObject2 closeWeiXin = mDevice.wait(Until.findObject(By.res("com.tencent.mm:id/ht")), 1000 * 10);
     if (closeWeiXin == null) {
-      pressBack("关闭任务页面", true);
+      pressBack("关闭任务页面", false);
       return true;
     }
     closeWeiXin.click();
@@ -435,7 +441,7 @@ public class JuKanDianTest extends BaseTest {
         logE("没有评论文本框");
         return false;
       }
-      contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+      contentText.setText(getComment(random.nextInt(5) + 5)); // 这里使用中文会出现无法填写的情况
       sleep(2); // 等待评论填写完成
       mDevice.waitForIdle(timeOut);
       logD("填写评论内容");
@@ -486,7 +492,7 @@ public class JuKanDianTest extends BaseTest {
         logE("没有评论文本框");
         return false;
       }
-      contentText.setText(getComment(new Random().nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+      contentText.setText(getComment(new Random().nextInt(5) + 5)); // 这里使用中文会出现无法填写的情况
       sleep(2); // 等待内容填写完成
       mDevice.waitForIdle(timeOut);
       logD("填写评论内容");

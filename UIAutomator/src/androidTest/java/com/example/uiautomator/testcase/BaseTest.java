@@ -393,7 +393,7 @@ public abstract class BaseTest {
    */
   public String getComment(int length) {
     //定义一个字符串（A-Z，a-z，0-9）即62位；
-    String seed = "zxcvbnmlkjhgfdsaqwertyuiopQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+    String seed = "呵呵哈哈呵呵呵哈哈呵呵哈哈嘿嘿啊啊哦哦嗯嗯拉克丝静安里上课的风景哦我吴荣脾气乌尔";
     int strLen = seed.length();
     //由Random生成随机数
     StringBuilder sb = new StringBuilder();

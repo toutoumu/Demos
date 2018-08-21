@@ -2,17 +2,16 @@ package com.example.uiautomator.testcase;
 
 import android.graphics.Rect;
 import android.support.test.uiautomator.By;
-import android.support.test.uiautomator.BySelector;
-import android.support.test.uiautomator.SearchCondition;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TabWidget;
 import java.util.Random;
+import kotlin.Unit;
 
 /**
- * 今日头条测试 徒弟阅读一次10金币?
+ * 今日头条测试 徒弟阅读一次20金币
+ * 阅读,分享,晒
  */
 public class JinRiTouTiaoTest extends BaseTest {
 
@@ -20,6 +19,7 @@ public class JinRiTouTiaoTest extends BaseTest {
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
   private int restartCount = 0;//重启次数
+  private int checkCount = 0;
 
   public JinRiTouTiaoTest() {
     super();
@@ -27,36 +27,32 @@ public class JinRiTouTiaoTest extends BaseTest {
 
   @Override
   public int start(int repCount) {
-    if (repCount == 0 || !avliable()) {
-      return 0;
-    }
+    if (repCount == 0 || !avliable()) return 0;
     // 打开app
-    // startAPP();
     startAPPWithPackageName();
+
+    // 执行之前的检查操作
+    while (!doCheck()) {
+      if (checkCount++ == 10) return 0;
+    }
+
+    // 如果已经阅读完成,那么随机阅读几篇
+    if (readCount >= 10) {
+      repCount = readCount + random.nextInt(5);
+      logD("阅读已完成,随机阅读几篇" + (repCount - readCount));
+    }
 
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
-        if (!avliable()) {
-          break;
+        if (!avliable()) break;
+
+        // 判断是否已经回到首页
+        UiObject2 toolBar = checkInMainPage();
+        if (toolBar == null) {
+          return readCount;
         }
-        // 判断是否有底部导航栏来区分是否已经回到首页, android:id/tabs 底部tab容器
-        UiObject2 toolBar = findByClass(TabWidget.class);
-        if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
-          closeDialog();
-          toolBar = findByClass(TabWidget.class);
-          if (toolBar == null) { // 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 9) {
-              logE("应用可能已经关闭,重新启动");
-              // startAPP();
-              startAPPWithPackageName();
-              continue;
-            } else {
-              logE("退出应用");
-              break;
-            }
-          }
-        }
+
         logD("********************* 第 " + readCount + " 次 *********************");
 
         doRead(toolBar);
@@ -73,6 +69,108 @@ public class JinRiTouTiaoTest extends BaseTest {
     closeAPPWithPackageName();
 
     return readCount;
+  }
+
+  private boolean doCheck() {
+    UiObject2 toolBar = checkInMainPage();
+    // 切换到文章列表
+    if (toolBar == null || toolBar.getChildren().size() == 0) {
+      logE("检查失败:没有底部栏");
+      return false;
+    }
+    // 如果当前不是文章列表 ,切换到任务列表
+    UiObject2 mainTab = toolBar.getChildren().get(3);
+    if (mainTab != null && !mainTab.isSelected()) {
+      mainTab.click();
+      sleep(5);
+      mDevice.waitForIdle(timeOut);
+      logD("切换到任务列表");
+    }
+
+    // 签到
+    UiObject2 sign = findByText("已签到");
+    if (sign != null) {
+      logE("已经签到");
+    } else {
+      sign = findByText("签到");
+      if (sign != null) {
+        logE("未签到");
+      }
+      // signCount =2;
+    }
+
+    // 向上滚动列表 滚动距离 height / 3
+    int startY = height / 2;
+    int endY = height / 6;
+    mDevice.swipe(centerX, startY, centerX, endY, 10);
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
+    logD("列表向上滑动");
+
+    // 查看阅读次数
+    UiObject2 read = findByText("认真阅读文章或视频");
+    if (read != null) {
+      read = read.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
+      if (read != null) {
+        readCount = 10;
+        logE("阅读已完成次数" + readCount + "/10");
+      } else {
+        logE("阅读未完成");
+      }
+    } else {
+      logE("检查失败,[认真阅读文章或视频]未找到");
+      return false;
+    }
+
+    // 查看分享次数
+    UiObject2 share = findByText("分享文章或视频");
+    if (share != null) {
+      share = share.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
+      if (share != null) {
+        shareCount = 3;
+        logE("分享已完成次数" + shareCount + "/3");
+      } else {
+        logE("分享未完成");
+      }
+    } else {
+      logE("检查失败,[分享文章或视频]未找到");
+      return false;
+    }
+
+    // 查看分享次数
+    UiObject2 shareMoney = findByText("晒收入");
+    if (shareMoney != null) {
+      shareMoney = shareMoney.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
+      if (shareMoney != null) {
+        logE("晒收入已完成");
+      } else {
+        logE("晒收入未完成");
+      }
+    } else {
+      logE("检查失败,[晒收入]未找到");
+    }
+
+    return true;
+  }
+
+  private UiObject2 checkInMainPage() {
+    int restartCount = 0;
+    while (restartCount < 10) {
+      UiObject2 toolBar = findByClass(TabWidget.class);
+      if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
+        closeDialog();
+        toolBar = findByClass(TabWidget.class);
+        if (toolBar == null) { // 关闭对话框之后再次查找是否已经回到首页
+          restartCount++;
+          logE("应用可能已经关闭,重新启动");
+          startAPPWithPackageName();
+          continue;
+        }
+      }
+      return toolBar;
+    }
+    logE("重启次数" + restartCount + "退出应用");
+    return null;
   }
 
   private boolean follow(UiObject2 toolBar) {
@@ -277,7 +375,7 @@ public class JinRiTouTiaoTest extends BaseTest {
         logE("没有评论文本框");
         return false;
       }
-      contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+      contentText.setText(getComment(random.nextInt(5) + 5)); // 这里使用中文会出现无法填写的情况
       sleep(2); // 等待评论填写完成
       mDevice.waitForIdle(timeOut);
       logD("填写评论内容");
@@ -335,7 +433,7 @@ public class JinRiTouTiaoTest extends BaseTest {
       logD("没有评论文本框");
       return false;
     }
-    contentText.setText(getComment(new Random().nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+    contentText.setText(getComment(new Random().nextInt(5) + 5)); // 这里使用中文会出现无法填写的情况
     sleep(2); // 等待内容填写完成
     mDevice.waitForIdle(timeOut);
     logD("填写评论内容");

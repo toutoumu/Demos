@@ -22,7 +22,7 @@ public class AiQiYiTest extends BaseTest {
   private int followCount = 0; // 关注调用次数
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
-  private int checkCount = 0;
+  private int checkCount = 0; // 检查次数
 
   public AiQiYiTest() {
     super();
@@ -36,7 +36,13 @@ public class AiQiYiTest extends BaseTest {
 
     // 执行之前的检查操作
     while (!doCheck()) {
-      if (checkCount == 10) return 0;
+      if (checkCount++ == 10) return 0;
+    }
+
+    // 如果已经阅读完成,那么随机阅读几篇
+    if (readCount >= 20) {
+      repCount = readCount + random.nextInt(5);
+      logD("阅读已完成,随机阅读几篇" + (repCount - readCount));
     }
 
     // 播放视频(评论,分享)
@@ -48,7 +54,7 @@ public class AiQiYiTest extends BaseTest {
 
         // 执行之前的检查操作
         if (checkInMainPage("tabHome") == null) {
-          return 0;
+          return readCount;
         }
 
         // 签到 第一次进来签到, 随后每隔几次查看一下任务 ,顺便开宝箱
@@ -115,8 +121,8 @@ public class AiQiYiTest extends BaseTest {
    * @param msg 史蒂夫(33)
    * @return 33
    */
-  public static List<String> extractMessageByRegular(String msg) {
-    List<String> list = new ArrayList<String>();
+  private static List<String> extractMessageByRegular(String msg) {
+    List<String> list = new ArrayList<>();
     Pattern p = Pattern.compile("(?<=\\()(.+?)(?=\\))");
     Matcher m = p.matcher(msg);
     while (m.find()) {
@@ -299,7 +305,7 @@ public class AiQiYiTest extends BaseTest {
     // 切换到关注Tab
     UiObject2 follow = findById("tabFollow");
     if (follow == null) {
-      logE("没有[关注]Tab");
+      logE("关注失败,没有[关注]Tab");
       return false;
     }
     if (!follow.isSelected()) {
@@ -312,7 +318,7 @@ public class AiQiYiTest extends BaseTest {
     // 跳转[用户详情]页面 RecyclerView 只能这样查找咯
     UiObject2 userName = findById("follow_subscribed_list_user_name");
     if (userName == null) {
-      logE("没有[用户详情]按钮");
+      logE("关注失败,没有[用户详情]按钮");
       return false;
     }
     userName.click();
@@ -323,7 +329,7 @@ public class AiQiYiTest extends BaseTest {
     // 展开更多
     UiObject2 dropDown = findById("media_info_related_icon");
     if (dropDown == null) {
-      pressBack("没有[展开更多]按钮,返回[关注]Tab", true);
+      pressBack("关注失败,没有[展开更多]按钮,返回[关注]Tab", true);
       return false;
     }
     dropDown.click();
@@ -334,7 +340,7 @@ public class AiQiYiTest extends BaseTest {
     // 点击关注 那个+号
     UiObject2 add = findById("fguli_follow_btn");
     if (add == null) {
-      pressBack("没有[关注]按钮,返回[关注]Tab", true);
+      pressBack("关注失败,没有[关注]按钮,返回[关注]Tab", true);
       return false;
     }
     add.click();
@@ -443,7 +449,7 @@ public class AiQiYiTest extends BaseTest {
       return false;
     }
     /*"爱奇艺的视频还是不错的,内容很好."*/
-    contentText.setText(getComment(new Random().nextInt(10) + 5));
+    contentText.setText(getComment(new Random().nextInt(5) + 5));
     sleep(2); // 等待文本填写完成
     mDevice.waitForIdle(timeOut);
     logD("填写评论内容");

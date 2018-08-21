@@ -4,6 +4,7 @@ import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -15,6 +16,8 @@ public class QuTouTiaoTest extends BaseTest {
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
   private int restartCount = 0;//重启次数
+  private int checkCount;
+  private int score;
 
   public QuTouTiaoTest() {
     super();
@@ -24,9 +27,19 @@ public class QuTouTiaoTest extends BaseTest {
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
 
-    // 打开app
-    // startAPP();
     startAPPWithPackageName();
+
+    // 执行之前的检查操作
+    while (!doCheck()) {
+      if (checkCount++ == 10) return 0;
+    }
+
+    // 如果已经阅读(300分)完成,那么随机阅读几篇
+    if (score >= 350) {
+      repCount = readCount + random.nextInt(5);
+      logD("阅读已完成,随机阅读几篇" + (repCount - readCount));
+    }
+
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
@@ -34,23 +47,12 @@ public class QuTouTiaoTest extends BaseTest {
 
         logD("********************* 第 " + readCount + " 次 *********************");
 
-        // 判断是否有底部导航栏来区分是否已经回到首页, com.jifen.qukan:id/ij 底部tab容器
-        UiObject2 toolBar = findById("ij");
-        if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
-          closeDialog();
-          toolBar = findById("ij");
-          if (toolBar == null) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 9) {
-              logE("应用可能已经关闭,重新启动");
-              // startAPP();
-              startAPPWithPackageName();
-              continue;
-            } else {
-              logE("退出应用");
-              break;
-            }
-          }
+        // 执行之前的检查操作
+        UiObject2 toolBar = checkInMainPage();
+        if (toolBar == null) {
+          return readCount;
         }
+
         doPlay(toolBar); //播放
       } catch (Exception e) {
         if (e instanceof IllegalStateException) {
@@ -61,10 +63,115 @@ public class QuTouTiaoTest extends BaseTest {
       }
     }
 
-    // 关闭App
-    // closeAPP();
     closeAPPWithPackageName();
     return readCount;
+  }
+
+  /**
+   * 检查是否有指定Tab
+   *
+   * @return {@link UiObject2}
+   */
+  private UiObject2 checkInMainPage() {
+    // 判断是否有底部导航栏来区分是否已经回到首页, com.jifen.qukan:id/ij 底部tab容器
+
+    // 判断是否已经回到首页
+    int restartCount = 0;
+    while (restartCount < 10) {
+      UiObject2 toolBar = findById("ij");
+      if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
+        logE("检查失败,没有[" + "ij" + "]" + restartCount);
+        closeDialog();
+        toolBar = findById("ij");
+        if (toolBar == null) {// 关闭对话框之后再次查找是否已经回到首页
+          restartCount++;
+          logE("应用可能已经关闭,重新启动");
+          startAPPWithPackageName();
+          continue;
+        }
+      }
+      return toolBar;
+    }
+    logE("重启次数" + restartCount + "退出应用");
+    return null;
+  }
+
+  private boolean doCheck() {
+    try {
+      UiObject2 toolBar = checkInMainPage();
+      if (toolBar == null) {
+        return false;
+      }
+      // 如果当前不是文章列表 ,切换到文章列表
+      UiObject2 refresh = toolBar.getChildren().get(0).findObject(By.text("刷新"));
+      if (refresh == null) {
+        toolBar.getChildren().get(0).click();
+        sleep(3);
+        mDevice.waitForIdle(timeOut);
+        logD("切换到文章列表");
+      }
+
+      // com.jifen.qukan:id/wy 评论数id
+      UiObject2 read = findById("aa3");
+      int count = 0;
+      while (count++ < 3 && read == null) {
+        // 向上滚动列表
+        int startY = height / 2;
+        int endY = height / 4;
+        mDevice.swipe(centerX, startY, centerX, endY, 30);
+        logD("没有评论按钮,列表向上滑动文章列表");
+
+        read = findById("aa3");
+      }
+      if (read == null) {
+        logD("没有评论按钮,检查失败");
+        return false;
+      }
+      read.click();
+      sleep(3);
+      mDevice.waitForIdle(timeOut);
+      logD("打开文章,或视频");
+
+      // 文章评论点赞收藏容器的id为 com.jifen.qukan:id/je
+      if (findById("j8", 3) != null || findById("lj") != null) {// 文章页面
+        UiObject2 cicle = findById("acm");
+        if (cicle == null) {
+          pressBack("检测失败,没有那个圆圈圈", true);
+          return false;
+        }
+        cicle.click();
+        logD("切换到分数详情页面");
+
+        // 读取金币值
+        try {
+          List<UiObject2> coin = mDevice.wait(Until.findObjects(By.textContains("金币")), 1000 * 5);
+          UiObject2 allScore = mDevice.wait(Until.findObject(By.textContains("今日阅读总收益")), 1000 * 5);
+          if (coin != null && allScore != null) {
+            for (UiObject2 uiObject2 : coin) {
+              if (Math.abs(uiObject2.getVisibleBounds().bottom - allScore.getVisibleBounds().bottom) < 100) {
+                score = Integer.parseInt(uiObject2.getText().trim().replace("金币", ""));
+                logE("读取金币数量成功:" + score);
+                pressBack("关闭分数详情页面", false);
+                pressBack("关闭打开的文章", false);
+                return true;
+              }
+            }
+          }
+        } catch (Exception e) {
+          logE("读取金币数量失败", e);
+          return false;
+        }
+        // 已经来到分数详情页,退出页面
+        pressBack("关闭分数详情页面", false);
+        pressBack("关闭打开的文章", false);
+        return false;
+      }// 读取金币结束
+      pressBack("读取金币失败,不是文章页面", true);
+      return false;
+    } catch (Exception e) {
+      logE("读取金币数量失败", e);
+      return false;
+    }
   }
 
   /**
@@ -288,7 +395,7 @@ public class QuTouTiaoTest extends BaseTest {
       logE("没有评论文本框");
       return false;
     }
-    contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+    contentText.setText(getComment(random.nextInt(5) + 5)); // 这里使用中文会出现无法填写的情况
     sleep(2); // 等待评论填写完成
     mDevice.waitForIdle(timeOut);
     logD("填写评论内容");
@@ -338,7 +445,7 @@ public class QuTouTiaoTest extends BaseTest {
       logE("没有评论文本框");
       return false;
     }
-    contentText.setText(getComment(new Random().nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
+    contentText.setText(getComment(new Random().nextInt(5) + 5)); // 这里使用中文会出现无法填写的情况
     sleep(2); // 等待内容填写完成
     mDevice.waitForIdle(timeOut);
     logD("填写评论内容");

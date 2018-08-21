@@ -7,6 +7,7 @@ import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import android.widget.Button;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -26,6 +27,7 @@ public class HaoKanShiPinTest extends BaseTest {
   private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
   private int openBaidu = 0;//打开百度
+  private int openQuanMinXiaoShiPin = 0;//打开小视频
   private int shareMomey = 0;//晒收入
   private int checkCount = 0;
 
@@ -42,6 +44,12 @@ public class HaoKanShiPinTest extends BaseTest {
     // 执行之前的检查操作
     while (!doCheck()) {
       if (checkCount++ == 10) return 0;
+    }
+
+    // 如果已经阅读完成,那么随机阅读几篇
+    if (readCount >= 30) {
+      repCount = readCount + random.nextInt(5);
+      logD("阅读已完成,随机阅读几篇" + (repCount - readCount));
     }
 
     // 播放视频(评论,分享)
@@ -64,6 +72,10 @@ public class HaoKanShiPinTest extends BaseTest {
         // 打开百度做任务,最多只执行两次
         if (openBaidu++ <= 1 && openBaidu()) {
           openBaidu++;
+        }
+        // 打开小视频做任务,最多只执行两次
+        if (openQuanMinXiaoShiPin++ <= 1 && openXiaoShiPin()) {
+          openQuanMinXiaoShiPin++;
         }
         // 签到,最多只执行两次
         if ((signCount++ <= 1 && sign())) {
@@ -188,6 +200,8 @@ public class HaoKanShiPinTest extends BaseTest {
       logD("已经[晒收入]次数:" + shareMomey);
       openBaidu = getCount("去百度") == 1 ? 2 : 0;//打开百度 2:已完成,0;未完成
       logD("已经[去百度]次数:" + openBaidu);
+      openQuanMinXiaoShiPin = getCount("去看小视频") == 1 ? 2 : 0;// 打开全民小视频 2:已完成,0;未完成
+      logD("已经[去看小视频]次数:" + openQuanMinXiaoShiPin);
 
       pressBack("检查执行次数完成", false);
       return true;
@@ -329,7 +343,7 @@ public class HaoKanShiPinTest extends BaseTest {
       return false;
     }
     /*"爱奇艺的视频还是不错的,内容很好."*/
-    contentText.setText(getComment(new Random().nextInt(10) + 5));
+    contentText.setText(getComment(new Random().nextInt(5) + 5));
     sleep(2); // 等待文本填写完成
     mDevice.waitForIdle(timeOut);
     logD("填写评论内容");
@@ -519,6 +533,101 @@ public class HaoKanShiPinTest extends BaseTest {
    *
    * @return
    */
+  private boolean openXiaoShiPin() {//com.baidu.minivideo:id/custom_text
+    // 切换到主页面
+    List<UiObject2> tabs = findListById("text");
+    if (tabs == null || tabs.size() == 0) {
+      logE("打开[去看小视频]失败,不在主界面");
+      return false;
+    }
+    Rect rect = tabs.get(0).getVisibleBounds();
+    mDevice.click(centerX, (rect.top + rect.bottom) / 2);
+    sleep(5);
+    mDevice.waitForIdle(timeOut);
+    logD("跳转到签到页面,准备打开[去看小视频]");
+
+    // 检测是否跳转页面
+    UiObject2 title = findById("titlebar_title");
+    if (title == null || !title.getText().contains("做任务")) {
+      pressBack("没有跳转[做任务,领现金]页面,返回[主页]", true);
+      return false;
+    }
+
+    // 向上滑动列表
+    // startY > endY 向上滚动  startY < endY 向下滚动
+    int startY = height * 2 / 3;
+    int endY = height / 10;
+    mDevice.swipe(centerX, startY, centerX, endY, 10);
+    sleep(1);
+    mDevice.waitForIdle(timeOut);
+    logD("向上滑动列表");
+
+    // 打开百度
+    UiObject2 byText = findByText("去看小视频");
+    if (byText == null) {
+      pressBack("没有[去打开]按钮,返回[主页]", true);
+      return false;
+    }
+    UiObject2 open = byText.getParent().getParent().wait(Until.findObject(By.textContains("去打开")), 1000 * 10);
+    if (open == null) {
+      pressBack("没有[去打开]按钮,返回[主页]", true);
+      return false;
+    }
+    open.click();
+    sleep(10);
+    mDevice.waitForIdle(timeOut);
+    logD("点击[去打开]按钮");
+
+    // 检测是否已经到了全民小视频
+    String titleId = "com.baidu.minivideo:id/index_feed_item_cover";
+    UiObject2 baiduTitle = mDevice.wait(Until.findObject(By.res(titleId)), 1000 * 10);
+    if (baiduTitle == null) {
+      closeAPPWithPackageName("com.baidu.minivideo");
+      logE("好像没有打开[全民小视频]");
+      return false;
+    }
+    baiduTitle.click();
+    sleep(3);
+    mDevice.waitForIdle(timeOut);
+    logD("开始播放");
+
+    int count = 0;
+    while (count++ < 3) {
+      // 等待播放
+      sleep(20);
+
+      // 向上滑动列表
+      // startY > endY 向上滚动  startY < endY 向下滚动
+      startY = height * 2 / 3;
+      endY = height / 10;
+      mDevice.swipe(centerX, startY, centerX, endY, 10);
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      logD("向上滑动,播放下一个视频");
+    }
+
+    closeAPPWithPackageName("com.baidu.minivideo");
+    logD("关闭百度APP");
+
+    // 关闭任务页面
+    title = findById("titlebar_title");
+    if (title != null && title.getText().contains("做任务")) {
+      pressBack("关闭任务页面", false);
+    }
+
+    // 返回首页
+    tabs = findListById("text");
+    if (tabs == null || tabs.size() == 0) {
+      pressBack("点击返回按钮,关闭可能打开的对话框", false);
+    }
+    return true;
+  }
+
+  /**
+   * 打开百度
+   *
+   * @return
+   */
   private boolean openBaidu() {
     // 切换到主页面
     List<UiObject2> tabs = findListById("text");
@@ -554,7 +663,7 @@ public class HaoKanShiPinTest extends BaseTest {
       pressBack("没有[去打开]按钮,返回[主页]", true);
       return false;
     }
-    UiObject2 open = byText.wait(Until.findObject(By.textContains("去打开")), 1000 * 10);
+    UiObject2 open = byText.getParent().getParent().wait(Until.findObject(By.textContains("去打开")), 1000 * 10);
     if (open == null) {
       pressBack("没有[去打开]按钮,返回[主页]", true);
       return false;

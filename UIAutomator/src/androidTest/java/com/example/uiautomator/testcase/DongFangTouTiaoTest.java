@@ -2,12 +2,8 @@ package com.example.uiautomator.testcase;
 
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
-import android.support.test.uiautomator.Until;
-import android.util.Log;
 import android.widget.RadioButton;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 东方头条测试 提成较高 1000金币=1元 徒弟阅读提成是徒弟两倍
@@ -16,9 +12,8 @@ import java.util.Random;
 public class DongFangTouTiaoTest extends BaseTest {
 
   private int readCount = 0; // 阅读次数
-  private int commentCount = 0; // 评论次数
-  private int shareCount = 0; // 分享次数
-  private int restartCount = 0;//重启次数
+  private int score = 0; // 已经获得的分数
+  private int checkCount; // 检查次数
 
   public DongFangTouTiaoTest() {
     super();
@@ -28,32 +23,28 @@ public class DongFangTouTiaoTest extends BaseTest {
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
 
-    // 打开app
-    // startAPP();
     startAPPWithPackageName();
+
+    // 执行之前的检查操作
+    while (!doCheck()) {
+      if (checkCount++ == 10) return 0;
+    }
+
+    // 如果已经阅读完成(1000分),那么随机阅读几篇
+    if (score >= 800) {
+      repCount = readCount + random.nextInt(5);
+      logD("阅读已完成,随机阅读几篇" + (repCount - readCount));
+    }
+
     // 执行阅读,播放操作
     while (readCount < repCount) {
       try {
         if (!avliable()) break;
 
         logD("********************* 第 " + readCount + " 次 *********************");
-
-        // 判断是否为首页 视频 任务 我的 都是RadioButton
-        List<UiObject2> radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
-        if (radioButtons == null || radioButtons.size() != 3) {// 如果找不到底部导航栏有可能是有对话框在上面
-          closeDialog();
-          radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
-          if (radioButtons == null || radioButtons.size() != 3) {// 关闭对话框之后再次查找是否已经回到首页
-            if (restartCount++ < 10) {
-              logE("应用可能已经关闭,重新启动");
-              // startAPP();
-              startAPPWithPackageName();
-              continue;
-            } else {
-              logE("退出应用");
-              break;
-            }
-          }
+        List<UiObject2> radioButtons = checkInMainPage();
+        if (radioButtons == null || radioButtons.size() == 0) {
+          return readCount;
         }
         doPlay(radioButtons); // 播放
       } catch (Exception e) {
@@ -65,10 +56,79 @@ public class DongFangTouTiaoTest extends BaseTest {
       }
     }
 
-    // 关闭App
-    // closeAPP();
     closeAPPWithPackageName();
+
     return readCount;
+  }
+
+  /**
+   * 检查是否有指定Tab
+   *
+   * @return {@link UiObject2}
+   */
+  private List<UiObject2> checkInMainPage() {
+    // 判断是否为首页 视频 任务 我的 都是RadioButton
+    // 判断是否已经回到首页
+    int restartCount = 0;
+    while (restartCount < 10) {
+      List<UiObject2> radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
+      if (radioButtons == null || radioButtons.size() != 3) {// 如果找不到底部导航栏有可能是有对话框在上面
+        logE("检查失败,没有[" + "radioButtons" + "]" + restartCount);
+        closeDialog();
+        radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
+        if (radioButtons == null || radioButtons.size() != 3) {// 关闭对话框之后再次查找是否已经回到首页
+          restartCount++;
+          logE("应用可能已经关闭,重新启动");
+          startAPPWithPackageName();
+          continue;
+        }
+      }
+      return radioButtons;
+    }
+    return null;
+  }
+
+  private boolean doCheck() {
+    List<UiObject2> radioButtons = checkInMainPage();
+    if (radioButtons == null || radioButtons.size() == 0) {
+      return false;
+    }
+
+    // 找到视频tab
+    UiObject2 me = null;
+    for (UiObject2 radioButton : radioButtons) {
+      if ("我的".equals(radioButton.getText())) {
+        me = radioButton;
+        break;
+      }
+    }
+    if (me == null) {
+      logE("播放失败,没有找到[我的]Tab");
+      return false;
+    }
+    // 如果当前不是视频列表 ,切换到视频列表
+    if (!me.isChecked()) {
+      me.click();
+      sleep(10);
+      mDevice.waitForIdle(timeOut);
+      logD("切换到[我的]");
+    }
+
+    // 读取分数
+    UiObject2 scoreText = findById("rr");
+    if (scoreText == null) {
+      logE("检查出错,没有分数显示,请检查ID值是否已经变更");
+      return false;
+    }
+    try {
+      String trim = scoreText.getText().trim();
+      score = Integer.parseInt(trim);
+    } catch (Exception e) {
+      logE("检查出错,数值转换错误", e);
+      return false;
+    }
+    logD("读取到的分数为:" + score);
+    return true;
   }
 
   /**
@@ -146,94 +206,6 @@ public class DongFangTouTiaoTest extends BaseTest {
   }
 
   /**
-   * 阅读文章
-   *
-   * @return 成功
-   */
-  private boolean doRead() {
-    // 如果当前不是文章列表 ,切换到文章列表 判断是否有发布按钮
-    if (findByText("发布") == null) {// com.songheng.eastnews:id/nd
-      UiObject2 toolBar = findByText("新闻"); // com.songheng.eastnews:id/l3
-      // 切换到文章列表
-      if (toolBar == null) {
-        logE("阅读失败:没有底部栏");
-        return false;
-      }
-      toolBar.click();
-      sleep(3);
-      mDevice.waitForIdle(timeOut);
-      logD("切换到文章列表");
-    }
-
-    // 向上滚动列表
-    int startY = height / 2;
-    int endY = height / 4;
-    mDevice.swipe(centerX, startY, centerX, endY, 20);
-    logD("列表向上滑动");
-
-    // 打开文章 com.songheng.eastnews:id/pz  标签 (打开不是百度的)
-    int repeat = 0;
-    UiObject2 read = findById("pz");
-    List<String> key = Arrays.asList("百度");
-    while (repeat++ < 4 && (read == null || key.contains(read.getText()))) {
-      logD("阅读失败,没有找到文章");
-      mDevice.swipe(centerX, startY, centerX, endY, 20);
-      sleep(1);
-      mDevice.waitForIdle(timeOut);
-      logD("列表向上滑动,向上滚动查找文章");
-      read = findById("pz");
-    }
-    if (read == null) {
-      logE("阅读失败,没有找到文章,结束本次查找");
-      return false;
-    }
-    read.click();
-    sleep(4);
-    mDevice.waitForIdle(timeOut);
-    logD("打开文章,开始阅读");
-
-    int count = 0;
-    startY = 4 * height / 5;
-    endY = height / 5;
-    while (count++ < 10) {
-      long start = System.currentTimeMillis();
-      mDevice.swipe(centerX, startY, centerX, endY, 100);
-      mDevice.waitForIdle(timeOut);
-
-      if (count == 2) {// 滑动两次之后出现 点击阅读全文 com.songheng.eastnews:id/av_
-        UiObject2 seeAll = findByText("点击阅读全文", 3);
-        if (seeAll != null) {
-          seeAll.click();
-          mDevice.waitForIdle(timeOut);
-          logD("点击阅读全文");
-        }
-        continue;
-      }
-
-      long spend = System.currentTimeMillis() - start; // 滚动花费时间
-      if (spend < 4000) {// 如果时间间隔小于 4 秒
-        sleep(((double) (4000 - spend) / 1000.0));
-      }
-      Log.w(TAG, "滚动花费时间" + spend);
-    }
-    readCount++;
-
-     /* // 发表评论
-      if (commentCount < 2 && commentArticle()) {
-        commentCount++;
-      }
-      // 分享
-      if (shareCount < 10 && shareArticle()) {
-        shareCount++;
-      }*/
-
-    mDevice.pressBack();
-    mDevice.waitForIdle(timeOut);
-    logD("阅读完成,返回首页");
-    return true;
-  }
-
-  /**
    * 关闭对话框
    */
   private void closeDialog() {
@@ -247,226 +219,6 @@ public class DongFangTouTiaoTest extends BaseTest {
         cancel = findByText("取  消", 5);
       }
     }
-  }
-
-  /**
-   * 文章评论
-   *
-   * @return 成功
-   */
-  private boolean commentArticle() {
-    // 1.弹出输入
-    UiObject2 commentBtn = findById("tv_web_comment_hint");
-    if (commentBtn == null) {
-      logE("没有评论文本框");
-      return false;
-    }
-    logD("点击评论文本框,弹出键盘");
-    commentBtn.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-
-    // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
-    UiObject2 contentText = findById("dialog_comment_content");
-    if (contentText == null) {
-      logE("没有评论文本框");
-      return false;
-    }
-    contentText.setText(getComment(random.nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
-    sleep(2); // 等待评论填写完成
-    mDevice.waitForIdle(timeOut);
-    logD("填写评论内容");
-
-    // 3.点击发表评论 com.xiangzi.jukandian:id/dialog_comment_send
-    UiObject2 sendBtn = findById("dialog_comment_send");
-    if (sendBtn == null) {
-      logE("没有发表评论按钮");
-      return false;
-    }
-    sendBtn.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    logD("******发表评论成功!******\n");
-
-    return true;
-  }
-
-  /**
-   * 文章评论
-   *
-   * @return 成功
-   */
-  private boolean commentVideo() {
-    // 1.弹出输入
-    UiObject2 commentBtn = findById("video_detail_bottom_comment_write_text");
-    if (commentBtn == null) {
-      logE("没有评论文本框");
-      return false;
-    }
-    commentBtn.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    logD("点击评论文本框,弹出键盘");
-
-    // 2.输入评论 com.xiangzi.jukandian:id/dialog_comment_content
-    UiObject2 contentText = findById("dialog_comment_content");
-    if (contentText == null) {
-      logE("没有评论文本框");
-      return false;
-    }
-    contentText.setText(getComment(new Random().nextInt(10) + 5)); // 这里使用中文会出现无法填写的情况
-    sleep(2); // 等待内容填写完成
-    mDevice.waitForIdle(timeOut);
-    logD("填写评论内容");
-
-    // 3.点击发表评论 com.xiangzi.jukandian:id/dialog_comment_send
-    UiObject2 sendBtn = findById("dialog_comment_send");
-    if (sendBtn == null) {
-      logE("没有发表评论按钮");
-      return false;
-    }
-    sendBtn.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    logD("******发表评论成功!******\n");
-    return true;
-  }
-
-  /**
-   * 分享
-   */
-  private boolean shareVideo() {
-    // 检测页面是否是阅读页面,阅读页面下面的操作按钮
-    // com.jifen.qukan:id/lw 评论
-    // com.jifen.qukan:id/ji 进入评论列表
-    // com.jifen.qukan:id/jj 进入评论列表
-    // com.jifen.qukan:id/jh 收藏
-    // com.jifen.qukan:id/ls 分享
-    // com.jifen.qukan:id/jf 调整字体
-
-    // 1.弹出分享对话框
-    UiObject2 shareBtn = findById("ls");
-    if (shareBtn == null) {
-      logE("没有分享按钮");
-      return false;
-    }
-    shareBtn.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    logD("点击分享按钮,弹出分享对话框");
-
-    // 2.调取分享到QQ ,此处只能用文本搜索
-    UiObject2 share = findByText("QQ好友");
-    if (share == null) {
-      logE("没有打开QQ分享");
-      return false;
-    }
-    share.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    logD("打开QQ分享");
-
-    // 3.点击发表评论
-    UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
-    if (publish == null) {
-      logE("分享到我的电脑失败");
-      return false;
-    }
-    publish.getParent().click();
-    mDevice.waitForIdle(timeOut);
-    logD("分享到我的电脑");
-
-    // 分享到我的电脑确认
-    UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
-    if (confirm == null) {
-      logE("分享到我的电脑确认失败");
-      return false;
-    }
-    confirm.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    logD("分享到我的电脑确认");
-
-    // 返回
-    UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
-    if (back == null) {
-      logE("没有返回按钮");
-      return false;
-    }
-    back.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    logD("******分享成功返回******");
-
-    return true;
-  }
-
-  /**
-   * 分享
-   */
-  private boolean shareArticle() {
-    // 检测页面是否是阅读页面,阅读页面下面的操作按钮
-    // com.jifen.qukan:id/jk 评论
-    // com.jifen.qukan:id/ji 进入评论列表
-    // com.jifen.qukan:id/jj 进入评论列表
-    // com.jifen.qukan:id/jh 收藏
-    // com.jifen.qukan:id/jg 分享
-    // com.jifen.qukan:id/jf 调整字体
-
-    UiObject2 shareBtn = findById("jg");
-    if (shareBtn == null) {
-      logE("没有分享按钮");
-      return false;
-    }
-    shareBtn.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    logD("点击分享按钮,弹出分享对话框");
-
-    // 2.调取分享到QQ ,此处只能用文本搜索
-    UiObject2 share = findByText("QQ好友");
-    if (share == null) {
-      logE("没有打开QQ分享");
-      return false;
-    }
-    share.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    logD("打开QQ分享");
-
-    // 点击发表评论
-    UiObject2 publish = mDevice.wait(Until.findObject(By.textContains("我的电脑")), 1000 * 10);
-    if (publish == null) {
-      logE("分享到我的电脑失败");
-      return false;
-    }
-    publish.getParent().click();
-    mDevice.waitForIdle(timeOut);
-    logD("分享到我的电脑");
-
-    // 分享到我的电脑确认
-    UiObject2 confirm = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogRightBtn")), 1000 * 10);
-    if (confirm == null) {
-      logE("分享到我的电脑确认失败");
-      return false;
-    }
-    confirm.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    logD("分享到我的电脑确认");
-
-    // 返回
-    UiObject2 back = mDevice.wait(Until.findObject(By.res("com.tencent.mobileqq", "dialogLeftBtn")), 1000 * 10);
-    if (back == null) {
-      logE("没有返回按钮");
-      return false;
-    }
-    back.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    logD("******分享成功返回******");
-
-    return true;
   }
 
   @Override

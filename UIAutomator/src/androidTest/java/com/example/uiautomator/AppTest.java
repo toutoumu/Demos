@@ -106,15 +106,15 @@ public class AppTest {
   public void R6Test() {
     try {
       int i = 0;
-      Random random = new Random();
-      new JinRiTouTiaoTest().start(0); //今日头条
-      new AiQiYiTest().start(0); // 爱奇艺
       while (i++ < 4) {
-        new JuKanDianTest().start(30 + random.nextInt(10));// 聚看点
-        // new DongFangTouTiaoTest().start(30 + random.nextInt(10)); // 东方头条
+        Random random = new Random();
+        new HaoKanShiPinTest().start(20);//30
+        new JinRiTouTiaoTest().start(14); //10
+        new AiQiYiTest().start(14); //20
+        new JuKanDianTest().start(30 + random.nextInt(10));//200
+        new DongFangTouTiaoTest().start(30 + random.nextInt(10)); //1000
         new QuTouTiaoTest().start(30 + random.nextInt(10)); // 趣头条(汇率低)
       }
-      new HaoKanShiPinTest().start(33);
     } catch (Exception e) {
       Log.e(TAG, "出错了", e);
     }
