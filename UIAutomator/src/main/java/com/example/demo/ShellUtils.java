@@ -1,4 +1,4 @@
-package com.example.uiautomator;
+package com.example.demo;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

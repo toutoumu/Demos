@@ -4,7 +4,7 @@
 //include ':GlideV3'
 //include ':GlideV4'
 //include ':RxJava1'
-//include ':ImageSelector'
+include ':ImageSelector'
 //include ':Kotlin'
 //include ':Animation'
 //include ':BlueTooth'

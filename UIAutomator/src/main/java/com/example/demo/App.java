@@ -1,4 +1,4 @@
-package com.example.uiautomator;
+package com.example.demo;
 
 import android.app.Application;
 import timber.log.Timber;

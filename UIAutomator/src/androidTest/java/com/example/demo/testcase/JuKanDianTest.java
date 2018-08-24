@@ -1,4 +1,4 @@
-package com.example.uiautomator.testcase;
+package com.example.demo.testcase;
 
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
@@ -33,9 +33,6 @@ public class JuKanDianTest extends BaseTest {
   @Override
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
-
-    // 打开app
-    startAPPWithPackageName();
 
     // 执行之前的检查操作
     while (!doCheck()) {
@@ -141,8 +138,10 @@ public class JuKanDianTest extends BaseTest {
    *
    * @return
    */
-  private boolean doCheck() {
+  public boolean doCheck() {
     try {
+      startAPPWithPackageName();
+
       // 切换到文章列表
       UiObject2 toolBar = checkInMainPage("tv_tab1");
       if (toolBar == null) return false;
@@ -323,7 +322,7 @@ public class JuKanDianTest extends BaseTest {
         mDevice.waitForIdle(timeOut);
       }
 
-      logD("播放完成,返回首页\n");
+      logD("播放完成,返回首页\n:");
     } else {
       pressBack("返回首页:打开的不是视频页面\n", true);
     }

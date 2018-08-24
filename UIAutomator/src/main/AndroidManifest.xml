@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.uiautomator">
+    package="com.example.demo">
 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -21,6 +21,18 @@
       </intent-filter>
     </activity>
 
+    <service
+        android:name=".MessageService"
+        android:enabled="true"
+        android:exported="true"
+        android:process=":wokd">
+      <intent-filter>
+        <action android:name="android.intent.action.MessageService"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </service>
+
+    <!--android:process=":mymessageservice"-->
   </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.uiautomator.testcase;
+package com.example.demo.testcase;
 
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
@@ -27,15 +27,13 @@ public class QuTouTiaoTest extends BaseTest {
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
 
-    startAPPWithPackageName();
-
     // 执行之前的检查操作
     while (!doCheck()) {
       if (checkCount++ == 10) return 0;
     }
 
     // 如果已经阅读(300分)完成,那么随机阅读几篇
-    if (score >= 350) {
+    if (score >= 300) {
       repCount = readCount + random.nextInt(5);
       logD("阅读已完成,随机阅读几篇" + (repCount - readCount));
     }
@@ -96,8 +94,10 @@ public class QuTouTiaoTest extends BaseTest {
     return null;
   }
 
-  private boolean doCheck() {
+  public boolean doCheck() {
     try {
+      startAPPWithPackageName();
+
       UiObject2 toolBar = checkInMainPage();
       if (toolBar == null) {
         return false;
@@ -144,16 +144,19 @@ public class QuTouTiaoTest extends BaseTest {
 
         // 读取金币值
         try {
-          List<UiObject2> coin = mDevice.wait(Until.findObjects(By.textContains("金币")), 1000 * 5);
           UiObject2 allScore = mDevice.wait(Until.findObject(By.textContains("今日阅读总收益")), 1000 * 5);
-          if (coin != null && allScore != null) {
-            for (UiObject2 uiObject2 : coin) {
-              if (Math.abs(uiObject2.getVisibleBounds().bottom - allScore.getVisibleBounds().bottom) < 100) {
-                score = Integer.parseInt(uiObject2.getText().trim().replace("金币", ""));
-                logE("读取金币数量成功:" + score);
-                pressBack("关闭分数详情页面", false);
-                pressBack("关闭打开的文章", false);
-                return true;
+          if (allScore != null) {
+            int bottom = allScore.getVisibleBounds().bottom;
+            List<UiObject2> coin = mDevice.wait(Until.findObjects(By.textContains("金币")), 1000 * 5);
+            if (coin != null) {
+              for (UiObject2 uiObject2 : coin) {
+                if (Math.abs(uiObject2.getVisibleBounds().bottom - bottom) < 100) {
+                  score = Integer.parseInt(uiObject2.getText().trim().replace("金币", ""));
+                  logE("读取金币数量成功:" + score);
+                  pressBack("关闭分数详情页面", false);
+                  pressBack("关闭打开的文章", false);
+                  return true;
+                }
               }
             }
           }
@@ -304,42 +307,6 @@ public class QuTouTiaoTest extends BaseTest {
     readCount++;
     logD("播放完成\n");
 
-    /* *********以下代码是点击视频跳转到页面进行播放******* */
-
-    // // com.jifen.qukan:id/a0x 评论数控件ID
-    // UiObject2 play = findById("a0x");
-    // if (play == null) {
-    //   logD( "播放失败:没有播放按钮");
-    //   return false;
-    // }
-    // play.click();
-    // sleep(3);
-    // mDevice.waitForIdle(timeOut);
-    // logD( "打开视频");
-    //
-    // // 视频评论点赞收藏容器的id为 com.jifen.qukan:id/lq
-    // if (findById("lq", 3) != null) {// 视频页面
-    //   logD( ",打开视频开始播放");
-    //   sleep(35 + random.nextInt(10));
-    //   readCount++;
-    //
-    //   // 发表评论
-    //   /*if (commentCount < 10 && commentVideo()) {
-    //     commentCount++;
-    //   }
-    //   // 分享
-    //   if (shareCount < 10 && shareVideo()) {
-    //     shareCount++;
-    //   }*/
-    //
-    //   mDevice.pressBack();
-    //   mDevice.waitForIdle(timeOut);
-    //   logD( "播放完成,返回首页");
-    // } else {
-    //   mDevice.pressBack();
-    //   mDevice.waitForIdle(timeOut);
-    //   logD( "返回首页:不是视频页面");
-    // }
     return true;
   }
 

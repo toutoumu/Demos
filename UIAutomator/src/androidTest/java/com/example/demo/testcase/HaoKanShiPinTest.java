@@ -1,17 +1,11 @@
-package com.example.uiautomator.testcase;
+package com.example.demo.testcase;
 
 import android.graphics.Rect;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
-import android.support.test.uiautomator.UiScrollable;
-import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
-import android.widget.Button;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 爱奇艺测试 1000金币=1元 提现20元起 每日最高领取400金币, 徒弟阅读一次贡献5金币 最多一百金币
@@ -23,8 +17,6 @@ public class HaoKanShiPinTest extends BaseTest {
   // 次数统计
   private int signCount = 0; // 签到调用次数
   private int readCount = 0; // 阅读次数
-  private int followCount = 0; // 关注调用次数
-  private int commentCount = 0; // 评论次数
   private int shareCount = 0; // 分享次数
   private int openBaidu = 0;//打开百度
   private int openQuanMinXiaoShiPin = 0;//打开小视频
@@ -39,8 +31,6 @@ public class HaoKanShiPinTest extends BaseTest {
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
 
-    startAPPWithPackageName();
-
     // 执行之前的检查操作
     while (!doCheck()) {
       if (checkCount++ == 10) return 0;
@@ -49,7 +39,7 @@ public class HaoKanShiPinTest extends BaseTest {
     // 如果已经阅读完成,那么随机阅读几篇
     if (readCount >= 30) {
       repCount = readCount + random.nextInt(5);
-      logD("阅读已完成,随机阅读几篇" + (repCount - readCount));
+      logD("阅读已完成,随机阅读几篇:" + (repCount - readCount));
     }
 
     // 播放视频(评论,分享)
@@ -60,7 +50,7 @@ public class HaoKanShiPinTest extends BaseTest {
         logD("********************* 第 " + readCount + " 次 *********************");
 
         // 判断是否已经回到首页
-        List<UiObject2> tabs = checkInMainPage("text");
+        List<UiObject2> tabs = checkInMainPage();
         if (tabs == null || tabs.size() == 0) {
           return readCount;
         }
@@ -74,9 +64,9 @@ public class HaoKanShiPinTest extends BaseTest {
           openBaidu++;
         }
         // 打开小视频做任务,最多只执行两次
-        if (openQuanMinXiaoShiPin++ <= 1 && openXiaoShiPin()) {
+        /*if (openQuanMinXiaoShiPin++ <= 1 && openXiaoShiPin()) {
           openQuanMinXiaoShiPin++;
-        }
+        }*/
         // 签到,最多只执行两次
         if ((signCount++ <= 1 && sign())) {
           signCount++;
@@ -100,34 +90,34 @@ public class HaoKanShiPinTest extends BaseTest {
     }
 
     // 关闭应用
-    // closeAPP();
     closeAPPWithPackageName();
     return readCount;
   }
 
   /**
-   * 检查是否有指定Tab
+   * 检查是否有底部导航栏,来判断是否回到首页
    *
-   * @param tabID tabID text
    * @return {@link UiObject2}
    */
-  private List<UiObject2> checkInMainPage(String tabID) {
+  private List<UiObject2> checkInMainPage() {
     // 判断是否已经回到首页
+    logD("判断是否已经回到首页");
     int restartCount = 0;
     while (restartCount < 10) {
-      List<UiObject2> tab = findListById(tabID);
-      if (tab == null || tab.size() == 0) {// 如果找不到底部导航栏有可能是有对话框在上面
-        logE("检查失败,没有[" + tabID + "]" + restartCount);
+      List<UiObject2> tabs = findListById("text");// 底部导航栏ID为Text
+      if (tabs == null || tabs.size() == 0) {// 如果找不到底部导航栏有可能是有对话框在上面
+        logE("检查失败,没有[底部导航栏]:" + restartCount);
         closeDialog();
-        tab = findListById(tabID);
-        if (tab == null || tab.size() == 0) {// 关闭对话框之后再次查找是否已经回到首页
+        tabs = findListById("text");
+        if (tabs == null || tabs.size() == 0) {// 关闭对话框之后再次查找是否已经回到首页
           restartCount++;
           logE("应用可能已经关闭,重新启动");
           startAPPWithPackageName();
           continue;
         }
       }
-      return tab;
+      logD("当前已经在首页");
+      return tabs;
     }
     logE("重启次数" + restartCount + "退出应用");
     return null;
@@ -154,10 +144,11 @@ public class HaoKanShiPinTest extends BaseTest {
   /**
    * 检查各项的执行情况并赋值
    */
-  private boolean doCheck() {
+  public boolean doCheck() {
     try {
+      startAPPWithPackageName();
       // 检测是否已经回到主界面
-      List<UiObject2> tabs = checkInMainPage("text");
+      List<UiObject2> tabs = checkInMainPage();
       if (tabs == null || tabs.size() == 0) {
         return false;
       }
@@ -200,8 +191,8 @@ public class HaoKanShiPinTest extends BaseTest {
       logD("已经[晒收入]次数:" + shareMomey);
       openBaidu = getCount("去百度") == 1 ? 2 : 0;//打开百度 2:已完成,0;未完成
       logD("已经[去百度]次数:" + openBaidu);
-      openQuanMinXiaoShiPin = getCount("去看小视频") == 1 ? 2 : 0;// 打开全民小视频 2:已完成,0;未完成
-      logD("已经[去看小视频]次数:" + openQuanMinXiaoShiPin);
+      // openQuanMinXiaoShiPin = getCount("去看小视频") == 1 ? 2 : 0;// 打开全民小视频 2:已完成,0;未完成
+      // logD("已经[去看小视频]次数:" + openQuanMinXiaoShiPin);
 
       pressBack("检查执行次数完成", false);
       return true;
@@ -215,39 +206,14 @@ public class HaoKanShiPinTest extends BaseTest {
    * 关闭对话框
    */
   private void closeDialog() {
+    logD("尝试关闭对话框");
+    // 检测是否是停留在了 [做任务,领现金] 页面
+    UiObject2 title = findById("titlebar_title", 3);
+    if (title != null && title.getText().contains("做任务")) {
+      pressBack("关闭[做任务,领现金]页面,返回[主页]", true);
+      return;
+    }
     pressBack("关闭对话框", true);
-  }
-
-  /**
-   * 关注 确保当前是播放页面才可以
-   */
-  private boolean follow() {
-    // 跳转用户详情
-    UiObject2 icon = findById("user_icon_url");
-    if (icon == null) {
-      mDevice.waitForIdle(timeOut);
-      logE("没有可关注的用户");
-      return false;
-    }
-    icon.click();
-    sleep(5);
-    mDevice.waitForIdle(timeOut);
-    logD("点击评论用户的头像,跳转用户详情页面");
-
-    UiObject2 follow = findById("user_center_follow_subscribe_view");
-    if (follow == null || "已关注".equals(follow.getText())) {
-      mDevice.waitForIdle(timeOut);
-      logE("这个用户已经关注,不可以再关注");
-      return false;
-    }
-    follow.click();
-    sleep(2);
-    mDevice.waitForIdle(timeOut);
-    logD("点击关注关注用户");
-
-    // 返回
-    pressBack("返回播放页面", false);
-    return true;
   }
 
   /**
@@ -322,56 +288,15 @@ public class HaoKanShiPinTest extends BaseTest {
   }
 
   /**
-   * 发表评论
-   */
-  private boolean comment() {
-    // 点击输入评论文本框 com.iqiyi.news:id/input_click
-    UiObject2 commentBtn = findById("input_click");
-    if (commentBtn == null) {
-      logE("没有评论按钮");
-      return false;
-    }
-    commentBtn.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    logD("点击评论按钮");
-
-    // 输入评论 com.iqiyi.news:id/input_edit_text
-    UiObject2 contentText = findById("input_edit_text");
-    if (contentText == null) {
-      logE("没有评论文本框");
-      return false;
-    }
-    /*"爱奇艺的视频还是不错的,内容很好."*/
-    contentText.setText(getComment(new Random().nextInt(5) + 5));
-    sleep(2); // 等待文本填写完成
-    mDevice.waitForIdle(timeOut);
-    logD("填写评论内容");
-
-    // 点击发表评论
-    UiObject2 sendBtn = findById("send_btn");
-    if (sendBtn == null) {
-      logE("没有发表评论按钮");
-      return false;
-    }
-    sendBtn.click();
-    sleep(3);
-    mDevice.waitForIdle(timeOut);
-    logD("点击发送,发表评论");
-
-    return true;
-  }
-
-  /**
    * 分享
    *
-   * @param listItem
+   * @param listItem ListView的子项
    */
   private boolean share(UiObject2 listItem) {
     // 分享按钮ID share_img
     UiObject2 shareBtn = listItem.wait(Until.findObject(By.res("com.baidu.haokan:id/more_img")), 1000 * 10);
     if (shareBtn == null) {
-      logE("没有分享按钮");
+      logE("分享视频,没有分享按钮");
       return false;
     }
     shareBtn.click();
@@ -583,7 +508,12 @@ public class HaoKanShiPinTest extends BaseTest {
     UiObject2 baiduTitle = mDevice.wait(Until.findObject(By.res(titleId)), 1000 * 10);
     if (baiduTitle == null) {
       closeAPPWithPackageName("com.baidu.minivideo");
-      logE("好像没有打开[全民小视频]");
+
+      // 检查是否是在 做任务,领现金 页面
+      title = findById("titlebar_title");
+      if (title != null && title.getText().contains("做任务")) {
+        pressBack("好像没有打开[全民小视频],关闭[任务页面]", true);
+      }
       return false;
     }
     baiduTitle.click();

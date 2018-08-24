@@ -1,4 +1,4 @@
-package com.example.uiautomator.testcase;
+package com.example.demo.testcase;
 
 import android.graphics.Rect;
 import android.support.test.uiautomator.By;
@@ -28,8 +28,6 @@ public class JinRiTouTiaoTest extends BaseTest {
   @Override
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
-    // 打开app
-    startAPPWithPackageName();
 
     // 执行之前的检查操作
     while (!doCheck()) {
@@ -71,86 +69,92 @@ public class JinRiTouTiaoTest extends BaseTest {
     return readCount;
   }
 
-  private boolean doCheck() {
-    UiObject2 toolBar = checkInMainPage();
-    // 切换到文章列表
-    if (toolBar == null || toolBar.getChildren().size() == 0) {
-      logE("检查失败:没有底部栏");
-      return false;
-    }
-    // 如果当前不是文章列表 ,切换到任务列表
-    UiObject2 mainTab = toolBar.getChildren().get(3);
-    if (mainTab != null && !mainTab.isSelected()) {
-      mainTab.click();
-      sleep(5);
-      mDevice.waitForIdle(timeOut);
-      logD("切换到任务列表");
-    }
+  public boolean doCheck() {
+    try {
+      startAPPWithPackageName();
 
-    // 签到
-    UiObject2 sign = findByText("已签到");
-    if (sign != null) {
-      logE("已经签到");
-    } else {
-      sign = findByText("签到");
+      UiObject2 toolBar = checkInMainPage();
+      // 切换到文章列表
+      if (toolBar == null || toolBar.getChildren().size() == 0) {
+        logE("检查失败:没有底部栏");
+        return false;
+      }
+      // 如果当前不是文章列表 ,切换到任务列表
+      UiObject2 mainTab = toolBar.getChildren().get(3);
+      if (mainTab != null && !mainTab.isSelected()) {
+        mainTab.click();
+        sleep(5);
+        mDevice.waitForIdle(timeOut);
+        logD("切换到任务列表");
+      }
+
+      // 签到
+      UiObject2 sign = findByText("已签到");
       if (sign != null) {
-        logE("未签到");
-      }
-      // signCount =2;
-    }
-
-    // 向上滚动列表 滚动距离 height / 3
-    int startY = height / 2;
-    int endY = height / 6;
-    mDevice.swipe(centerX, startY, centerX, endY, 10);
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    logD("列表向上滑动");
-
-    // 查看阅读次数
-    UiObject2 read = findByText("认真阅读文章或视频");
-    if (read != null) {
-      read = read.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
-      if (read != null) {
-        readCount = 10;
-        logE("阅读已完成次数" + readCount + "/10");
+        logE("已经签到");
       } else {
-        logE("阅读未完成");
+        sign = findByText("签到");
+        if (sign != null) {
+          logE("未签到");
+        }
+        // signCount =2;
       }
-    } else {
-      logE("检查失败,[认真阅读文章或视频]未找到");
-      return false;
-    }
 
-    // 查看分享次数
-    UiObject2 share = findByText("分享文章或视频");
-    if (share != null) {
-      share = share.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
-      if (share != null) {
-        shareCount = 3;
-        logE("分享已完成次数" + shareCount + "/3");
-      } else {
-        logE("分享未完成");
-      }
-    } else {
-      logE("检查失败,[分享文章或视频]未找到");
-      return false;
-    }
+      // 向上滚动列表 滚动距离 height / 3
+      int startY = height / 2;
+      int endY = height / 6;
+      mDevice.swipe(centerX, startY, centerX, endY, 10);
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      logD("列表向上滑动");
 
-    // 查看分享次数
-    UiObject2 shareMoney = findByText("晒收入");
-    if (shareMoney != null) {
-      shareMoney = shareMoney.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
+      // 查看分享次数
+      UiObject2 shareMoney = findByText("晒收入");
       if (shareMoney != null) {
-        logE("晒收入已完成");
+        shareMoney = shareMoney.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
+        if (shareMoney != null) {
+          logE("晒收入已完成");
+        } else {
+          logE("晒收入未完成");
+        }
       } else {
-        logE("晒收入未完成");
+        logE("检查失败,[晒收入]未找到");
       }
-    } else {
-      logE("检查失败,[晒收入]未找到");
-    }
 
-    return true;
+      // 查看阅读次数
+      UiObject2 read = findByText("认真阅读文章或视频");
+      if (read != null) {
+        read = read.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
+        if (read != null) {
+          readCount = 10;
+          logE("阅读已完成次数" + readCount + "/10");
+        } else {
+          logE("阅读未完成");
+        }
+      } else {
+        logE("检查失败,[认真阅读文章或视频]未找到");
+        return false;
+      }
+
+      // 查看分享次数
+      UiObject2 share = findByText("分享文章或视频");
+      if (share != null) {
+        share = share.getParent().wait(Until.findObject(By.textContains("已完成")), 1000 * 5);
+        if (share != null) {
+          shareCount = 3;
+          logE("分享已完成次数" + shareCount + "/3");
+        } else {
+          logE("分享未完成");
+        }
+      } else {
+        logE("检查失败,[分享文章或视频]未找到");
+        return false;
+      }
+      return true;
+    } catch (Exception e) {
+      logE("检查出错了", e);
+      return false;
+    }
   }
 
   private UiObject2 checkInMainPage() {

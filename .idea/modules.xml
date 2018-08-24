@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Demos.iml" filepath="$PROJECT_DIR$/Demos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ImageSelector/ImageSelector.iml" filepath="$PROJECT_DIR$/ImageSelector/ImageSelector.iml" />
       <module fileurl="file://$PROJECT_DIR$/UIAutomator/UIAutomator.iml" filepath="$PROJECT_DIR$/UIAutomator/UIAutomator.iml" />
     </modules>
   </component>

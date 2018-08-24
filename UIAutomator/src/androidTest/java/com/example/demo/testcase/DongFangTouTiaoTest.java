@@ -1,4 +1,4 @@
-package com.example.uiautomator.testcase;
+package com.example.demo.testcase;
 
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
@@ -22,8 +22,6 @@ public class DongFangTouTiaoTest extends BaseTest {
   @Override
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
-
-    startAPPWithPackageName();
 
     // 执行之前的检查操作
     while (!doCheck()) {
@@ -61,6 +59,57 @@ public class DongFangTouTiaoTest extends BaseTest {
     return readCount;
   }
 
+  @Override
+  public boolean doCheck() {
+    try {
+      startAPPWithPackageName();
+
+      List<UiObject2> radioButtons = checkInMainPage();
+      if (radioButtons == null || radioButtons.size() == 0) {
+        return false;
+      }
+
+      // 找到视频tab
+      UiObject2 me = null;
+      for (UiObject2 radioButton : radioButtons) {
+        if ("我的".equals(radioButton.getText())) {
+          me = radioButton;
+          break;
+        }
+      }
+      if (me == null) {
+        logE("播放失败,没有找到[我的]Tab");
+        return false;
+      }
+      // 如果当前不是视频列表 ,切换到视频列表
+      if (!me.isChecked()) {
+        me.click();
+        sleep(10);
+        mDevice.waitForIdle(timeOut);
+        logD("切换到[我的]");
+      }
+
+      // 读取分数
+      UiObject2 scoreText = findById("rr");
+      if (scoreText == null) {
+        logE("检查出错,没有分数显示,请检查ID值是否已经变更");
+        return false;
+      }
+      try {
+        String trim = scoreText.getText().trim();
+        score = Integer.parseInt(trim);
+      } catch (Exception e) {
+        logE("检查出错,数值转换错误", e);
+        return false;
+      }
+      logD("读取到的分数为:" + score);
+      return true;
+    } catch (Exception e) {
+      logE("检查失败", e);
+      return false;
+    }
+  }
+
   /**
    * 检查是否有指定Tab
    *
@@ -86,49 +135,6 @@ public class DongFangTouTiaoTest extends BaseTest {
       return radioButtons;
     }
     return null;
-  }
-
-  private boolean doCheck() {
-    List<UiObject2> radioButtons = checkInMainPage();
-    if (radioButtons == null || radioButtons.size() == 0) {
-      return false;
-    }
-
-    // 找到视频tab
-    UiObject2 me = null;
-    for (UiObject2 radioButton : radioButtons) {
-      if ("我的".equals(radioButton.getText())) {
-        me = radioButton;
-        break;
-      }
-    }
-    if (me == null) {
-      logE("播放失败,没有找到[我的]Tab");
-      return false;
-    }
-    // 如果当前不是视频列表 ,切换到视频列表
-    if (!me.isChecked()) {
-      me.click();
-      sleep(10);
-      mDevice.waitForIdle(timeOut);
-      logD("切换到[我的]");
-    }
-
-    // 读取分数
-    UiObject2 scoreText = findById("rr");
-    if (scoreText == null) {
-      logE("检查出错,没有分数显示,请检查ID值是否已经变更");
-      return false;
-    }
-    try {
-      String trim = scoreText.getText().trim();
-      score = Integer.parseInt(trim);
-    } catch (Exception e) {
-      logE("检查出错,数值转换错误", e);
-      return false;
-    }
-    logD("读取到的分数为:" + score);
-    return true;
   }
 
   /**
@@ -200,7 +206,7 @@ public class DongFangTouTiaoTest extends BaseTest {
     } else {
       mDevice.pressBack();
       mDevice.waitForIdle(timeOut);
-      logD("返回首页:打开的不是视频页面\n:");
+      logE("返回首页:打开的不是视频页面\n:");
     }
     return true;
   }

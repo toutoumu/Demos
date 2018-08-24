@@ -1,4 +1,4 @@
-package com.example.uiautomator.testcase;
+package com.example.demo.testcase;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.support.test.uiautomator.Until;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.uiautomator.testcase.log.LogUtil;
+import com.example.demo.testcase.log.LogUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -61,9 +61,9 @@ public abstract class BaseTest {
   }
 
   /**
-   * 分享到QQ空间
+   * 分享到QQ空间,右上角有 [发布] 二字的QQ空间分享
    *
-   * @param share
+   * @param share 这个按钮点击之后是打开QQ的分享页面了
    * @return
    */
   public boolean qqZoneShare(UiObject2 share) {
@@ -122,6 +122,7 @@ public abstract class BaseTest {
       return false;
     }
     confirm.click();
+    sleep(2);
     mDevice.waitForIdle(timeOut);
     logD("分享到[我的电脑]确认");
 
@@ -154,7 +155,20 @@ public abstract class BaseTest {
     }
   }
 
+  /**
+   * 从这里开始执行
+   *
+   * @param count 执行次数
+   * @return
+   */
   abstract public int start(int count);
+
+  /**
+   * 执行检查,启动App,读取任务完成情况
+   *
+   * @return 是否成功
+   */
+  abstract public boolean doCheck();
 
   /**
    * @return app名称 如: 微信

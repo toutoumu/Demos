@@ -1,4 +1,4 @@
-package com.example.uiautomator.testcase.log;
+package com.example.demo.testcase.log;
 
 import android.os.Environment;
 import de.mindpipe.android.logging.log4j.LogConfigurator;

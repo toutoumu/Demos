@@ -1,4 +1,4 @@
-package com.example.uiautomator.testcase;
+package com.example.demo.testcase;
 
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
@@ -31,8 +31,6 @@ public class AiQiYiTest extends BaseTest {
   @Override
   public int start(int repCount) {
     if (repCount == 0 || !avliable()) return 0;
-
-    startAPPWithPackageName();
 
     // 执行之前的检查操作
     while (!doCheck()) {
@@ -150,8 +148,10 @@ public class AiQiYiTest extends BaseTest {
   /**
    * 检查各项的执行情况并赋值
    */
-  private boolean doCheck() {
+  public boolean doCheck() {
     try {
+      startAPPWithPackageName();
+
       // 检查是否在首页,并切换到 [我}tab
       UiObject2 tab = checkInMainPage("tabMe");
       if (tab == null) return false;
@@ -194,13 +194,13 @@ public class AiQiYiTest extends BaseTest {
       logD("向上滑动页面使得,任务明细那里显示出来");
 
       readCount = getCount("浏览内容30s及以上得");
-      logD("已经[阅读]次数:" + readCount);
+      logD("已经[阅读]次数:" + readCount + "/20");
       commentCount = getCount("发布一条评论可得");
-      logD("已经[评论]次数:" + commentCount);
+      logD("已经[评论]次数:" + commentCount + "/3");
       shareCount = getCount("分享一条内容可得");
-      logD("已经[分享]次数:" + shareCount);
+      logD("已经[分享]次数:" + shareCount + "/3");
       followCount = getCount("成功关注一个爱奇艺号得");
-      logD("已经[关注]次数:" + followCount);
+      logD("已经[关注]次数:" + followCount + "/3");
 
       // 返回首页
       pressBack("检查成功,返回首页", false);
