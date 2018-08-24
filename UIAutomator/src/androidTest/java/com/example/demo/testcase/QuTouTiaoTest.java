@@ -76,6 +76,7 @@ public class QuTouTiaoTest extends BaseTest {
     // 判断是否已经回到首页
     int restartCount = 0;
     while (restartCount < 10) {
+      if (!avliable()) return null;
       UiObject2 toolBar = findById("ij");
       if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
         logE("检查失败,没有[" + "ij" + "]" + restartCount);
@@ -95,6 +96,7 @@ public class QuTouTiaoTest extends BaseTest {
   }
 
   public boolean doCheck() {
+    if (!avliable()) return false;
     try {
       startAPPWithPackageName();
 

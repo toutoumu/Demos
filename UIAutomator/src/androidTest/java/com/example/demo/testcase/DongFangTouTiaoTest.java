@@ -61,6 +61,7 @@ public class DongFangTouTiaoTest extends BaseTest {
 
   @Override
   public boolean doCheck() {
+    if (!avliable()) return false;
     try {
       startAPPWithPackageName();
 
@@ -120,6 +121,7 @@ public class DongFangTouTiaoTest extends BaseTest {
     // 判断是否已经回到首页
     int restartCount = 0;
     while (restartCount < 10) {
+      if (!avliable()) return null;
       List<UiObject2> radioButtons = mDevice.findObjects(By.clazz(RadioButton.class));
       if (radioButtons == null || radioButtons.size() != 3) {// 如果找不到底部导航栏有可能是有对话框在上面
         logE("检查失败,没有[" + "radioButtons" + "]" + restartCount);

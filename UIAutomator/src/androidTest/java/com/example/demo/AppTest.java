@@ -16,7 +16,9 @@ import android.util.Log;
 import com.example.demo.testcase.AiQiYiTest;
 import com.example.demo.testcase.BaseTest;
 import com.example.demo.testcase.DongFangTouTiaoTest;
+import com.example.demo.testcase.HaHaShiPinTest;
 import com.example.demo.testcase.HaoKanShiPinTest;
+import com.example.demo.testcase.HuoNiuPinTest;
 import com.example.demo.testcase.JinRiTouTiaoTest;
 import com.example.demo.testcase.JuKanDianTest;
 import com.example.demo.testcase.QuTouTiaoTest;
@@ -101,7 +103,7 @@ public class AppTest {
       } catch (Exception e) {
         log.e("聚看点出错了", e);
       }
-      try {
+      /*try {
         int qutoutiao = Integer.parseInt(a.getString("qutoutiao"));
         log.d("************************趣头条循环次数:" + qutoutiao + "************************");
         QuTouTiaoTest quTouTiaoTest = new QuTouTiaoTest();
@@ -110,16 +112,26 @@ public class AppTest {
         log.d("************************趣头条实际循环次数:" + qutoutiao + "************************");
       } catch (Exception e) {
         log.e("趣头条出错了", e);
-      }
+      }*/
       try {
         int zhongqingkandian = Integer.parseInt(a.getString("zhongqingkandian"));
         log.d("************************中青看点循环次数:" + zhongqingkandian + "************************");
-        ZhongQingKanDianTest quTouTiaoTest = new ZhongQingKanDianTest();
-        // tests.add(quTouTiaoTest);
-        zhongqingkandian = quTouTiaoTest.start(zhongqingkandian);
+        ZhongQingKanDianTest zhongQingKanDianTest = new ZhongQingKanDianTest();
+        // tests.add(zhongQingKanDianTest);
+        zhongqingkandian = zhongQingKanDianTest.start(zhongqingkandian);
         log.d("************************中青看点实际循环次数:" + zhongqingkandian + "************************");
       } catch (Exception e) {
         log.e("中青看点出错了", e);
+      }
+      try {
+        int hahashipin = Integer.parseInt(a.getString("hahashipin"));
+        log.d("************************haha视频循环次数:" + hahashipin + "************************");
+        HaHaShiPinTest haShiPinTest = new HaHaShiPinTest();
+        // tests.add(haShiPinTest);
+        hahashipin = haShiPinTest.start(hahashipin);
+        log.d("************************haha视频实际循环次数:" + hahashipin + "************************");
+      } catch (Exception e) {
+        log.e("haha视频出错了", e);
       }
     }
 
@@ -150,8 +162,9 @@ public class AppTest {
         new AiQiYiTest().start(25); //20
         new JinRiTouTiaoTest().start(15); //10
         new JuKanDianTest().start(40 + random.nextInt(10));//200
+        new HuoNiuPinTest().start(100);
         new DongFangTouTiaoTest().start(50 + random.nextInt(10)); //1000
-        new QuTouTiaoTest().start(50 + random.nextInt(10)); // 趣头条(汇率低)
+        // new QuTouTiaoTest().start(50 + random.nextInt(10)); // 趣头条(汇率低)
       }
     } catch (Exception e) {
       Log.e(TAG, "出错了", e);
@@ -199,14 +212,6 @@ public class AppTest {
   }
 
   /**
-   * 趣头条测试 提成最低
-   */
-  @Test
-  public void quTouTiaoTest() {
-    new QuTouTiaoTest().start(200);
-  }
-
-  /**
    * 全民小视频测试
    */
   @Test
@@ -222,59 +227,26 @@ public class AppTest {
     new ZhongQingKanDianTest().start(100);
   }
 
+  /**
+   * 哈哈视频测试
+   */
   @Test
-  public void testa() {
-    IMessageServer[] greetService = new IMessageServer[1];
-    ServiceConnection conn = new ServiceConnection() {
-      @Override
-      public void onServiceConnected(ComponentName name, IBinder service) {
-        Log.i("ServiceConnection", "onServiceConnected() called");
-        greetService[0] = IMessageServer.Stub.asInterface(service);
-      }
-
-      @Override
-      public void onServiceDisconnected(ComponentName name) {
-        //This is called when the connection with the service has been unexpectedly disconnected,
-        //that is, its process crashed. Because it is running in our same process, we should never see this happen.
-        Log.i("ServiceConnection", "onServiceDisconnected() called");
-      }
-    };
-    Context context = InstrumentationRegistry.getInstrumentation().getContext();
-    Intent intent = new Intent("android.intent.action.MessageService");
-    // intent.setClassName("com.example.uiautomator", MessageService.class.getName());
-    intent.setPackage("com.example.uiautomator");
-    //intent.setComponent(new ComponentName("com.example.uiautomator", "com.example.uiautomator.MessageService"));
-    context.bindService(getExplicitIntent(context, intent), conn, Context.BIND_AUTO_CREATE);
-
-    while (true) {
-      try {
-        greetService[0].toast("我是我");
-        Thread.sleep(1000 * 3);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      } catch (RemoteException e) {
-        e.printStackTrace();
-      }
-    }
+  public void hahaShiPinTest() {
+    new HaHaShiPinTest().start(200);
+  }
+  /**
+   * 哈哈视频测试
+   */
+  @Test
+  public void huoNiuShiPinTest() {
+    new HuoNiuPinTest().start(200);
   }
 
-  public static Intent getExplicitIntent(Context context, Intent implicitIntent) {
-    // Retrieve all services that can match the given intent
-    PackageManager pm = context.getPackageManager();
-    List<ResolveInfo> resolveInfo = pm.queryIntentServices(implicitIntent, 0);
-    // Make sure only one match was found
-    if (resolveInfo == null || resolveInfo.size() != 1) {
-      return null;
-    }
-    // Get component info and create ComponentName
-    ResolveInfo serviceInfo = resolveInfo.get(0);
-    String packageName = serviceInfo.serviceInfo.packageName;
-    String className = serviceInfo.serviceInfo.name;
-    ComponentName component = new ComponentName(packageName, className);
-    // Create a new intent. Use the old one for extras and such reuse
-    Intent explicitIntent = new Intent(implicitIntent);
-    // Set the component to be explicit
-    explicitIntent.setComponent(component);
-    return explicitIntent;
+  /**
+   * 趣头条测试 提成最低
+   */
+  @Test
+  public void quTouTiaoTest() {
+    new QuTouTiaoTest().start(200);
   }
 }

@@ -43,7 +43,7 @@ public class HaoKanShiPinTest extends BaseTest {
     }
 
     // 播放视频(评论,分享)
-    while (readCount <= repCount) {
+    while (readCount < repCount) {
       try {
         if (!avliable()) break;
 
@@ -104,6 +104,7 @@ public class HaoKanShiPinTest extends BaseTest {
     logD("判断是否已经回到首页");
     int restartCount = 0;
     while (restartCount < 10) {
+      if (!avliable()) return null;
       List<UiObject2> tabs = findListById("text");// 底部导航栏ID为Text
       if (tabs == null || tabs.size() == 0) {// 如果找不到底部导航栏有可能是有对话框在上面
         logE("检查失败,没有[底部导航栏]:" + restartCount);
@@ -145,6 +146,7 @@ public class HaoKanShiPinTest extends BaseTest {
    * 检查各项的执行情况并赋值
    */
   public boolean doCheck() {
+    if (!avliable()) return false;
     try {
       startAPPWithPackageName();
       // 检测是否已经回到主界面

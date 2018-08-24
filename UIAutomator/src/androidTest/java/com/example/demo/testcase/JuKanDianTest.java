@@ -99,6 +99,7 @@ public class JuKanDianTest extends BaseTest {
     // 判断是否已经回到首页
     int restartCount = 0;
     while (restartCount < 10) {
+      if (!avliable()) return null;
       UiObject2 tab = findById(tabID);
       if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
         logE("检查失败,没有[" + tabID + "]" + restartCount);
@@ -139,6 +140,7 @@ public class JuKanDianTest extends BaseTest {
    * @return
    */
   public boolean doCheck() {
+    if (!avliable()) return false;
     try {
       startAPPWithPackageName();
 

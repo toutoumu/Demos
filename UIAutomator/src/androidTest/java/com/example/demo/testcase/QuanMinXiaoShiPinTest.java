@@ -37,15 +37,8 @@ public class QuanMinXiaoShiPinTest extends BaseTest {
       logD("阅读已完成,随机阅读几篇:" + (repCount - readCount));
     }
 
-    // 判断是否已经回到首页
-    UiObject2 tabs = checkInMainPage();
-    if (tabs == null) {
-      logE("检查是否在首页失败,退出");
-      return 0;
-    }
-
     // 播放视频(评论,分享)
-    while (readCount <= repCount) {
+    while (readCount < repCount) {
       try {
         if (!avliable()) break;
 
@@ -86,6 +79,7 @@ public class QuanMinXiaoShiPinTest extends BaseTest {
     logD("判断是否已经回到首页");
     int restartCount = 0;
     while (restartCount < 10) {
+      if (!avliable()) return null;
       UiObject2 tabs = findById("tab_1_label");// 底部导航栏ID为Text
       if (tabs == null) {// 如果找不到底部导航栏有可能是有对话框在上面
         logE("检查失败,没有[底部导航栏]:" + restartCount);
@@ -109,6 +103,7 @@ public class QuanMinXiaoShiPinTest extends BaseTest {
    * 检查各项的执行情况并赋值
    */
   public boolean doCheck() {
+    if (!avliable()) return false;
     try {
       startAPPWithPackageName();
       // 检测是否已经回到主界面

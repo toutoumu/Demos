@@ -44,7 +44,7 @@ public class AiQiYiTest extends BaseTest {
     }
 
     // 播放视频(评论,分享)
-    while (readCount <= repCount) {
+    while (readCount < repCount) {
       try {
         if (!avliable()) break;
 
@@ -95,6 +95,7 @@ public class AiQiYiTest extends BaseTest {
     // 判断是否已经回到首页
     int restartCount = 0;
     while (restartCount < 10) {
+      if (!avliable()) return null;
       UiObject2 tab = findById(tabID);
       if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
         logE("检查失败,没有[" + tabID + "]" + restartCount);
@@ -149,6 +150,7 @@ public class AiQiYiTest extends BaseTest {
    * 检查各项的执行情况并赋值
    */
   public boolean doCheck() {
+    if (!avliable()) return false;
     try {
       startAPPWithPackageName();
 

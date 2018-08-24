@@ -8,13 +8,13 @@ import java.util.List;
  * 阅读20篇 100
  * 徒弟阅读  100
  */
-public class HaHaShiPinTest extends BaseTest {
+public class HuoNiuPinTest extends BaseTest {
 
   // 次数统计
   private int readCount = 0; // 阅读次数
   private int checkCount = 0;
 
-  public HaHaShiPinTest() {
+  public HuoNiuPinTest() {
     super();
   }
 
@@ -70,11 +70,11 @@ public class HaHaShiPinTest extends BaseTest {
     int restartCount = 0;
     while (restartCount < 10) {
       if (!avliable()) return null;
-      UiObject2 tabs = findById("home_page_tv");// 底部导航栏ID为Text
+      UiObject2 tabs = findById("tv_tab");// 底部导航栏ID为Text
       if (tabs == null) {// 如果找不到底部导航栏有可能是有对话框在上面
         logE("检查失败,没有[底部导航栏]:" + restartCount);
         closeDialog();
-        tabs = findById("home_page_tv");
+        tabs = findById("tv_tab");
         if (tabs == null) {// 关闭对话框之后再次查找是否已经回到首页
           restartCount++;
           logE("应用可能已经关闭,重新启动");
@@ -106,12 +106,11 @@ public class HaHaShiPinTest extends BaseTest {
 
   private boolean checkIsPlay() {
     // 是否正在播放
-    UiObject2 comment = findById("layout_daohanglan_title", 3);
+    UiObject2 comment = findById("tv_vote_count", 3);
     if (comment != null) {
       logD("正在播放界面");
       return true;
     }
-
     // 进行n此点击,
     int repeatCount = 0;
     while (repeatCount++ < 10) {
@@ -123,54 +122,42 @@ public class HaHaShiPinTest extends BaseTest {
       }
 
       // 检测是否在首页第一个tab
-      UiObject2 wallet = findById("wallet", 3);
-      if (wallet == null) {// 如果不在主页第一个tab
-        logE("不在主页第一个Tab");
-        UiObject2 mainTab = findById("home_page_tv");
-        if (mainTab != null) {
-          mainTab.click();
-          sleep(5);
-          logE("切换到主页,第一个tab");
-          continue;
+      List<UiObject2> wallet = findListById("tv_tab", 3);
+      if (wallet != null || wallet.size() > 0) {// 如果不在主页第一个tab
+        for (UiObject2 tab : wallet) {
+          if (tab.getText().equals("首页")) {
+            if (tab.isSelected()) {
+              logD("正在播放页面");
+              return true;
+            } else {
+              tab.click();
+              sleep(3);
+              mDevice.waitForIdle(timeOut);
+              logD("切换到第一个Tab");
+            }
+          }
         }
-      }
-
-      // 第一次不向上滑动
-      if (repeatCount != 1) {
-        // 向上滑动列表
-        int startY = height * 2 / 3;
-        int endY = height / 10;
-        mDevice.swipe(centerX, startY, centerX, endY, 20);
-        sleep(1);
-        mDevice.waitForIdle(timeOut);
-        logD("向上滑动视频列表");
-      }
-
-      // 点击封面尝试播放 com.lswl.qfq:id/source 用户名
-      UiObject2 itemCover = findById("bg");
-      if (itemCover == null) {
-        logE("是不是有对话框,暂时未发现可以播放");
-        closeDialog();
         continue;
       }
-      itemCover.click();
-      sleep(3);
-      mDevice.waitForIdle(timeOut);
-      logD("点击封面,尝试开始播放");
 
-      // 检测是否打开视频播放了
-      comment = findById("layout_daohanglan_title", 3);
-      if (comment != null) {
-        logD("开始播放");
-        return true;
+      // 如果向左滑动了
+      UiObject2 icon = findById("cir_user_pic", 5);
+      if (icon != null) {
+        // 向右滑动,关闭可能的广告页面
+        int startX = width / 10;
+        int endX = width * 2 / 3;
+        mDevice.swipe(startX, centerY, endX, centerY, 10);
+        continue;
       }
-
-      // 如果没开始播放,且当前已经不在主页第一个Tab,那么点击返回
-      UiObject2 mianTab = findById("home_page_tv");
-      if (mianTab == null) {
-        // 如果打开的不是播放页面
-        pressBack("没有打开视频播放", true);
+      icon = findById("tv_diamond_count", 5);
+      if (icon != null) {
+        // 向右滑动,关闭可能的广告页面
+        int startX = width / 10;
+        int endX = width * 2 / 3;
+        mDevice.swipe(endX, centerY, startX, centerY, 10);
+        continue;
       }
+      pressBack("点击返回,向右滑动,回到首页", false);
     }// end of while
     return false;
   }
@@ -189,6 +176,17 @@ public class HaHaShiPinTest extends BaseTest {
     // 等待播放
     sleep(15 + random.nextInt(5));
 
+    if (readCount % 10 == 0) {
+      UiObject2 comment = findById("tv_vote_count", 3);
+      if (comment != null) {
+        comment.click();
+        sleep(1);
+        mDevice.waitForIdle(timeOut);
+        logE("给他砖石");
+        return true;
+      }
+    }
+
     // 向上滑动列表
     int startY = height * 2 / 3;
     int endY = height / 10;
@@ -202,11 +200,11 @@ public class HaHaShiPinTest extends BaseTest {
 
   @Override
   public String getAPPName() {
-    return "haha视频";
+    return "火牛视频";
   }
 
   @Override
   public String getPackageName() {
-    return "com.lswl.qfq";
+    return "com.waqu.android.firebull";
   }
 }

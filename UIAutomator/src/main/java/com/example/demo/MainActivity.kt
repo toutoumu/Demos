@@ -14,20 +14,22 @@ import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.delete_aiqiyi
 import kotlinx.android.synthetic.main.activity_main.delete_dongfangtoutiao
+import kotlinx.android.synthetic.main.activity_main.delete_hahashipin
 import kotlinx.android.synthetic.main.activity_main.delete_haokan
 import kotlinx.android.synthetic.main.activity_main.delete_jinritoutiao
 import kotlinx.android.synthetic.main.activity_main.delete_jukandian
-import kotlinx.android.synthetic.main.activity_main.delete_qutoutiao
+//import kotlinx.android.synthetic.main.activity_main.delete_qutoutiao
 import kotlinx.android.synthetic.main.activity_main.delete_repeat
 import kotlinx.android.synthetic.main.activity_main.delete_zhongqingkandian
 import kotlinx.android.synthetic.main.activity_main.runBtn
 import kotlinx.android.synthetic.main.activity_main.shutdown
 import kotlinx.android.synthetic.main.activity_main.times_aiqiyi
 import kotlinx.android.synthetic.main.activity_main.times_dongfangtoutiao
+import kotlinx.android.synthetic.main.activity_main.times_hahashipin
 import kotlinx.android.synthetic.main.activity_main.times_haokan
 import kotlinx.android.synthetic.main.activity_main.times_jinritoutiao
 import kotlinx.android.synthetic.main.activity_main.times_jukandian
-import kotlinx.android.synthetic.main.activity_main.times_qutoutiao
+//import kotlinx.android.synthetic.main.activity_main.times_qutoutiao
 import kotlinx.android.synthetic.main.activity_main.times_repeat
 import kotlinx.android.synthetic.main.activity_main.times_zhongqingkandian
 import java.io.File
@@ -40,8 +42,9 @@ class MainActivity : AppCompatActivity() {
   var jinritoutiao = 0
   var dongfangtoutiao = 0
   var jukandian = 0
-  var qutoutiao = 0
+//  var qutoutiao = 0
   var zhongqingkandian = 0
+  var hahashipin = 0
 
   var repeat = 0
 
@@ -69,8 +72,9 @@ class MainActivity : AppCompatActivity() {
     times_haokan.onFocusChangeListener = listener
     times_jinritoutiao.onFocusChangeListener = listener
     times_dongfangtoutiao.onFocusChangeListener = listener
-    times_qutoutiao.onFocusChangeListener = listener
+//    times_qutoutiao.onFocusChangeListener = listener
     times_zhongqingkandian.onFocusChangeListener = listener
+    times_hahashipin.onFocusChangeListener = listener
     times_jukandian.onFocusChangeListener = listener
     times_repeat.onFocusChangeListener = listener
 
@@ -78,8 +82,9 @@ class MainActivity : AppCompatActivity() {
     delete_haokan.setOnClickListener { times_haokan.setText("0") }
     delete_jinritoutiao.setOnClickListener { times_jinritoutiao.setText("0") }
     delete_dongfangtoutiao.setOnClickListener { times_dongfangtoutiao.setText("0") }
-    delete_qutoutiao.setOnClickListener { times_qutoutiao.setText("0") }
+//    delete_qutoutiao.setOnClickListener { times_qutoutiao.setText("0") }
     delete_zhongqingkandian.setOnClickListener { times_zhongqingkandian.setText("0") }
+    delete_hahashipin.setOnClickListener { times_hahashipin.setText("0") }
     delete_repeat.setOnClickListener { times_repeat.setText("1") }
     delete_jukandian.setOnClickListener { times_jukandian.setText("0") }
 
@@ -103,7 +108,7 @@ class MainActivity : AppCompatActivity() {
           doStart()
         } else {
           //不具有拍照权限，需要进行权限申请
-          ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_PERMISSION_CAMERA_CODE);
+          ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_PERMISSION_CAMERA_CODE)
         }
       } else {//当前系统小于6.0，直接调用拍照
         doStart()
@@ -130,7 +135,7 @@ class MainActivity : AppCompatActivity() {
           doEnd()
         } else {
           //不具有拍照权限，需要进行权限申请
-          ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_PERMISSION_CAMERA_CODE);
+          ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_PERMISSION_CAMERA_CODE)
         }
       } else { //当前系统小于6.0，直接调用拍照
         doEnd()
@@ -186,9 +191,11 @@ class MainActivity : AppCompatActivity() {
         .toInt()
     jukandian = times_jukandian.text.toString()
         .toInt()
-    qutoutiao = times_qutoutiao.text.toString()
-        .toInt()
+//    qutoutiao = times_qutoutiao.text.toString()
+//        .toInt()
     zhongqingkandian = times_zhongqingkandian.text.toString()
+        .toInt()
+    hahashipin = times_hahashipin.text.toString()
         .toInt()
     repeat = times_repeat.text.toString()
         .toInt()
@@ -207,8 +214,9 @@ class MainActivity : AppCompatActivity() {
       param["jinritoutiao"] = jinritoutiao
       param["dongfangtoutiao"] = dongfangtoutiao
       param["jukandian"] = jukandian
-      param["qutoutiao"] = qutoutiao
+//      param["qutoutiao"] = qutoutiao
       param["zhongqingkandian"] = zhongqingkandian
+      param["hahashipin"] = hahashipin
       param["repeat"] = repeat
 
       // 组装成命令
@@ -251,8 +259,8 @@ class MainActivity : AppCompatActivity() {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     if (requestCode == REQUEST_PERMISSION_CAMERA_CODE) {
       if (grantResults.isNotEmpty()) {
-        var cameraResult = grantResults[0];//相机权限
-        var cameraGranted = cameraResult == PackageManager.PERMISSION_GRANTED;//拍照权限
+        val cameraResult = grantResults[0]//相机权限
+        val cameraGranted = cameraResult == PackageManager.PERMISSION_GRANTED//拍照权限
         if (cameraGranted) {
           //具有拍照权限，调用相机
         } else {

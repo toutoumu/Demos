@@ -111,6 +111,7 @@ public class ZhongQingKanDianTest extends BaseTest {
     // 判断是否已经回到首页
     int restartCount = 0;
     while (restartCount < 10) {
+      if (!avliable()) return null;
       UiObject2 tab = findById(tabID);
       if (tab == null) {// 如果找不到底部导航栏有可能是有对话框在上面
         logE("检查失败,没有[" + tabID + "]" + restartCount);
@@ -153,6 +154,7 @@ public class ZhongQingKanDianTest extends BaseTest {
   @Override
   public boolean doCheck() {
     if (true) {
+      if (!avliable()) return false;
       logD("暂时未做处理");
       return true;
     }

@@ -70,6 +70,7 @@ public class JinRiTouTiaoTest extends BaseTest {
   }
 
   public boolean doCheck() {
+    if (!avliable()) return false;
     try {
       startAPPWithPackageName();
 
@@ -160,6 +161,7 @@ public class JinRiTouTiaoTest extends BaseTest {
   private UiObject2 checkInMainPage() {
     int restartCount = 0;
     while (restartCount < 10) {
+      if (!avliable()) return null;
       UiObject2 toolBar = findByClass(TabWidget.class);
       if (toolBar == null) {// 如果找不到底部导航栏有可能是有对话框在上面
         closeDialog();
