@@ -21,34 +21,34 @@ public class LogUtil {
   }
 
   public void i(Object msg) {
-    Log.i(this.tag, msg + "");
     logger.info(msg);
+    Log.i(this.tag, msg + "");
   }
 
   public void v(Object msg) {
-    Log.v(this.tag, msg + "");
     logger.info(msg);
+    Log.v(this.tag, msg + "");
   }
 
   public void d(Object msg) {
-    Log.d(this.tag, msg + "");
     logger.debug(msg);
+    Log.d(this.tag, msg + "");
   }
 
   public void w(Object msg) {
-    Log.w(this.tag, msg + "");
     logger.warn(msg);
+    Log.w(this.tag, msg + "");
   }
 
   public void e(Object msg) {
-    Log.e(this.tag, msg + "");
     logger.error(msg);
+    Log.e(this.tag, msg + "");
   }
 
   public void e(String message, Exception e) {
-    Log.e(this.tag, message + "", e);
     logger.error(message);
     logger.error(e);
+    Log.e(this.tag, message + "", e);
   }
 
   private Logger getLogger(String tag) {

@@ -2,6 +2,7 @@ package com.example.demo.testcase;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Environment;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
@@ -9,7 +10,6 @@ import android.support.test.uiautomator.SearchCondition;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.demo.testcase.log.LogUtil;
@@ -493,10 +493,11 @@ public abstract class BaseTest {
       logD("***************************************" + "尝试打开: " + getAPPName() + "***************************************");
       myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
       mContext.startActivity(myIntent);
-      sleep(10);
+      sleep(15);
       mDevice.waitForIdle(timeOut);
     } else {
       logE("尝试打开: " + getPackageName() + "失败");
+      throw new IllegalArgumentException("无法打开:" + getPackageName());
     }
   }
 

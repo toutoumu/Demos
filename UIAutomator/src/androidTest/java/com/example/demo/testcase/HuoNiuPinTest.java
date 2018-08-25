@@ -176,7 +176,7 @@ public class HuoNiuPinTest extends BaseTest {
     // 等待播放
     sleep(15 + random.nextInt(5));
 
-    if (readCount % 10 == 0) {
+    if (readCount % 12 == 0) {
       UiObject2 comment = findById("tv_vote_count", 3);
       if (comment != null) {
         comment.click();

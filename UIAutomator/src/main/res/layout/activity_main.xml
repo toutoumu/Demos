@@ -15,6 +15,7 @@
       android:padding="16dp"
       tools:context=".MainActivity"
       >
+    <!--开始执行 结束执行-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,6 +49,8 @@
           android:text="停止执行"
           />
     </LinearLayout>
+
+    <!--爱奇艺纳豆-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,7 +89,7 @@
           android:tint="#999999"
           />
     </LinearLayout>
-
+    <!--好看视频-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,7 +128,46 @@
           android:tint="#999999"
           />
     </LinearLayout>
-
+    <!--全民小视频-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="80dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:gravity="right"
+          android:text="全民小视频"
+          />
+      <EditText
+          android:id="@+id/times_quanminxiaoship"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="16dp"
+          android:layout_weight="1"
+          android:background="@null"
+          android:digits="1234567890"
+          android:gravity="center_vertical"
+          android:inputType="numberDecimal"
+          android:padding="10dp"
+          android:text="30"
+          />
+      <ImageView
+          android:id="@+id/delete_quanminxiaoship"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="8dp"
+          android:padding="12dp"
+          android:src="@drawable/ic_delete_black"
+          android:tint="#999999"
+          />
+    </LinearLayout>
+    <!--今日头条-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -164,6 +206,163 @@
           android:tint="#999999"
           />
     </LinearLayout>
+    <!--火牛视频-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="80dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:gravity="right"
+          android:text="火牛视频"
+          />
+      <EditText
+          android:id="@+id/times_huoniushipin"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="16dp"
+          android:layout_weight="1"
+          android:background="@null"
+          android:digits="1234567890"
+          android:gravity="center_vertical"
+          android:inputType="numberDecimal"
+          android:padding="10dp"
+          android:text="300"
+          />
+      <ImageView
+          android:id="@+id/delete_huoniushipin"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="8dp"
+          android:padding="12dp"
+          android:src="@drawable/ic_delete_black"
+          android:tint="#999999"
+          />
+    </LinearLayout>
+    <!--HaHa视频-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="80dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:gravity="right"
+          android:text="HaHa视频"
+          />
+      <EditText
+          android:id="@+id/times_hahashipin"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="16dp"
+          android:layout_weight="1"
+          android:background="@null"
+          android:digits="1234567890"
+          android:gravity="center_vertical"
+          android:inputType="numberDecimal"
+          android:padding="10dp"
+          android:text="300"
+          />
+      <ImageView
+          android:id="@+id/delete_hahashipin"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="8dp"
+          android:padding="12dp"
+          android:src="@drawable/ic_delete_black"
+          android:tint="#999999"
+          />
+    </LinearLayout>
+    <!--聚看点-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="80dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:gravity="right"
+          android:text="聚看点"
+          />
+      <EditText
+          android:id="@+id/times_jukandian"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="16dp"
+          android:layout_weight="1"
+          android:background="@null"
+          android:digits="1234567890"
+          android:gravity="center_vertical"
+          android:inputType="numberDecimal"
+          android:padding="10dp"
+          android:text="87"
+          />
+      <ImageView
+          android:id="@+id/delete_jukandian"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="8dp"
+          android:padding="12dp"
+          android:src="@drawable/ic_delete_black"
+          android:tint="#999999"
+          />
+    </LinearLayout>
+    <!--中青看点-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="80dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:gravity="right"
+          android:text="中青看点"
+          />
+      <EditText
+          android:id="@+id/times_zhongqingkandian"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="16dp"
+          android:layout_weight="1"
+          android:background="@null"
+          android:digits="1234567890"
+          android:gravity="center_vertical"
+          android:inputType="numberDecimal"
+          android:padding="10dp"
+          android:text="30"
+          />
+      <ImageView
+          android:id="@+id/delete_zhongqingkandian"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="8dp"
+          android:padding="12dp"
+          android:src="@drawable/ic_delete_black"
+          android:tint="#999999"
+          />
+    </LinearLayout>
+    <!--东方头条-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -203,161 +402,7 @@
           />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        >
-      <TextView
-          android:layout_width="80dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:gravity="right"
-          android:text="聚看点"
-          />
-      <EditText
-          android:id="@+id/times_jukandian"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="16dp"
-          android:layout_weight="1"
-          android:background="@null"
-          android:digits="1234567890"
-          android:gravity="center_vertical"
-          android:inputType="numberDecimal"
-          android:padding="10dp"
-          android:text="87"
-          />
-      <ImageView
-          android:id="@+id/delete_jukandian"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="8dp"
-          android:padding="12dp"
-          android:src="@drawable/ic_delete_black"
-          android:tint="#999999"
-          />
-    </LinearLayout>
-
-    <!-- <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="12dp"
-         android:orientation="horizontal"
-         >
-       <TextView
-           android:layout_width="80dp"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center_vertical"
-           android:gravity="right"
-           android:text="趣头条"
-           />
-       <EditText
-           android:id="@+id/times_qutoutiao"
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center_vertical"
-           android:layout_marginLeft="16dp"
-           android:layout_weight="1"
-           android:background="@null"
-           android:digits="1234567890"
-           android:gravity="center_vertical"
-           android:inputType="numberDecimal"
-           android:padding="10dp"
-           android:text="30"
-           />
-       <ImageView
-           android:id="@+id/delete_qutoutiao"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center_vertical"
-           android:layout_marginLeft="8dp"
-           android:padding="12dp"
-           android:src="@drawable/ic_delete_black"
-           android:tint="#999999"
-           />
-     </LinearLayout>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        >
-      <TextView
-          android:layout_width="80dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:gravity="right"
-          android:text="中青看点"
-          />
-      <EditText
-          android:id="@+id/times_zhongqingkandian"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="16dp"
-          android:layout_weight="1"
-          android:background="@null"
-          android:digits="1234567890"
-          android:gravity="center_vertical"
-          android:inputType="numberDecimal"
-          android:padding="10dp"
-          android:text="30"
-          />
-      <ImageView
-          android:id="@+id/delete_zhongqingkandian"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="8dp"
-          android:padding="12dp"
-          android:src="@drawable/ic_delete_black"
-          android:tint="#999999"
-          />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        >
-      <TextView
-          android:layout_width="80dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:gravity="right"
-          android:text="HaHa视频"
-          />
-      <EditText
-          android:id="@+id/times_hahashipin"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="16dp"
-          android:layout_weight="1"
-          android:background="@null"
-          android:digits="1234567890"
-          android:gravity="center_vertical"
-          android:inputType="numberDecimal"
-          android:padding="10dp"
-          android:text="30"
-          />
-      <ImageView
-          android:id="@+id/delete_hahashipin"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="8dp"
-          android:padding="12dp"
-          android:src="@drawable/ic_delete_black"
-          android:tint="#999999"
-          />
-    </LinearLayout>
-
+    <!--重复次数-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

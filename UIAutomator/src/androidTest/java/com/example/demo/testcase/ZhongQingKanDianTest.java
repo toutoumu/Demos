@@ -3,7 +3,6 @@ package com.example.demo.testcase;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
-import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -249,7 +248,7 @@ public class ZhongQingKanDianTest extends BaseTest {
           sleep(((double) (3000 - spend) / 1000.0));
         }
         mDevice.waitForIdle(timeOut);
-        Log.v(TAG, "滚动花费时间:" + spend);
+        logD("滚动花费时间:" + spend);
       }
       readCount++;
 

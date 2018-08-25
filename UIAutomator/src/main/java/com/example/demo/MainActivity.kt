@@ -18,7 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.delete_hahashipin
 import kotlinx.android.synthetic.main.activity_main.delete_haokan
 import kotlinx.android.synthetic.main.activity_main.delete_jinritoutiao
 import kotlinx.android.synthetic.main.activity_main.delete_jukandian
-//import kotlinx.android.synthetic.main.activity_main.delete_qutoutiao
+import kotlinx.android.synthetic.main.activity_main.delete_huoniushipin
+import kotlinx.android.synthetic.main.activity_main.delete_quanminxiaoship
 import kotlinx.android.synthetic.main.activity_main.delete_repeat
 import kotlinx.android.synthetic.main.activity_main.delete_zhongqingkandian
 import kotlinx.android.synthetic.main.activity_main.runBtn
@@ -29,7 +30,8 @@ import kotlinx.android.synthetic.main.activity_main.times_hahashipin
 import kotlinx.android.synthetic.main.activity_main.times_haokan
 import kotlinx.android.synthetic.main.activity_main.times_jinritoutiao
 import kotlinx.android.synthetic.main.activity_main.times_jukandian
-//import kotlinx.android.synthetic.main.activity_main.times_qutoutiao
+import kotlinx.android.synthetic.main.activity_main.times_huoniushipin
+import kotlinx.android.synthetic.main.activity_main.times_quanminxiaoship
 import kotlinx.android.synthetic.main.activity_main.times_repeat
 import kotlinx.android.synthetic.main.activity_main.times_zhongqingkandian
 import java.io.File
@@ -42,9 +44,10 @@ class MainActivity : AppCompatActivity() {
   var jinritoutiao = 0
   var dongfangtoutiao = 0
   var jukandian = 0
-//  var qutoutiao = 0
+  var huoniushipin = 0
   var zhongqingkandian = 0
   var hahashipin = 0
+  var quanminxiaoship = 0
 
   var repeat = 0
 
@@ -72,9 +75,10 @@ class MainActivity : AppCompatActivity() {
     times_haokan.onFocusChangeListener = listener
     times_jinritoutiao.onFocusChangeListener = listener
     times_dongfangtoutiao.onFocusChangeListener = listener
-//    times_qutoutiao.onFocusChangeListener = listener
+    times_huoniushipin.onFocusChangeListener = listener
     times_zhongqingkandian.onFocusChangeListener = listener
     times_hahashipin.onFocusChangeListener = listener
+    times_quanminxiaoship.onFocusChangeListener = listener
     times_jukandian.onFocusChangeListener = listener
     times_repeat.onFocusChangeListener = listener
 
@@ -82,9 +86,10 @@ class MainActivity : AppCompatActivity() {
     delete_haokan.setOnClickListener { times_haokan.setText("0") }
     delete_jinritoutiao.setOnClickListener { times_jinritoutiao.setText("0") }
     delete_dongfangtoutiao.setOnClickListener { times_dongfangtoutiao.setText("0") }
-//    delete_qutoutiao.setOnClickListener { times_qutoutiao.setText("0") }
+    delete_huoniushipin.setOnClickListener { times_huoniushipin.setText("0") }
     delete_zhongqingkandian.setOnClickListener { times_zhongqingkandian.setText("0") }
     delete_hahashipin.setOnClickListener { times_hahashipin.setText("0") }
+    delete_quanminxiaoship.setOnClickListener { times_quanminxiaoship.setText("0") }
     delete_repeat.setOnClickListener { times_repeat.setText("1") }
     delete_jukandian.setOnClickListener { times_jukandian.setText("0") }
 
@@ -191,11 +196,13 @@ class MainActivity : AppCompatActivity() {
         .toInt()
     jukandian = times_jukandian.text.toString()
         .toInt()
-//    qutoutiao = times_qutoutiao.text.toString()
-//        .toInt()
+    huoniushipin = times_huoniushipin.text.toString()
+        .toInt()
     zhongqingkandian = times_zhongqingkandian.text.toString()
         .toInt()
     hahashipin = times_hahashipin.text.toString()
+        .toInt()
+    quanminxiaoship = times_quanminxiaoship.text.toString()
         .toInt()
     repeat = times_repeat.text.toString()
         .toInt()
@@ -214,8 +221,9 @@ class MainActivity : AppCompatActivity() {
       param["jinritoutiao"] = jinritoutiao
       param["dongfangtoutiao"] = dongfangtoutiao
       param["jukandian"] = jukandian
-//      param["qutoutiao"] = qutoutiao
+      param["huoniushipin"] = huoniushipin
       param["zhongqingkandian"] = zhongqingkandian
+      param["quanminxiaoship"] = quanminxiaoship
       param["hahashipin"] = hahashipin
       param["repeat"] = repeat
 

@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.Until;
-import android.util.Log;
 import java.util.List;
 
 /**
@@ -675,7 +674,7 @@ public class HaoKanShiPinTest extends BaseTest {
         mDevice.swipe(centerX, startY, centerX, endY, 30);
         sleep(3);
         mDevice.waitForIdle(timeOut);
-        Log.w(TAG, "向上滑动列表");
+        logD("向上滑动列表");
       }
 
       // 关闭文章阅读

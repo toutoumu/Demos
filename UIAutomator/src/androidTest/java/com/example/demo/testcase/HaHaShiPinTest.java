@@ -1,7 +1,6 @@
 package com.example.demo.testcase;
 
 import android.support.test.uiautomator.UiObject2;
-import java.util.List;
 
 /**
  * 爱奇艺测试 1000金币=1元 提现20元起 每日最高领取400金币, 徒弟阅读一次贡献5金币 最多一百金币
@@ -190,9 +189,9 @@ public class HaHaShiPinTest extends BaseTest {
     sleep(15 + random.nextInt(5));
 
     // 向上滑动列表
-    int startY = height * 2 / 3;
+    int startY = height * 3 / 4;
     int endY = height / 10;
-    mDevice.swipe(centerX, startY, centerX, endY, 10);
+    mDevice.swipe(centerX, startY, centerX, endY, 20);
     sleep(1);
     mDevice.waitForIdle(timeOut);
     logD("向上滑动,播放下一个视频");

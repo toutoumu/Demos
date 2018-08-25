@@ -330,14 +330,14 @@ public class AiQiYiTest extends BaseTest {
 
     // 展开更多
     UiObject2 dropDown = findById("media_info_related_icon");
-    if (dropDown == null) {
-      pressBack("关注失败,没有[展开更多]按钮,返回[关注]Tab", true);
-      return false;
+    if (dropDown != null) {
+      // pressBack("关注失败,没有[展开更多]按钮,返回[关注]Tab", true);
+      // return false;
+      dropDown.click();
+      sleep(1);
+      mDevice.waitForIdle(timeOut);
+      logD("点击[展开更多]按钮");
     }
-    dropDown.click();
-    sleep(1);
-    mDevice.waitForIdle(timeOut);
-    logD("点击[展开更多]按钮");
 
     // 点击关注 那个+号
     UiObject2 add = findById("fguli_follow_btn");

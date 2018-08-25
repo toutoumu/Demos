@@ -1,10 +1,6 @@
 package com.example.demo.testcase;
 
-import android.graphics.Rect;
-import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
-import android.support.test.uiautomator.Until;
-import android.util.Log;
 import java.util.List;
 
 /**
@@ -206,7 +202,7 @@ public class QuanMinXiaoShiPinTest extends BaseTest {
    */
   private boolean doPlay() {
     // 等待播放
-    sleep(20 + random.nextInt(5));
+    sleep(15 + random.nextInt(5));
 
     // 向上滑动列表
     int startY = height * 2 / 3;
