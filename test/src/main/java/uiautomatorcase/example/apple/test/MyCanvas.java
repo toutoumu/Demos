@@ -20,6 +20,8 @@ public class MyCanvas extends BaseView {
     super.onDraw(canvas);
     canvas.drawColor(0xffe5e5e5);
 
+    drawText(canvas, "简笔画", 45, 150, 260);
+
     // 平行四边形
     drawLine(canvas, 700, 120, 1200, 100);
     drawLine(canvas, 700, 120, 500, 500);
@@ -48,19 +50,5 @@ public class MyCanvas extends BaseView {
 
     // 最底部线条
     drawLine(canvas, 550, 800, 1430, 800);
-
-
-
-    //drawOval(canvas,1150,200,1250,300);
-
-    // canvas.drawColor(Color.MAGENTA);//绘制背景色
-    // 左上角是左边原点
-    // drawText(canvas, "我看看", 25, 100, 100);
-    // drawOval(canvas, 10, 10, 200, 100);
-    // drawPoint(canvas);
-    // drawLine(canvas, 0, 0, 300, 100);
-    // drawArc(canvas, 20, 20, 400, 400);
-    //
-    // drawStar(canvas, 200, 200, 200);
   }
 }

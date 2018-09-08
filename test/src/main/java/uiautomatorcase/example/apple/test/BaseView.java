@@ -20,8 +20,37 @@ public abstract class BaseView extends View {
     mPaint.setStrokeCap(Paint.Cap.ROUND);//圆的
   }
 
+  /**
+   * 绘制旋转文字
+   *
+   * @param canvas
+   * @param paint
+   * @param text
+   * @param x
+   * @param y
+   * @param angle
+   */
+  public void drawTextAngel(Canvas canvas, String text, int textSizeDP, float x, float y, float angle) {
+    mPaint.reset();
+    mPaint.setStyle(Paint.Style.STROKE);
+    mPaint.setColor(Color.BLACK);
+    mPaint.setTextSize(dp2px(textSizeDP));
+    mPaint.setStrokeWidth(10);
+    if (angle != 0) {
+      canvas.rotate(angle, x, y);
+    }
+    canvas.drawText(text, x, y, mPaint);
+    if (angle != 0) {
+      canvas.rotate(-angle, x, y);
+    }
+  }
+
   public void drawText(Canvas canvas, String text, int textSizeDP, int x, int y) {
-    mPaint.setColor(Color.BLACK); //绘制画笔颜色
+    mPaint.reset();
+    mPaint.setStrokeCap(Paint.Cap.ROUND);//圆的
+    mPaint.setStyle(Paint.Style.FILL);
+    mPaint.setColor(Color.BLACK);
+    mPaint.setStrokeWidth(10);
     mPaint.setTextSize(dp2px(textSizeDP));
     canvas.drawText(text, x, y, mPaint);
 
@@ -88,8 +117,11 @@ public abstract class BaseView extends View {
    * @param stopY
    */
   public void drawLine(Canvas canvas, float startX, float startY, float stopX, float stopY) {
-    mPaint.setStrokeWidth(10);
+    mPaint.reset();
     mPaint.setStrokeCap(Paint.Cap.ROUND);//圆的
+    mPaint.setStyle(Paint.Style.STROKE);
+    mPaint.setColor(Color.BLACK);
+    mPaint.setStrokeWidth(10);
     canvas.drawLine(startX, //参数一起始点的x轴位置，
       startY,//参数二起始点的y轴位置，
       stopX, //参数三终点的x轴水平位置，
