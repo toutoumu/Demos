@@ -59,9 +59,9 @@ public class HaoKanShiPinTest extends BaseTest {
           shareMomey++;
         }
         // 打开百度做任务,最多只执行两次
-        if (openBaidu++ <= 1 && openBaidu()) {
-          openBaidu++;
-        }
+        // if (openBaidu++ <= 1 && openBaidu()) {
+        //   openBaidu++;
+        // }
         // 打开小视频做任务,最多只执行两次
         /*if (openQuanMinXiaoShiPin++ <= 1 && openXiaoShiPin()) {
           openQuanMinXiaoShiPin++;
@@ -190,8 +190,8 @@ public class HaoKanShiPinTest extends BaseTest {
       logD("已经[分享]次数:" + shareCount);
       shareMomey = getCount("晒收入") == 1 ? 2 : 0;//晒收入 2:已完成,0;未完成
       logD("已经[晒收入]次数:" + shareMomey);
-      openBaidu = getCount("去百度") == 1 ? 2 : 0;//打开百度 2:已完成,0;未完成
-      logD("已经[去百度]次数:" + openBaidu);
+      // openBaidu = getCount("去百度") == 1 ? 2 : 0;//打开百度 2:已完成,0;未完成
+      // logD("已经[去百度]次数:" + openBaidu);
       // openQuanMinXiaoShiPin = getCount("去看小视频") == 1 ? 2 : 0;// 打开全民小视频 2:已完成,0;未完成
       // logD("已经[去看小视频]次数:" + openQuanMinXiaoShiPin);
 

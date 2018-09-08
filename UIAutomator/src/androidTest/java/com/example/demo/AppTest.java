@@ -156,16 +156,16 @@ public class AppTest {
   public void R6Test() {
     try {
       int i = 0;
-      while (i++ < 1) {
+      new JinRiTouTiaoTest().start(15); //10
+      new AiQiYiTest().start(25); //20
+      new HaoKanShiPinTest().start(35);//30
+      while (i++ < 5) {
         Random random = new Random();
-        new HaoKanShiPinTest().start(30);//30
+        // new HuoNiuPinTest().start(100);
+        new HaHaShiPinTest().start(150);
+        new JuKanDianTest().start(30 + random.nextInt(10));//200
         new QuanMinXiaoShiPinTest().start(30);//30
-        new AiQiYiTest().start(25); //20
-        new JinRiTouTiaoTest().start(15); //10
-        new JuKanDianTest().start(40 + random.nextInt(10));//200
-        new HuoNiuPinTest().start(100);
         new DongFangTouTiaoTest().start(50 + random.nextInt(10)); //1000
-        // new QuTouTiaoTest().start(50 + random.nextInt(10)); // 趣头条(汇率低)
       }
     } catch (Exception e) {
       LogUtil log = new LogUtil(TAG);

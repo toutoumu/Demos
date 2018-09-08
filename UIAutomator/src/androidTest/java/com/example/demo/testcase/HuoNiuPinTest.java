@@ -1,6 +1,8 @@
 package com.example.demo.testcase;
 
+import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiObject2;
+import android.support.test.uiautomator.Until;
 import java.util.List;
 
 /**
@@ -35,13 +37,13 @@ public class HuoNiuPinTest extends BaseTest {
         logD("********************* 第 " + readCount + " 次 *********************");
 
         // 每次循环都检查是否在播放,不在播放那么开启播放,播放失败直接退出
-        if (!checkIsPlay()) {
+        if (!checkIsPlayLive()) {
           logE("检查播放失败,退出");
           return readCount;
         }
 
-        // 播放
-        if (doPlay()) {
+        // 播放直播
+        if (doPlayLive()) {
           readCount++;
         }
       } catch (Exception e) {
@@ -104,7 +106,98 @@ public class HuoNiuPinTest extends BaseTest {
     }
   }
 
-  private boolean checkIsPlay() {
+  private boolean checkIsPlayLive() {
+    // 是否正在播放
+    UiObject2 comment = findById("img_live_flame", 3);
+    if (comment != null) {
+      logD("正在播放界面");
+      return true;
+    }
+    // 进行n此点击,
+    int repeatCount = 0;
+    while (repeatCount++ < 10) {
+      // 是否在首页
+      UiObject2 tabMain = checkInMainPage();
+      if (tabMain == null) {
+        logE("当前不在主页");
+        return false;
+      }
+
+      // 检测是否在首页第一个tab
+      List<UiObject2> wallet = findListById("tv_tab", 3);
+      if (wallet != null || wallet.size() > 0) {// 如果不在主页第一个tab
+        for (UiObject2 tab : wallet) {
+          if (tab.getText().equals("首页")) {
+            if (tab.isSelected()) {
+              logD("当前正在首页");
+            } else {
+              logD("切换到第一个Tab");
+            }
+            tab.click();
+            sleep(10);
+            mDevice.waitForIdle(timeOut);
+          }
+        }
+      }
+
+      // 切换到直播列表
+      UiObject2 icon = findById("tv_live_tab");
+      if (icon == null) {
+        pressBack("点击返回,回到首页", false);
+        continue;
+      }
+      icon.click();
+      sleep(10);
+      logD("切换到直播列表");
+
+      // 打开直播
+      icon = findById("img_live_pic");
+      if (icon != null) {
+        icon.click();
+        logD("打开直播");
+        return true;
+      }
+
+      pressBack("点击返回,向右滑动,回到首页", false);
+    }// end of while
+    return false;
+  }
+
+  /**
+   * 关闭对话框
+   */
+  private void closeDialog() {
+    pressBack("点击返回,尝试关闭对话框", true);
+  }
+
+  /**
+   * 开始播放
+   */
+  private boolean doPlayLive() {
+    // 等待播放
+    int count = 0;
+    while (count++ <= 5) {
+      sleep(60 + random.nextInt(10));
+      UiObject2 comment = findById("img_live_flame", 3);
+      if (comment == null) {
+        pressBack("可能已经退出直播", true);
+        return false;
+      }
+      logD("当前正在观看,第" + count + "次循环");
+      // 投票
+      comment.click();
+      logE("给他火焰");
+    }
+
+    return true;
+  }
+
+  /**
+   * 检测是否在播放视频
+   *
+   * @return
+   */
+  private boolean checkIsPlayVideo() {
     // 是否正在播放
     UiObject2 comment = findById("tv_vote_count", 3);
     if (comment != null) {
@@ -163,16 +256,9 @@ public class HuoNiuPinTest extends BaseTest {
   }
 
   /**
-   * 关闭对话框
+   * 开始播放视频
    */
-  private void closeDialog() {
-    pressBack("点击返回,尝试关闭对话框", true);
-  }
-
-  /**
-   * 开始播放
-   */
-  private boolean doPlay() {
+  private boolean doPlayVideo() {
     // 等待播放
     sleep(15 + random.nextInt(5));
 
