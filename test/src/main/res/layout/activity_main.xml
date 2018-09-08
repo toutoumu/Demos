@@ -41,4 +41,11 @@
       android:textSize="20dp"
       />
 
+  <uiautomatorcase.example.apple.test.MyCanvas
+      android:id="@+id/canvas"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      />
+
 </LinearLayout>

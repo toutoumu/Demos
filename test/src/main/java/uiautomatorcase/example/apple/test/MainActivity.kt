@@ -3,6 +3,7 @@ package uiautomatorcase.example.apple.test
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.canvas
 import kotlinx.android.synthetic.main.activity_main.checkAPP
 import kotlinx.android.synthetic.main.activity_main.checkAPP1
 import kotlinx.android.synthetic.main.activity_main.message
@@ -13,6 +14,8 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
+
+
     checkAPP.setOnClickListener {
       if (isAvilible(this, "com.lswl.qfq")) {
         message.text = "安装了HAHA视频"
@@ -21,15 +24,13 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-    checkAPP1.setOnClickListener{
+    checkAPP1.setOnClickListener {
       if (isAvilible(this, "com.jifen.qukan")) {
         message.text = "安装了趣头条"
       } else {
         message.text = "没有趣头条"
       }
     }
-
-
   }
 
   /**

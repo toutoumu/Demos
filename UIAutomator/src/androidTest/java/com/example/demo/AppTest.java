@@ -156,7 +156,7 @@ public class AppTest {
   public void R6Test() {
     try {
       int i = 0;
-      new JinRiTouTiaoTest().start(15); //10
+      // new JinRiTouTiaoTest().start(15); //10
       new AiQiYiTest().start(25); //20
       new HaoKanShiPinTest().start(35);//30
       while (i++ < 5) {
