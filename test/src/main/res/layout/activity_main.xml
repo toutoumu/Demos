@@ -1,51 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
     >
-  <TextView
-      android:id="@+id/message"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:padding="10dp"
-      android:textSize="40dp"
-      />
-
-  <TextView
-      android:id="@+id/checkAPP"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="10dp"
-      android:background="#e3e3e3"
-      android:foreground="?selectableItemBackground"
-      android:gravity="center"
-      android:padding="10dp"
-      android:text="检测是否安装了HAHA视频"
-      android:textSize="20dp"
-      />
-  <TextView
-      android:id="@+id/checkAPP1"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="10dp"
-      android:background="#e3e3e3"
-      android:foreground="?selectableItemBackground"
-      android:gravity="center"
-      android:padding="10dp"
-      android:text="检测是否安装了趣头条"
-      android:textSize="20dp"
-      />
 
   <uiautomatorcase.example.apple.test.MyCanvas
       android:id="@+id/canvas"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_height="match_parent"
+      />
+  <TextView android:id="@+id/message"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:padding="10dp"
+      android:text="位置:"
       />
 
-</LinearLayout>
+</FrameLayout>
