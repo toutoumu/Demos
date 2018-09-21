@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.delete_aiqiyi
 import kotlinx.android.synthetic.main.activity_main.delete_dongfangtoutiao
+import kotlinx.android.synthetic.main.activity_main.delete_duoqishipin
 import kotlinx.android.synthetic.main.activity_main.delete_hahashipin
 import kotlinx.android.synthetic.main.activity_main.delete_haokan
 import kotlinx.android.synthetic.main.activity_main.delete_jinritoutiao
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_main.runBtn
 import kotlinx.android.synthetic.main.activity_main.shutdown
 import kotlinx.android.synthetic.main.activity_main.times_aiqiyi
 import kotlinx.android.synthetic.main.activity_main.times_dongfangtoutiao
+import kotlinx.android.synthetic.main.activity_main.times_duoqishipin
 import kotlinx.android.synthetic.main.activity_main.times_hahashipin
 import kotlinx.android.synthetic.main.activity_main.times_haokan
 import kotlinx.android.synthetic.main.activity_main.times_jinritoutiao
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
   var huoniushipin = 0
   var zhongqingkandian = 0
   var hahashipin = 0
+  var duoqishipin = 0
   var quanminxiaoship = 0
 
   var repeat = 0
@@ -78,6 +81,7 @@ class MainActivity : AppCompatActivity() {
     times_huoniushipin.onFocusChangeListener = listener
     times_zhongqingkandian.onFocusChangeListener = listener
     times_hahashipin.onFocusChangeListener = listener
+    times_duoqishipin.onFocusChangeListener = listener
     times_quanminxiaoship.onFocusChangeListener = listener
     times_jukandian.onFocusChangeListener = listener
     times_repeat.onFocusChangeListener = listener
@@ -89,6 +93,7 @@ class MainActivity : AppCompatActivity() {
     delete_huoniushipin.setOnClickListener { times_huoniushipin.setText("0") }
     delete_zhongqingkandian.setOnClickListener { times_zhongqingkandian.setText("0") }
     delete_hahashipin.setOnClickListener { times_hahashipin.setText("0") }
+    delete_duoqishipin.setOnClickListener { times_duoqishipin.setText("0") }
     delete_quanminxiaoship.setOnClickListener { times_quanminxiaoship.setText("0") }
     delete_repeat.setOnClickListener { times_repeat.setText("1") }
     delete_jukandian.setOnClickListener { times_jukandian.setText("0") }
@@ -202,6 +207,8 @@ class MainActivity : AppCompatActivity() {
         .toInt()
     hahashipin = times_hahashipin.text.toString()
         .toInt()
+    duoqishipin = times_duoqishipin.text.toString()
+        .toInt()
     quanminxiaoship = times_quanminxiaoship.text.toString()
         .toInt()
     repeat = times_repeat.text.toString()
@@ -225,6 +232,7 @@ class MainActivity : AppCompatActivity() {
       param["zhongqingkandian"] = zhongqingkandian
       param["quanminxiaoship"] = quanminxiaoship
       param["hahashipin"] = hahashipin
+      param["duoqishipin"] = duoqishipin
       param["repeat"] = repeat
 
       // 组装成命令

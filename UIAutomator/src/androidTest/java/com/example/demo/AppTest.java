@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.example.demo.testcase.AiQiYiTest;
 import com.example.demo.testcase.BaseTest;
 import com.example.demo.testcase.DongFangTouTiaoTest;
+import com.example.demo.testcase.DuoQiShiPinTest;
 import com.example.demo.testcase.HaHaShiPinTest;
 import com.example.demo.testcase.HaoKanShiPinTest;
 import com.example.demo.testcase.HuoNiuPinTest;
@@ -94,6 +95,16 @@ public class AppTest {
         log.e("火牛视频出错了", e);
       }
       try {
+        int duoqishipin = Integer.parseInt(a.getString("duoqishipin"));
+        log.d("************************多奇视频循环次数:" + duoqishipin + "************************");
+        DuoQiShiPinTest duoQiShiPinTest = new DuoQiShiPinTest();
+        // tests.add(duoqishipin);
+        duoqishipin = duoQiShiPinTest.start(duoqishipin);
+        log.d("************************多奇视频实际循环次数:" + duoqishipin + "************************");
+      } catch (Exception e) {
+        log.e("haha视频出错了", e);
+      }
+      try {
         int hahashipin = Integer.parseInt(a.getString("hahashipin"));
         log.d("************************haha视频循环次数:" + hahashipin + "************************");
         HaHaShiPinTest haShiPinTest = new HaHaShiPinTest();
@@ -156,16 +167,17 @@ public class AppTest {
   public void R6Test() {
     try {
       int i = 0;
-      // new JinRiTouTiaoTest().start(15); //10
+      new JinRiTouTiaoTest().start(15); //10
       new AiQiYiTest().start(25); //20
       new HaoKanShiPinTest().start(35);//30
       while (i++ < 5) {
         Random random = new Random();
         // new HuoNiuPinTest().start(100);
-        new HaHaShiPinTest().start(150);
         new JuKanDianTest().start(30 + random.nextInt(10));//200
-        new QuanMinXiaoShiPinTest().start(30);//30
+        // new HaHaShiPinTest().start(50);
+        new QuanMinXiaoShiPinTest().start(300);//30
         new DongFangTouTiaoTest().start(50 + random.nextInt(10)); //1000
+        // new DuoQiShiPinTest().start(1000);
       }
     } catch (Exception e) {
       LogUtil log = new LogUtil(TAG);
@@ -247,10 +259,10 @@ public class AppTest {
   }
 
   /**
-   * 趣头条测试 提成最低
+   * 多奇视频
    */
   @Test
-  public void quTouTiaoTest() {
-    new QuTouTiaoTest().start(200);
+  public void duoQiShiPinTest() {
+    new DuoQiShiPinTest().start(2000);
   }
 }

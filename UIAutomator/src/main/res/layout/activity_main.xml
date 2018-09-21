@@ -284,6 +284,45 @@
           android:tint="#999999"
           />
     </LinearLayout>
+    <!--HaHa视频-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        >
+      <TextView
+          android:layout_width="80dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:gravity="right"
+          android:text="多奇视频"
+          />
+      <EditText
+          android:id="@+id/times_duoqishipin"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="16dp"
+          android:layout_weight="1"
+          android:background="@null"
+          android:digits="1234567890"
+          android:gravity="center_vertical"
+          android:inputType="numberDecimal"
+          android:padding="10dp"
+          android:text="300"
+          />
+      <ImageView
+          android:id="@+id/delete_duoqishipin"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="8dp"
+          android:padding="12dp"
+          android:src="@drawable/ic_delete_black"
+          android:tint="#999999"
+          />
+    </LinearLayout>
     <!--聚看点-->
     <LinearLayout
         android:layout_width="match_parent"

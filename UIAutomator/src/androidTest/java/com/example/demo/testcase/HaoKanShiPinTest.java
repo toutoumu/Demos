@@ -264,7 +264,7 @@ public class HaoKanShiPinTest extends BaseTest {
     // 等待视频播放完成
     sleep(15 + random.nextInt(10));
     // 分享
-    if (shareCount < 3 && share(listItem)) {
+    if (shareCount < 5 && share(listItem)) {
       shareCount++;
     }
     sleep(70);
