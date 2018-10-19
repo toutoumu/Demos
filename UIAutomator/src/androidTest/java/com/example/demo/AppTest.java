@@ -176,7 +176,7 @@ public class AppTest {
         new JuKanDianTest().start(30 + random.nextInt(10));//200
         // new HaHaShiPinTest().start(50);
         new QuanMinXiaoShiPinTest().start(300);//30
-        new DongFangTouTiaoTest().start(50 + random.nextInt(10)); //1000
+        //new DongFangTouTiaoTest().start(50 + random.nextInt(10)); //1000
         // new DuoQiShiPinTest().start(1000);
       }
     } catch (Exception e) {
