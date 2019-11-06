@@ -65,6 +65,8 @@ public class FirstFragment extends Fragment {
     return view;
   }
 
+  List<String> nameList = new ArrayList<>();
+
   @OnClick({ R.id.btn_change_name, R.id.btn_update_list })
   void onClicked(View view) {
     switch (view.getId()) {
@@ -72,11 +74,11 @@ public class FirstFragment extends Fragment {
         mNameViewModel.getCurrentName().setValue("FirstFragment中设置Name");
         break;
       case R.id.btn_update_list:
-        List<String> nameList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
           nameList.add("Jane<" + i + ">");
         }
         mNameViewModel.getNameList().setValue(nameList);
+
         break;
     }
   }

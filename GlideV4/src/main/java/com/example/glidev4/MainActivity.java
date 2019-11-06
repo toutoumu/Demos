@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
           }
         });
         //同步下载,Glide同步下载文件(优先从缓存加载)
-        //File file = Glide.with(this).load(url).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+        // val file = Glide.with(this).downloadOnly().load("").submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get()
+        // File file = Glide.with(this).load(url).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
         //同步下载,Glide同步下载bitmap(每次都会解码为bitmap效率低)
         //Bitmap theBitmap = Glide.with(this).asBitmap().load(url).into(-1, -1).get();
 

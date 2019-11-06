@@ -14,12 +14,10 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    findViewById(R.id.text).setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        Intent intent = new Intent();
-        intent.setClass(MainActivity.this, VelocityCheckActivity.class);
-        startActivity(intent);
-      }
+    findViewById(R.id.text).setOnClickListener(v -> {
+      Intent intent = new Intent();
+      intent.setClass(MainActivity.this, VelocityCheckActivity.class);
+      startActivity(intent);
     });
   }
 }
