@@ -734,13 +734,13 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Android App.Animation" />
-      <item itemvalue="Android App.BlueToothBLE" />
-      <item itemvalue="Android App.LiveData" />
-      <item itemvalue="Android App.Room" />
-      <item itemvalue="Android App.RxJava2" />
-      <item itemvalue="Android App.UIAutomator" />
       <item itemvalue="Android App.test" />
+      <item itemvalue="Android App.UIAutomator" />
+      <item itemvalue="Android App.BlueToothBLE" />
+      <item itemvalue="Android App.RxJava2" />
+      <item itemvalue="Android App.LiveData" />
+      <item itemvalue="Android App.Animation" />
+      <item itemvalue="Android App.Room" />
       <item itemvalue="Android Instrumented Tests.R6Test()" />
       <item itemvalue="Android Instrumented Tests.duoQiShiPinTest()" />
     </list>
